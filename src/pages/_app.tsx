@@ -1,4 +1,5 @@
 import type { AppProps } from 'next/app'
+
 import { globalCss } from '../stitches.config'
 
 const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
