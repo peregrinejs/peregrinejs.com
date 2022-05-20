@@ -1,0 +1,87 @@
+import Layout from '@src/components/ContentLayout'
+import LicenseSelect from '@src/screens/License/components/LicenseSelect'
+
+# Licenses
+
+This page explains the licensing of the Peregrine project.
+
+## Definitions
+
+<dl>
+  <dt>
+    **Peregrine for iOS** (also: Peregrine iOS, Peregrine iOS Library,
+    Peregrine Framework)
+  </dt>
+  <dd>The distributed iOS framework.</dd>
+  <dt>
+    **Peregrine for Android** (also: Peregrine Android, Peregrine Android
+    Library, Peregrine jar)
+  </dt>
+  <dd>The distributed java library.</dd>
+  <dt>
+    **Peregrine Client** (also: Peregrine JavaScript Client,
+    @peregrine/client)
+  </dt>
+  <dd>The distributed JavaScript library.</dd>
+  <dt>
+    **Peregrine** (also: PeregrineJS, Peregrine project)
+  </dt>
+  <dd>
+    A general name for the product as a whole, including but not limited to
+    Peregrine for iOS, Peregrine for Android, Peregrine Client, and the
+    peregrinejs.com website.
+  </dd>
+</dl>
+
+## Copyrights
+
+Peregrine, peregrinejs.com, and other derivatives of the Peregrine product
+are copyright &copy; 2022 Caracal LLC (a Wisconsin limited liability
+company) unless otherwise stated.
+
+## Peregrine Licenses
+
+Peregrine has multiple licenses that you can choose:
+
+- **GPL**, a [copyleft](https://en.wikipedia.org/wiki/Copyleft) license meant for open-source apps, or
+- **Commercial License**, a proprietary license meant for commercial apps. You can choose between two tiers: single developer and unlimited developers.
+
+<LicenseSelect />
+
+### GPL
+
+Peregrine is made available under a [GPLv3 license](https://en.wikipedia.org/wiki/GNU_General_Public_License) for open-source apps.
+
+<dl>
+  <dt>
+    **GPLv3 Summary**
+  </dt>
+  <dd>
+    The GPLv3 allows others to copy, distribute, and modify the software as
+    long as they state what has been changed when, and ensure that any
+    modifications are also licensed under the GPL. Software incorporating
+    GPL-licensed code must also be made also available under the GPLv3 along
+    with build & install instructions.
+  </dd>
+</dl>
+
+[View GPLv3 License](https://opensource.org/licenses/gpl-3.0.html)
+
+### Commercial License
+
+A commercial license grants you the right to use Peregrine in one iOS
+application and one Android application.
+
+You must purchase a commercial license for each project you plan to integrate
+Peregrine.
+
+A commercial license can be purchased here. Payment is made via PayPal. Upon
+completion of your payment, your license will be automatically emailed to the
+address you provide at checkout in a PDF format.
+
+Commercial licenses are priced based on the number of developers working on
+your application.
+
+[View Commercial License Example](/license/commercial-license-example)
+
+export default ({ children }) => <Layout>{children}</Layout>
