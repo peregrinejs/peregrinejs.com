@@ -1,4 +1,5 @@
 import React from 'react'
+
 import Box from '@src/components/Box'
 import { styled } from '@src/stitches.config'
 

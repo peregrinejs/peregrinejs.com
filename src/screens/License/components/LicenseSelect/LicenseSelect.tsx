@@ -3,6 +3,7 @@ import Button from '@src/components/Button'
 import Select from '@src/components/Select'
 import Text from '@src/components/Text'
 import { styled } from '@src/stitches.config'
+
 import LicenseBox from './LicenseBox'
 
 const LicenseSelect = (): JSX.Element => {

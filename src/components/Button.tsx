@@ -1,6 +1,7 @@
-import { styled } from '@src/stitches.config'
-import { CSS } from '@stitches/react'
+import type { CSS } from '@stitches/react'
 import React from 'react'
+
+import { styled } from '@src/stitches.config'
 
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   css?: CSS
