@@ -27,7 +27,7 @@ const Item = ({ href, children }: ItemProps): JSX.Element => {
           {children}
         </Link>
       ) : (
-        <NextLink href={href}>
+        <NextLink href={href} passHref>
           <Anchor css={{ color: current ? '$gray1' : undefined }}>
             <Text>
               {children}

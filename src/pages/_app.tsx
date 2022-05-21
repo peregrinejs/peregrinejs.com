@@ -36,11 +36,14 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
   const isMd = useMediaQuery(media.md)
   const isLg = useMediaQuery(media.lg)
 
-  useEffect(() => setBp(() => (isLg ? 'lg' : isMd ? 'md' : null)), [isMd, isLg])
+  useEffect(
+    () => setBp(() => (isLg ? 'lg' : isMd ? 'md' : null)),
+    [isMd, isLg, setBp],
+  )
 
   useEffect(
     () => setSidebar(sidebar => ({ ...sidebar, open: bp !== null })),
-    [bp],
+    [bp, setSidebar],
   )
 
   return (

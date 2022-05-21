@@ -21,7 +21,7 @@ const createHeading = (Heading: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6') => {
   return Component
 }
 
-export default {
+const AnchorHeading = {
   H1: createHeading('h1'),
   H2: createHeading('h2'),
   H3: createHeading('h3'),
@@ -29,3 +29,5 @@ export default {
   H5: createHeading('h5'),
   H6: createHeading('h6'),
 }
+
+export default AnchorHeading
