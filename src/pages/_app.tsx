@@ -10,6 +10,7 @@ import AnchorHeading from '@src/components/AnchorHeading'
 import Link from '@src/components/Link'
 import useMediaQuery from '@src/lib/useMediaQuery'
 import { globalStyles, media } from '@src/stitches.config'
+import Table from '@src/components/Table'
 
 const ResponsiveImage = ({ alt, ...props }: any): JSX.Element => {
   return <Image alt={alt} layout="responsive" {...props} />
@@ -24,6 +25,7 @@ const components = {
   h5: AnchorHeading.H5,
   h6: AnchorHeading.H6,
   a: Link,
+  table: Table,
 }
 
 const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {

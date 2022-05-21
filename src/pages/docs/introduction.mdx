@@ -18,34 +18,8 @@ feature-rich web screens, called **Web Frames**, to new and existing native
 apps.
 
 Peregrine Web Frames are secure by default, are pre&shy;configured for modern
-web apps, and have an RPC API for bridging web and native.
-
-Each platform's web\<-\>native bridge uses the most performant transport
-possible, depending on the size of the payload and whether it's text or binary.
-
-### Differences from Cordova and Capacitor
-
-- Peregrine is **not** an entire mobile development framework like
-  [Cordova](https://cordova.apache.org) or
-  [Capacitor](https://capacitorjs.com).
-- Peregrine does **not** have a CLI. Instead, developers use the platform and
-  its native tooling to integrate the web portions of their app.
-- Peregrine does **not** have plugins. Instead, developers use recipes to build
-  tailored native functionality and then hook it up to connectors.
-- Peregrine is multi-licensed, **not**
-  [MIT](https://en.wikipedia.org/wiki/MIT_License) or
-  [Apache](https://en.wikipedia.org/wiki/Apache_License). Users can choose
-  between [GPL](https://en.wikipedia.org/wiki/GNU_General_Public_License) or
-  one of the commercial licenses.
-
-### Licensing Summary
-
-To summarize the licensing in non-legalese, Peregrine is free to use if your
-app is open source. If your app is closed source, then you must purchase an
-appropriate commercial license. For apps with a single developer, the price is
-a one-time fee of $5.
-
-Please see the [Licenses](/license) page for a full description and legal
-information.
+web apps, and have an RPC API for bridging web and native. Each platform's
+web\<-\>native bridge uses the most performant transport possible, depending on
+the size of the payload and whether it's text or binary.
 
 export default ({ children }) => <Layout meta={meta}>{children}</Layout>

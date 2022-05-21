@@ -1,6 +1,7 @@
 const remarkTextr = require('remark-textr')
 const typographicBase = require('typographic-base')
 const nextMDX = require('@next/mdx')
+const remarkGfm = require('remark-gfm')
 
 const withMDX = nextMDX({
   extension: /\.mdx?$/,
@@ -13,6 +14,7 @@ const withMDX = nextMDX({
           options: { locale: 'en-us' },
         },
       ],
+      remarkGfm,
     ],
     rehypePlugins: [],
     providerImportSource: '@mdx-js/react',

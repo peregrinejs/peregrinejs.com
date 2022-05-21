@@ -187,7 +187,7 @@ export const globalStyles = globalCss({
     fontWeight: '$bold',
     color: '$gray1',
   },
-  'dd p, dt p': {
+  'li p, dd p, dt p': {
     margin: 0,
   },
   'dd': {

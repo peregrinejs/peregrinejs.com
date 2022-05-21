@@ -1,0 +1,136 @@
+import Layout from '@src/components/docs/Layout'
+import YearsAgo from '@src/components/YearsAgo'
+import Table, { Th } from '@src/components/Table'
+
+export const meta = { title: 'Differences from Cordova and Capacitor' }
+
+# Differences from Cordova and Capacitor
+
+There are several differences between Peregrine and existing solutions on the
+market today such as [Cordova](https://cordova.apache.org) and
+[Capacitor](https://capacitorjs.com). This page attempts to highlight these
+differences in a unbiased way. For more in-depth explanations of these
+differences and the reasoning behind them, see the
+[Philosophy](/docs/philosophy) page.
+
+## Technology
+
+Peregrine has many technological differences between Cordova and Capacitor. To
+learn more about the technical implementation of Peregrine, see the
+[Architecture](/docs/architecture) page.
+
+### Library, not Framework
+
+Peregrine is **not** a mobile development framework, i.e. it does not provide
+tooling or doctrine as to how your app is or should be structured.
+
+- Peregrine does **not** abstract or hook into the native platforms.
+- Peregrine does **not** have starter templates. Instead, developers install
+  Peregrine libraries into their native and web apps.
+- Peregrine does **not** have a CLI. Instead, developers use the platform and
+  its native tooling.
+
+### Extensions
+
+Peregrine **discourages** plugins. Instead, to extend functionality, developers
+can use recipes to build tailored native functionality and then hook it up to
+connectors.
+
+### Cordova Compatibility
+
+Peregrine is **not** compatible with Cordova plugins. There are architectural
+differences that make compatibility with Cordova plugins infeasible.
+
+Migrating an app from Cordova or Capacitor to Peregrine is possible, but would
+require replacing the entire native layer.
+
+### Age
+
+Cordova had its first release in 2009 (<YearsAgo from={2009} /> years ago!) and
+remains largely the same in architecture and implementation. Capacitor was
+started in 2017, but in order to maintain compatibility, much of Cordova was
+copied into Capacitor's compatibility layer.
+
+Peregrine was started in 2022 from the ground up, abandoning the Cordova
+architecture altogether.
+
+### Size
+
+Mostly because of reduced scope and _not_ offering a compatibility layer with
+Cordova, the [source code](https://github.com/peregrinejs) of each Peregrine
+native library is about a tenth the size of the respective Cordova or Capacitor
+platform.
+
+### Language
+
+The following table is a breakdown of the languages each project is written in.
+
+<Table>
+  <thead>
+    <tr>
+      <Th borderBottom />
+      <Th align="left" borderBottom>iOS</Th>
+      <Th align="left" borderBottom>Android</Th>
+      <Th align="left" borderBottom>Web</Th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <Th align="right" borderRight>Cordova</Th>
+      <td>Objective-C</td>
+      <td>Java</td>
+      <td>JavaScript</td>
+    </tr>
+    <tr>
+      <Th align="right" borderRight>Capacitor</Th>
+      <td>Swift and Objective-C</td>
+      <td>Java</td>
+      <td>TypeScript and JavaScript</td>
+    </tr>
+    <tr>
+      <Th align="right" borderRight>Peregrine</Th>
+      <td>Swift</td>
+      <td>Kotlin</td>
+      <td>TypeScript</td>
+    </tr>
+  </tbody>
+</Table>
+
+Both Cordova and Capacitor support iOS plugins written in Objective-C and/or
+Swift and Android plugins written in Java and/or Kotlin. Peregrine only
+supports iOS connectors written in Swift and Android connectors written in
+Kotlin.
+
+## Stewardship
+
+- Cordova is primarily managed and maintained by the [Apache Software
+  Foundation](https://www.apache.org), a long-running, volunteer-based open
+  source foundation.
+- Capacitor is primarily managed and maintained by [Ionic](https://ionic.io), a
+  Series B startup company founded in 2012.
+- Peregrine is primarily managed and maintained by
+  [@imhoffd](https://twitter.com/imhoffd), an ex-Ionic software engineer.
+
+## Support
+
+- Cordova offers no guarantee of support--free or otherwise.
+- The Ionic sales department offers enterprise support for Capacitor.
+- Peregrine offers no guarantee of free support. Perhaps in the future, paid
+  support will be an option.
+
+## Licensing
+
+Unlike Capacitor ([MIT](https://en.wikipedia.org/wiki/MIT_License)-licensed),
+and Cordova ([Apache](https://en.wikipedia.org/wiki/Apache_License)-licensed),
+Peregrine is multi-licensed under
+[GPL](https://en.wikipedia.org/wiki/GNU_General_Public_License) and several
+tiers of commercial licenses.
+
+To summarize in non-legalese, Peregrine is free to use if your app is open
+source. If your app is closed source, then you must purchase an appropriate
+commercial license.
+
+Please see the [Licenses](/license) page for a full description and legal
+information.
+
+export default ({ children }) => <Layout meta={meta}>{children}</Layout>
