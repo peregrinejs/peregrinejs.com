@@ -8,9 +8,9 @@ import bpAtom from '@src/atoms/bpAtom'
 import sidebarAtom from '@src/atoms/sidebarAtom'
 import AnchorHeading from '@src/components/AnchorHeading'
 import Link from '@src/components/Link'
+import Table from '@src/components/Table'
 import useMediaQuery from '@src/lib/useMediaQuery'
 import { globalStyles, media } from '@src/stitches.config'
-import Table from '@src/components/Table'
 
 const ResponsiveImage = ({ alt, ...props }: any): JSX.Element => {
   return <Image alt={alt} layout="responsive" {...props} />
