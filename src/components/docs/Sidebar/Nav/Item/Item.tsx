@@ -28,12 +28,7 @@ const Item = ({ href, children }: ItemProps): JSX.Element => {
         </Link>
       ) : (
         <NextLink href={href} passHref>
-          <Anchor css={{ color: current ? '$gray1' : undefined }}>
-            <Text>
-              {children}
-              {current ? <Circle css={{ $$size: '6px' }} /> : null}
-            </Text>
-          </Anchor>
+          <Anchor current={current}>{children}</Anchor>
         </NextLink>
       )}
     </Root>
@@ -42,19 +37,6 @@ const Item = ({ href, children }: ItemProps): JSX.Element => {
 
 const Root = styled('li', {
   userSelect: 'none',
-})
-
-const Text = styled(_Text, {
-  position: 'relative',
-})
-
-const Circle = styled(_Circle, {
-  position: 'absolute',
-  top: 'calc(50% - $$size / 2 + 1px)',
-  right: 'calc(-$$size - 0.25em)',
-  width: '$$size',
-  height: '$$size',
-  color: '$gray1',
 })
 
 export default Item

@@ -14,8 +14,8 @@ const Select = ({ children, ...props }: SelectProps): JSX.Element => {
 const Component = styled('select', {
   'display': 'inline-block',
   'position': 'relative',
-  'backgroundColor': '$gray4',
-  'color': '$gray1',
+  'backgroundColor': 'rgb($gray4)',
+  'color': 'rgb($gray1)',
   'border': 'none',
   'padding': '0.35em 0.75em',
   'cursor': 'pointer',
@@ -33,7 +33,7 @@ const Component = styled('select', {
     opacity: 0,
     right: 0,
     top: 0,
-    backgroundColor: '$gray1',
+    backgroundColor: 'rgb($gray1)',
     transition: 'opacity 200ms ease-in-out',
   },
 

@@ -5,14 +5,25 @@ const Anchor = styled('a', {
   'cursor': 'pointer',
   'padding': '0 $headerPadding',
   'lineHeight': '$navItem',
-  'color': '$gray2',
+  'color': 'rgb($gray2)',
+
+  '&:hover': {
+    color: 'rgb($accent1)',
+    textDecoration: 'none',
+  },
 
   '@md': {
     fontSize: '$sm',
   },
 
-  '&:hover': {
-    color: '$gray1',
+  'variants': {
+    current: {
+      true: {
+        color: 'rgb($accent1)',
+        backgroundColor: 'rgba($accent1 / 29%)',
+        fontWeight: '$bold',
+      },
+    },
   },
 })
 

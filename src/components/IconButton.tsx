@@ -17,7 +17,7 @@ const IconButton = forwardRef<HTMLDivElement, IconButtonProps>(
         ref={ref}
         {...props}
         css={{
-          color: active ? '$gray1' : undefined,
+          color: active ? 'rgb($gray1)' : undefined,
           width: size,
           height: size,
         }}
@@ -30,11 +30,11 @@ const IconButton = forwardRef<HTMLDivElement, IconButtonProps>(
 
 const Root = styled(Box, {
   'cursor': 'pointer',
-  'color': '$gray3',
+  'color': 'rgb($gray3)',
   'borderRadius': 32,
 
   '&:hover': {
-    color: '$gray1',
+    color: 'rgb($gray1)',
   },
 })
 

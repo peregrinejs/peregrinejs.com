@@ -21,11 +21,12 @@ export const {
   theme: {
     colors: {
       bg: '#141517',
-      gray1: '#fff',
-      gray2: '#bab9b6',
-      gray3: '#74706a',
-      gray4: '#2a2928',
-      gray5: '#1d1c1b',
+      gray1: '255 255 255',
+      gray2: '186 185 182',
+      gray3: '116 112 106',
+      gray4: '42 41 40',
+      gray5: '29 28 27',
+      accent1: '100 157 255',
       hlcomment: '#7d8d7b',
       hlkeyword: '#726e6b',
       hloperator: '#c1c1c1',
@@ -35,7 +36,7 @@ export const {
       hlconstant: '#aaa',
       hlfunction: '#888',
       hlmeta: '#61889c',
-      money: '#a3ffa9',
+      money: '163 255 169',
     },
     fonts: {
       text: 'Raleway, Times, Times New Roman, Georgia, serif',
@@ -104,7 +105,7 @@ export const globalStyles = globalCss({
     'boxSizing': 'border-box',
 
     '& ::selection,&::selection': {
-      backgroundColor: '$gray3',
+      backgroundColor: 'rgb($gray3)',
     },
   },
   'html, body': {
@@ -127,7 +128,7 @@ export const globalStyles = globalCss({
     fontFamily: '$text',
     fontWeight: '$regular',
     lineHeight: '$text',
-    color: '$gray2',
+    color: 'rgb($gray2)',
   },
   'body, #__next': {
     minHeight: '100vh',
@@ -136,7 +137,7 @@ export const globalStyles = globalCss({
     margin: 0,
     fontFamily: '$text',
     lineHeight: '$heading',
-    color: '$gray1',
+    color: 'rgb($gray1)',
   },
   'h1, h2, h3, h4': {
     fontWeight: '$bold',
@@ -171,21 +172,21 @@ export const globalStyles = globalCss({
     fontSize: '$sm',
   },
   'a': {
-    'color': '$gray1',
+    'color': 'rgb($accent1)',
     'textDecoration': 'none',
 
     '&:hover': {
       textDecoration: 'underline',
     },
   },
-  'code': {
+  ':not(pre) > code': {
     backgroundColor: '$gray4',
     fontFamily: '$monospace',
     padding: '1px 3px 2px',
   },
   'strong': {
     fontWeight: '$bold',
-    color: '$gray1',
+    color: 'rgb($gray1)',
   },
   'li p, dd p, dt p': {
     margin: 0,

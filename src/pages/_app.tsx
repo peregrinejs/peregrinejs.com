@@ -1,5 +1,6 @@
 import { MDXProvider } from '@mdx-js/react'
 import { useAtom } from 'jotai'
+import type { MDXComponents } from 'mdx/types'
 import type { AppProps } from 'next/app'
 import Image from 'next/image'
 import { useEffect } from 'react'
@@ -7,6 +8,7 @@ import { useEffect } from 'react'
 import bpAtom from '@src/atoms/bpAtom'
 import sidebarAtom from '@src/atoms/sidebarAtom'
 import AnchorHeading from '@src/components/AnchorHeading'
+import Pre from '@src/components/CodeBlock/Pre'
 import Link from '@src/components/Link'
 import Table from '@src/components/Table'
 import useMediaQuery from '@src/lib/useMediaQuery'
@@ -16,7 +18,7 @@ const ResponsiveImage = ({ alt, ...props }: any): JSX.Element => {
   return <Image alt={alt} layout="responsive" {...props} />
 }
 
-const components = {
+const components: MDXComponents = {
   img: ResponsiveImage,
   h1: AnchorHeading.H1,
   h2: AnchorHeading.H2,
@@ -26,6 +28,7 @@ const components = {
   h6: AnchorHeading.H6,
   a: Link,
   table: Table,
+  pre: Pre,
 }
 
 const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {

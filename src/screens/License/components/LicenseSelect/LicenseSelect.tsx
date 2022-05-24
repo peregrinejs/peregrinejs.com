@@ -47,7 +47,7 @@ const Free = styled(Text, {
   textTransform: 'uppercase',
   fontWeight: '$bold',
   letterSpacing: '$money',
-  color: '$money',
+  color: 'rgb($money)',
 })
 
 const Purchase = styled(Box, {

@@ -31,7 +31,7 @@ const Sidebar = (): JSX.Element => {
 
 const Root = styled(Box, {
   'borderStyle': 'solid',
-  'borderColor': '$gray4',
+  'borderColor': 'rgb($gray4)',
   'borderWidth': 0,
   'borderBottomWidth': 1,
 

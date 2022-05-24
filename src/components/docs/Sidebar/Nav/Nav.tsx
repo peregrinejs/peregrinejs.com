@@ -10,7 +10,7 @@ const Nav = (): JSX.Element => {
       <Category heading="Overview">
         <List>
           <Item href="/docs/introduction">Introduction</Item>
-          <Item href="/docs/differences">Differences</Item>
+          <Item href="/docs/comparison">Comparison</Item>
           <Item href="/docs/philosophy">Philosophy</Item>
           <Item href="/docs/architecture">Architecture</Item>
         </List>

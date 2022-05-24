@@ -20,9 +20,9 @@ const LicenseBox = ({ title, children }: LicenseBoxProps): JSX.Element => {
 const Root = styled(Box, {
   width: '100%',
   borderStyle: 'solid',
-  borderColor: '$gray4',
+  borderColor: 'rgb($gray4)',
   borderWidth: 1,
-  backgroundColor: '$gray5',
+  backgroundColor: 'rgb($gray5)',
 })
 
 const Title = styled('h4', {

@@ -68,7 +68,7 @@ const Icon = styled(LinkIcon, {
   top: 'calc(50% - $$size / 2)',
   width: '$$size',
   height: '$$size',
-  color: '$gray3',
+  color: 'rgb($gray3)',
 })
 
 export default Anchor

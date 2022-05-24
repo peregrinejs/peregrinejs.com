@@ -16,7 +16,7 @@ const IntroSection = (): JSX.Element => {
         <Text
           css={{
             display: 'block',
-            color: '$gray2',
+            color: 'rgb($gray2)',
           }}
         >
           The mobile web has evolved.
@@ -33,7 +33,7 @@ const IntroSection = (): JSX.Element => {
         Peregrine was built for{' '}
         <strong>curious, detail-oriented developers</strong> to explore the{' '}
         <strong>full potential of iOS and Android</strong> while providing the
-        essentials for <strong>feature-rich web screens</strong>.
+        essentials for <strong>feature-rich web views</strong>.
       </Subtitle>
     </Section>
   )

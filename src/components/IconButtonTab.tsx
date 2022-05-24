@@ -24,7 +24,9 @@ const IconButtonTab = forwardRef<HTMLDivElement, IconButtonTabProps>(
         <Circle
           css={{
             $$size: '8px',
-            $$color: children.props.active ? '$colors$gray1' : '$colors$gray3',
+            $$color: children.props.active
+              ? 'rgb($colors$gray1)'
+              : 'rgb($colors$gray3)',
           }}
         />
       </Root>

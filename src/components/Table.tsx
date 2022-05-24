@@ -13,13 +13,13 @@ const Root = styled('table', {
   'margin': '1em 0',
 
   '& :is(td, th)': {
-    backgroundColor: '$gray5',
+    backgroundColor: 'rgb($gray5)',
     padding: '0.25em 0.5em',
   },
 
   '& th': {
-    backgroundColor: '$gray4',
-    color: '$gray1',
+    backgroundColor: 'rgb($gray4)',
+    color: 'rgb($gray1)',
     fontWeight: '$bold',
   },
 
@@ -28,7 +28,7 @@ const Root = styled('table', {
   },
 
   '& tr:nth-child(even) :is(td, th)': {
-    backgroundColor: '$gray4',
+    backgroundColor: 'rgb($gray4)',
   },
 })
 
