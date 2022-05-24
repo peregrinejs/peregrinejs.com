@@ -34,7 +34,7 @@ const Root = styled('table', {
 
 export const Th = styled('th', {
   borderWidth: 0,
-  borderColor: '$bg',
+  borderColor: 'rgb($bg)',
   borderStyle: 'solid',
 
   variants: {
