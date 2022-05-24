@@ -43,7 +43,7 @@ const Root = styled('code', {
   [`& .hljs-class .hljs-title,
     & .hljs-title,
     & .hljs-title.class_`]: { color: '$hlclass' },
-  [`& .hljs-strong`]: { fontWeight: '$bold', color: '$hlclass' },
+  [`& .hljs-strong`]: { fontWeight: 'bold', color: '$hlclass' },
   [`& .hljs-addition,
     & .hljs-code,
     & .hljs-string,
@@ -66,7 +66,7 @@ const Root = styled('code', {
     & .hljs-meta .hljs-keyword,
     & .hljs-meta .hljs-string`]: { color: '$hlmeta' },
   [`& .hljs-meta .hljs-keyword,
-    & .hljs-meta-keyword`]: { fontWeight: '$bold' },
+    & .hljs-meta-keyword`]: { fontWeight: 'bold' },
 })
 
 export default Code

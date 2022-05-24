@@ -31,7 +31,6 @@ const Component = styled('button', {
     right: 0,
     top: 0,
     backgroundColor: 'rgb($gray1)',
-    transition: 'opacity 200ms ease-in-out',
   },
 
   '&:is(:hover, :focus)::before': {
