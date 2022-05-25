@@ -1,5 +1,6 @@
 import Callout from '@src/components/Callout'
-import CodeBlockSwitch, { Tab } from '@src/components/CodeBlockSwitch'
+import PlatformCodeBlockSwitch from '@src/components/PlatformCodeBlockSwitch'
+import { Tab } from '@src/components/CodeBlockSwitch'
 import Layout from '@src/components/docs/Layout'
 
 export const meta = { title: 'Architecture' }
@@ -56,7 +57,7 @@ Endpoints can also contain periods for namespacing. In the following example, a
 period is used in each key to organize `show()` and `hide()` functions and a
 `visible$` observable under a single `SplashScreen` namespace.
 
-<CodeBlockSwitch>
+<PlatformCodeBlockSwitch>
 <Tab name="iOS">
 ```swift
 let splashScreen = SplashScreen()
@@ -87,7 +88,7 @@ val remoteInterface = RemoteInterface(
 )
 ```
 </Tab>
-</CodeBlockSwitch>
+</PlatformCodeBlockSwitch>
 
 #### Functions
 
@@ -102,7 +103,7 @@ retrieve request data and send a response.
 For example, the following function responds with the same data that the client
 sent.
 
-<CodeBlockSwitch>
+<PlatformCodeBlockSwitch>
 <Tab name="iOS">
 ```swift
 func echo(call: Call) {
@@ -117,7 +118,7 @@ fun echo(call: Call) {
 }
 ```
 </Tab>
-</CodeBlockSwitch>
+</PlatformCodeBlockSwitch>
 
 #### Observables
 
@@ -130,7 +131,7 @@ Framework](https://developer.apple.com/documentation/combine) in iOS,
 In the following example, calling the `show()` method will emit `true` to
 subscribers in the web layer.
 
-<CodeBlockSwitch>
+<PlatformCodeBlockSwitch>
 <Tab name="iOS">
 ```swift
 class SplashScreen {
@@ -157,7 +158,7 @@ class SplashScreen(val scope: CoroutineScope) {
 }
 ```
 </Tab>
-</CodeBlockSwitch>
+</PlatformCodeBlockSwitch>
 
 ### Path Handlers
 

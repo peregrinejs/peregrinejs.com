@@ -14,7 +14,7 @@ const Tab = ({ children }: TabProps): JSX.Element => {
 }
 
 const Root = styled(Box, {
-  [`& pre`]: {
+  '& pre': {
     margin: 0,
   },
 })
