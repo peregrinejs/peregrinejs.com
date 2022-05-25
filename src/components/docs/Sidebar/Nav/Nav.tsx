@@ -31,6 +31,9 @@ const Nav = (): JSX.Element => {
 }
 
 const Root = styled(Box, {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '1em',
   padding: '0 0 $headerPadding',
 })
 

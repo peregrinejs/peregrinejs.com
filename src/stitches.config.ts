@@ -41,7 +41,7 @@ export const {
       warning: '255 193 61',
     },
     fonts: {
-      text: 'Raleway, Times, Times New Roman, Georgia, serif',
+      text: 'Lato, Helvetica, Arial, sans-serif, sans-serif',
       monospace: 'Menlo, monospace',
     },
     fontSizes: {
@@ -55,8 +55,9 @@ export const {
       logo: 'calc($lineHeights$logo * 0.875)',
     },
     fontWeights: {
-      regular: 300,
-      bold: 800,
+      light: 300,
+      bold: 700,
+      black: 900,
     },
     lineHeights: {
       logo: '$sizes$logo',
@@ -129,7 +130,7 @@ export const globalStyles = globalCss({
   'body': {
     backgroundColor: 'rgb($bg)',
     fontFamily: '$text',
-    fontWeight: '$regular',
+    fontWeight: '$light',
     lineHeight: '$text',
     color: 'rgb($gray2)',
   },
@@ -139,11 +140,9 @@ export const globalStyles = globalCss({
   'h1, h2, h3, h4, h5, h6': {
     margin: 0,
     fontFamily: '$text',
+    fontWeight: '$black',
     lineHeight: '$heading',
     color: 'rgb($gray1)',
-  },
-  'h1, h2, h3, h4, h5': {
-    fontWeight: '$bold',
   },
   'h1': {
     'fontSize': '$xlg',
@@ -169,7 +168,6 @@ export const globalStyles = globalCss({
     fontSize: '$md',
   },
   'h6': {
-    fontWeight: '$regular',
     fontSize: '$sm',
   },
   'a': {

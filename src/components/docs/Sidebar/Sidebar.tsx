@@ -30,15 +30,21 @@ const Sidebar = (): JSX.Element => {
 }
 
 const Root = styled(Box, {
+  'flexShrink': 0,
   'borderStyle': 'solid',
   'borderColor': 'rgb($gray4)',
   'borderWidth': 0,
   'borderBottomWidth': 1,
 
   '@md': {
+    position: 'sticky',
+    top: 0,
+    height: '100%',
+    maxHeight: '100vh',
     width: 216,
-    height: '100vh',
-    overflowY: 'scroll',
+    overflowX: 'hidden',
+    overflowY: 'auto',
+    borderWidth: 0,
     borderRightWidth: 1,
   },
 

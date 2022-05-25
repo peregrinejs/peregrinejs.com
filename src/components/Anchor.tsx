@@ -1,6 +1,6 @@
 import trimStart from 'lodash/fp/trimCharsStart'
 import Link from 'next/link'
-import React, { forwardRef, useState } from 'react'
+import React, { useState } from 'react'
 
 import LinkIcon from '@src/icons/LinkIcon'
 import { styled } from '@src/stitches.config'
@@ -12,46 +12,43 @@ export interface AnchorProps extends React.HTMLAttributes<HTMLAnchorElement> {
   children: React.ReactNode
 }
 
-const Anchor = forwardRef<HTMLAnchorElement, AnchorProps>(
-  ({ href, children, ...props }, ref) => {
-    const [hovered, setHovered] = useState(false)
+const Anchor = ({ href, children, ...props }: AnchorProps) => {
+  const [hovered, setHovered] = useState(false)
 
-    const child = React.Children.map(children, (child, index) => {
-      if (
-        index !== 0 ||
-        !React.isValidElement(child) ||
-        typeof child.type !== 'string'
-      ) {
-        throw new Error('Anchor must only have one child heading element.')
-      }
+  const child = React.Children.map(children, (child, index) => {
+    if (
+      index !== 0 ||
+      !React.isValidElement(child) ||
+      typeof child.type !== 'string'
+    ) {
+      throw new Error('Anchor must only have one child heading element.')
+    }
 
-      return React.cloneElement(
-        child,
-        {
-          id: trimHashCharacter(href),
-          style: { position: 'relative' },
-        },
-        <>
-          <Icon aria-hidden css={hovered ? {} : { display: 'none' }} />
-          {child.props.children}
-        </>,
-      )
-    })
-
-    return (
-      <Link href={href} passHref>
-        <A
-          ref={ref}
-          {...props}
-          onMouseOver={() => setHovered(true)}
-          onMouseOut={() => setHovered(false)}
-        >
-          {child}
-        </A>
-      </Link>
+    return React.cloneElement(
+      child,
+      {
+        id: trimHashCharacter(href),
+        style: { position: 'relative' },
+      },
+      <>
+        <Icon aria-hidden css={hovered ? {} : { display: 'none' }} />
+        {child.props.children}
+      </>,
     )
-  },
-)
+  })
+
+  return (
+    <Link href={href} passHref>
+      <A
+        {...props}
+        onMouseOver={() => setHovered(true)}
+        onMouseOut={() => setHovered(false)}
+      >
+        {child}
+      </A>
+    </Link>
+  )
+}
 
 Anchor.displayName = 'Anchor'
 

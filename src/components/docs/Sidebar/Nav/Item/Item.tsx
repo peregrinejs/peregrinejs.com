@@ -2,11 +2,11 @@ import NextLink from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
 
-import Link from '@src/components/Link'
 import isOutboundUrl from '@src/lib/isOutboundUrl'
 import { styled } from '@src/stitches.config'
 
 import Anchor from './Anchor'
+import OutboundIcon from '@src/icons/OutboundIcon'
 
 export interface ItemProps {
   href: string
@@ -21,12 +21,17 @@ const Item = ({ href, children }: ItemProps): JSX.Element => {
   return (
     <Root>
       {isOutbound ? (
-        <Link href={href} className={Anchor.className}>
-          {children}
-        </Link>
+        <NextLink href={href}>
+          <Anchor target="_blank">
+            {children}
+            <Icon />
+          </Anchor>
+        </NextLink>
       ) : (
         <NextLink href={href} passHref>
-          <Anchor current={current}>{children}</Anchor>
+          <Anchor current={current} aria-current={current}>
+            {children}
+          </Anchor>
         </NextLink>
       )}
     </Root>
@@ -35,6 +40,12 @@ const Item = ({ href, children }: ItemProps): JSX.Element => {
 
 const Root = styled('li', {
   userSelect: 'none',
+})
+
+const Icon = styled(OutboundIcon, {
+  width: 14,
+  height: 14,
+  marginLeft: 2,
 })
 
 export default Item

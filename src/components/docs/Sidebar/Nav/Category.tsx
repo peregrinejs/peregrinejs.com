@@ -18,15 +18,12 @@ const Category = ({ heading, children }: CategoryProps): JSX.Element => {
   )
 }
 
-const Root = styled(Box, {
-  paddingBottom: '1em',
-})
+const Root = styled(Box, {})
 
 const Heading = styled(Text, {
   display: 'block',
   fontWeight: '$bold',
-  fontSize: '$lg',
-  padding: '0.5em $headerPadding',
+  padding: '0 $headerPadding 0.25em',
 })
 
 export default Category

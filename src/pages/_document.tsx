@@ -4,14 +4,16 @@ import { getCssText, theme } from '@src/stitches.config'
 
 class MyDocument extends Document {
   render(): JSX.Element {
-    const regular = theme.fontWeights.regular.value
-    const bold = theme.fontWeights.bold.value
+    const weights = Object.values(theme.fontWeights).map(weight => weight.value)
+    const query = `ital,wght@${weights
+      .map(weight => `0,${weight}`)
+      .join(';')};${weights.map(weight => `1,${weight}`).join(';')}`
 
     return (
       <Html>
         <Head>
           <link
-            href={`https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,${regular};0,${bold};1,${regular};1,${bold}&display=optimal`}
+            href={`https://fonts.googleapis.com/css2?family=Lato:${query}&display=optimal`}
             rel="stylesheet"
           />
           <link rel="icon" href="/peregrine.svg" />

@@ -4,18 +4,22 @@ import OutboundIcon from '@src/icons/OutboundIcon'
 import isOutboundUrl from '@src/lib/isOutboundUrl'
 import { styled } from '@src/stitches.config'
 
-const Link = ({ children, href, className, ...props }: any): JSX.Element => {
+const Link = ({ children, href, ...props }: any): JSX.Element => {
   const isOutbound = isOutboundUrl(href)
 
   return (
-    <NextLink href={href} {...props}>
-      <a target={isOutbound ? '_blank' : undefined} className={className}>
+    <NextLink href={href} {...props} passHref>
+      <A target={isOutbound ? '_blank' : undefined}>
         {children}
         {isOutbound ? <Icon /> : null}
-      </a>
+      </A>
     </NextLink>
   )
 }
+
+const A = styled('a', {
+  whiteSpace: 'nowrap',
+})
 
 const Icon = styled(OutboundIcon, {
   width: 14,

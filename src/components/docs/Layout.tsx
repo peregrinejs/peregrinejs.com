@@ -30,7 +30,9 @@ const Layout = ({
         <meta name="description" content="TODO" />
       </Head>
       <Root>
-        <Sidebar />
+        <Box>
+          <Sidebar />
+        </Box>
         <Container>
           <Main>{children}</Main>
         </Container>
@@ -42,6 +44,7 @@ const Layout = ({
 const Root = styled(Box, {
   'display': 'flex',
   'flexDirection': 'column',
+  'minHeight': '100vh',
 
   '@md': {
     flexDirection: 'row',
@@ -49,8 +52,8 @@ const Root = styled(Box, {
 })
 
 const Container = styled(Box, {
-  'height': '100vh',
-  'overflowY': 'scroll',
+  'display': 'grid',
+  'gridTemplate': '"main" auto/1fr',
   'flex': 1,
   'padding': '$headerPadding',
 
@@ -64,7 +67,9 @@ const Container = styled(Box, {
 })
 
 const Main = styled('main', {
+  gridArea: 'main',
   maxWidth: '$contentMaxWidth',
+  minWidth: 0,
 })
 
 export default Layout
