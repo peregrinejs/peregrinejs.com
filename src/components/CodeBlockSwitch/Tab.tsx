@@ -1,5 +1,7 @@
 import React from 'react'
+
 import { styled } from '@src/stitches.config'
+
 import Box from '../Box'
 
 export interface TabProps {
@@ -7,7 +9,7 @@ export interface TabProps {
   children?: React.ReactNode
 }
 
-const Tab = ({ name, children }: TabProps) => {
+const Tab = ({ children }: TabProps): JSX.Element => {
   return <Root>{children}</Root>
 }
 

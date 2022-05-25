@@ -37,12 +37,15 @@ export const {
       hlfunction: '136 136 136',
       hlmeta: '97 136 156',
       money: '163 255 169',
+      info: '$accent1',
+      warning: '255 193 61',
     },
     fonts: {
       text: 'Raleway, Times, Times New Roman, Georgia, serif',
       monospace: 'Menlo, monospace',
     },
     fontSizes: {
+      xsm: '0.75rem',
       sm: '0.85rem',
       md: '1rem',
       lg: '1.25rem',
@@ -139,11 +142,8 @@ export const globalStyles = globalCss({
     lineHeight: '$heading',
     color: 'rgb($gray1)',
   },
-  'h1, h2, h3, h4': {
+  'h1, h2, h3, h4, h5': {
     fontWeight: '$bold',
-  },
-  'h5, h6': {
-    fontWeight: '$regular',
   },
   'h1': {
     'fontSize': '$xlg',
@@ -169,6 +169,7 @@ export const globalStyles = globalCss({
     fontSize: '$md',
   },
   'h6': {
+    fontWeight: '$regular',
     fontSize: '$sm',
   },
   'a': {
@@ -180,7 +181,7 @@ export const globalStyles = globalCss({
     },
   },
   ':not(pre) > code': {
-    backgroundColor: '$gray4',
+    backgroundColor: 'rgb($gray4)',
     fontFamily: '$monospace',
     padding: '1px 3px 2px',
   },

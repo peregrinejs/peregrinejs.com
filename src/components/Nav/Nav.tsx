@@ -1,4 +1,5 @@
 import { styled } from '@src/stitches.config'
+
 import Item from './Item'
 
 const Nav = (): JSX.Element => {

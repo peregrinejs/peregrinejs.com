@@ -1,3 +1,4 @@
+import Callout from '@src/components/Callout'
 import Layout from '@src/components/docs/Layout'
 import YearsAgo from '@src/components/YearsAgo'
 import Table, { Th } from '@src/components/Table'
@@ -6,8 +7,8 @@ export const meta = { title: 'Differences from Cordova and Capacitor' }
 
 # Comparison with Cordova and Capacitor
 
-There are several differences between Peregrine and existing solutions on the
-market today such as [Cordova](https://cordova.apache.org) and
+There are several differences between Peregrine and existing solutions on
+the market today such as [Cordova](https://cordova.apache.org) and
 [Capacitor](https://capacitorjs.com). This page attempts to highlight these
 differences in an unbiased way. For more in-depth explanations of these
 differences and the reasoning behind them, see the
@@ -15,8 +16,8 @@ differences and the reasoning behind them, see the
 
 ## Technology
 
-Peregrine has many technological differences between Cordova and Capacitor. To
-learn more about the technical implementation of Peregrine, see the
+Peregrine has many technological differences between Cordova and Capacitor.
+To learn more about the technical implementation of Peregrine, see the
 [Architecture](/docs/architecture) page.
 
 ### Library, not Framework
@@ -32,9 +33,17 @@ tooling or doctrine as to how your app is or should be structured.
 
 ### Extensions
 
-Peregrine **discourages** plugins. Instead, to extend functionality, developers
-can use recipes to build tailored native functionality and then hook it up to
-connectors.
+Both Cordova and Capacitor provide an ecosystem around third-party plugins.
+Plugin authors have deep access to most of the Cordova and Capacitor APIs,
+which are used along with platform APIs to implement native functionality.
+
+Peregrine does **not** have "plugins" in the same sense. Instead, developers
+explicitly attach functions and observables to each Web Frame that the web
+layer will be able to access. This is what's known as the Remote Interface.
+
+While creating and distributing collections of native functionality is
+possible, it should be **discouraged**. Instead, developers should use recipes
+to build tailored native solutions for their apps.
 
 ### Cordova Compatibility
 
@@ -49,7 +58,7 @@ require replacing the entire native layer.
 Cordova had its first release in 2009 (<YearsAgo from={2009} /> years ago!) and
 remains largely the same in architecture and implementation. Capacitor was
 started in 2017, but in order to maintain compatibility, much of Cordova was
-copied into Capacitor's compatibility layer.
+copied into Capacitor as part of its compatibility layer.
 
 Peregrine was started in 2022 from the ground up, abandoning the Cordova
 architecture altogether.
@@ -98,8 +107,7 @@ The following table is a breakdown of the languages each project is written in.
 
 Both Cordova and Capacitor support iOS plugins written in Objective-C and/or
 Swift and Android plugins written in Java and/or Kotlin. Peregrine only
-supports iOS connectors written in Swift and Android connectors written in
-Kotlin.
+supports Swift for iOS and Kotlin for Android.
 
 ## Stewardship
 
@@ -107,7 +115,7 @@ Kotlin.
   Foundation](https://www.apache.org), a long-running, volunteer-based open
   source foundation.
 - Capacitor is primarily managed and maintained by [Ionic](https://ionic.io), a
-  Series B startup company founded in 2012.
+  startup company founded in 2012.
 - Peregrine is primarily managed and maintained by
   [@imhoffd](https://twitter.com/imhoffd), an ex-Ionic software engineer.
 
@@ -126,11 +134,9 @@ Peregrine is multi-licensed under
 [GPL](https://en.wikipedia.org/wiki/GNU_General_Public_License) and several
 tiers of commercial licenses.
 
-To summarize in non-legalese, Peregrine is free to use if your app is open
-source. If your app is closed source, then you must purchase an appropriate
-commercial license.
-
-Please see the [Licenses](/license) page for a full description and legal
-information.
+To summarize, Peregrine is free to use if your app is open source. If your app
+is closed source, then you must purchase an appropriate commercial license.
+This is not legal advice. Please see the [Licenses](/license) page for a full
+description and legal information.
 
 export default ({ children }) => <Layout meta={meta}>{children}</Layout>

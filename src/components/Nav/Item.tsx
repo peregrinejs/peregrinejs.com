@@ -1,5 +1,5 @@
-import React from 'react'
 import Link from 'next/link'
+import React from 'react'
 
 import _Text from '@src/components/Text'
 import { styled } from '@src/stitches.config'

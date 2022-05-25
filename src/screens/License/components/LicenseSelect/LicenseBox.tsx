@@ -18,7 +18,10 @@ const LicenseBox = ({ title, children }: LicenseBoxProps): JSX.Element => {
 }
 
 const Root = styled(Box, {
-  width: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '1em',
+  padding: '1em',
   borderStyle: 'solid',
   borderColor: 'rgb($gray4)',
   borderWidth: 1,
@@ -26,12 +29,18 @@ const Root = styled(Box, {
 })
 
 const Title = styled('h4', {
-  margin: '1em',
   textAlign: 'center',
 })
 
 const Body = styled(Box, {
-  margin: '1em',
+  'display': 'flex',
+  'flexDirection': 'column',
+  'flex': 1,
+  'gap': '1em',
+
+  '& > *': {
+    margin: 0,
+  },
 })
 
 export default LicenseBox

@@ -1,5 +1,7 @@
-import { styled } from '@src/stitches.config'
 import React, { useState } from 'react'
+
+import { styled } from '@src/stitches.config'
+
 import Box from '../Box'
 
 export interface CodeBlockSwitchProps {
@@ -54,6 +56,7 @@ const Tab = styled('a', {
   display: 'block',
   padding: '0.1em $navItemPaddingX',
   cursor: 'pointer',
+  color: 'rgb($gray1)',
 
   variants: {
     selected: {

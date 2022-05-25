@@ -23,10 +23,16 @@ const LicenseSelect = (): JSX.Element => {
           Distribute, modify, and/or integrate Peregrine in one commercial
           application per license.
         </p>
+        <h5>Choose your tier</h5>
+        <p>
+          Please choose carefully. Relicensing is possible, but no refunds after
+          30 days of purchase.
+        </p>
         <Purchase>
           <Select css={{ flex: 1 }}>
-            <option>1 developer</option>
-            <option>Unlimited developers</option>
+            <option value="one">1 developer ($10)</option>
+            <option value="three">3 developers ($100)</option>
+            <option value="unlimited">Unlimited developers ($1000)</option>
           </Select>
           <Button>Purchase</Button>
         </Purchase>
@@ -48,12 +54,14 @@ const Free = styled(Text, {
   fontWeight: '$bold',
   letterSpacing: '$money',
   color: 'rgb($money)',
+  marginTop: 'auto',
 })
 
 const Purchase = styled(Box, {
   display: 'flex',
   justifyContent: 'center',
   gap: '1em',
+  marginTop: 'auto',
 })
 
 export default LicenseSelect

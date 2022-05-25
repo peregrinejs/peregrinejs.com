@@ -1,3 +1,4 @@
+import Callout from '@src/components/Callout'
 import CodeBlockSwitch, { Tab } from '@src/components/CodeBlockSwitch'
 import Layout from '@src/components/docs/Layout'
 
@@ -12,13 +13,12 @@ concepts before diving a bit deeper into the implementation details.
 
 For an iOS or Android app, Peregrine has a library for web code and a library
 for native code. The native library provides the [Web Frame](#web-frames),
-which encapsulates the web view and a server for web\<-\>native connection,
-often called the _bridge_. The web library initiates this connection and acts
-as a client for the web app.
-
-Developers build [connectors](#connectors) to define native functionality in
-the form of [methods](#methods) for request/response-style communication and
-[observables](#observables) for server-side events.
+which encapsulates the web view. Developers create [Remote
+Interfaces](#remote-interfaces) and attach them to the Web Frame for
+web\<-\>native communication. Remote Interfaces contain [functions](#functions)
+for request/response-style communication and [observables](#observables) for
+pub/sub-style communication. The implementation of this communication between
+web and native is often called the _bridge_.
 
 ### Web Frames
 
@@ -29,49 +29,142 @@ configuration and native access are tailored. Many hybrid developers may only
 use one Web Frame for their entire app--and that's fine! Others may want to
 have a mix of web and native views.
 
-Web Frames encapsulate the web view itself, [path handlers](#path-handlers),
-and [connectors](#connectors).
+Web Frames encapsulate the web view itself, [path handlers](#path-handlers) for
+implementing responses to web view requests, and a [Remote
+Interface](#remote-interfaces) for implementing native functionality.
 
-### Connectors
+### Remote Interfaces
 
-Connectors are implementations of the `Connector` interface in iOS or Android.
-Typically classes, connectors are instantiated and provided to Web Frame
-configuration. Developers can implement any constructor logic they wish, as
-long as each connector has two properties: `methods` and `observables`.
+Remote Interfaces are instances of the `RemoteInterface` class in iOS, Android,
+or web. They represent the API of one side of the bridge. Remote Interfaces
+contain _endpoints_, which are either [functions](#functions) or
+[observables](#observables). Functions are used to invoke something, e.g. run a
+native API, send back data, be notified of a particular lifecycle event, etc.
+Observables are used to receive a stream of notifications, e.g. network status,
+geofencing updates, keyboard events, etc.
 
-#### Methods
+To construct a remote interface, instantiate `RemoteInterface` with `functions`
+and `observables`. Each endpoint must have a string key which is what the other
+side of the bridge will use to access it.
 
-The `methods` property is a map of strings to connector methods.
+Observables must end in a dollar sign to denote a reactive property, as
+popularized by [Cycle.js](https://cycle.js.org). This isn't merely
+convention--the dollar sign is how the client knows it's an observable, not a
+function.
 
-In the following example, this method responds with the same data that the
-client sent.
+Endpoints can also contain periods for namespacing. In the following example, a
+period is used in each key to organize `show()` and `hide()` functions and a
+`visible$` observable under a single `SplashScreen` namespace.
 
 <CodeBlockSwitch>
-  <Tab name="iOS">
+<Tab name="iOS">
+```swift
+let splashScreen = SplashScreen()
+
+let remoteInterface = RemoteInterface(
+    functions: [
+        "SplashScreen.show": splashScreen.show,
+        "SplashScreen.hide": splashScreen.hide,
+    ],
+    observables: [
+        "SplashScreen.visible$": splashScreen.$visible.eraseToAnyPublisher(),
+    ],
+)
+```
+</Tab>
+<Tab name="Android">
+```kotlin
+val splashScreen = SplashScreen()
+
+val remoteInterface = RemoteInterface(
+    functions = mapOf(
+        "SplashScreen.show" to ::splashScreen.show,
+        "SplashScreen.hide" to ::splashScreen.hide,
+    ),
+    observables = mapOf(
+        "SplashScreen.visible$" to splashScreen.asSharedFlow(),
+    ),
+)
+```
+</Tab>
+</CodeBlockSwitch>
+
+#### Functions
+
+Remote interface functions are regular functions in Swift, Kotlin, and
+JavaScript. Since functions in each of these languages have first-class
+support, we can simply pass them as references to the remote interface(s).
+
+Remote functions should accept a single parameter: `call`. An instance of the
+`Call` class represents a single function call over the bridge. It is used to
+retrieve request data and send a response.
+
+For example, the following function responds with the same data that the client
+sent.
+
+<CodeBlockSwitch>
+<Tab name="iOS">
 ```swift
 func echo(call: Call) {
     call.respond(call.request.data)
 }
 ```
-  </Tab>
-  <Tab name="Android">
+</Tab>
+<Tab name="Android">
 ```kotlin
 fun echo(call: Call) {
     call.respond(call.request.data)
 }
 ```
-  </Tab>
+</Tab>
 </CodeBlockSwitch>
 
 #### Observables
 
-The `observables` property is a map of strings to event publishers, which must
-emit `Event` instances.
+Remote interface observables are reactive streams of `Event` instances. They
+are implemented with [Combine
+Framework](https://developer.apple.com/documentation/combine) in iOS,
+[Asynchronous Flows](https://kotlinlang.org/docs/flow.html) in Android, and
+[RxJS](https://rxjs.dev) in web.
 
+In the following example, calling the `show()` method will emit `true` to
+subscribers in the web layer.
 
+<CodeBlockSwitch>
+<Tab name="iOS">
+```swift
+class SplashScreen {
+    @Published var visible: Event?
+
+    ...
+
+    func show() {
+        self.visible = true
+    }
+}
+```
+</Tab>
+<Tab name="Android">
+```kotlin
+class SplashScreen(val scope: CoroutineScope) {
+    val visible = MutableSharedFlow<Event>()
+
+    ...
+
+    fun show() {
+        scope.launch { visible.emit(Event(true)) }
+    }
+}
+```
+</Tab>
+</CodeBlockSwitch>
 
 ### Path Handlers
 
 wow
+
+## Implementation
+
+The implementation differs per platform.
 
 export default ({ children }) => <Layout meta={meta}>{children}</Layout>

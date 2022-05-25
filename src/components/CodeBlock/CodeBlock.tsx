@@ -1,16 +1,17 @@
 import React from 'react'
 
+import { styled } from '@src/stitches.config'
+
 import Code from './Code'
 import _Pre from './Pre'
 import type { Language } from './getHighlighter'
-import { styled } from '@src/stitches.config'
 
 export interface CodeBlockProps {
   language: Language
   code: string
 }
 
-const CodeBlock = ({ language, code }: CodeBlockProps) => {
+const CodeBlock = ({ language, code }: CodeBlockProps): JSX.Element => {
   return (
     <Pre>
       <Code className={`language-${language}`}>{code.trim()}</Code>

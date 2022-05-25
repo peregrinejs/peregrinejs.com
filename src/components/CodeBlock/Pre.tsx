@@ -1,10 +1,12 @@
 import React from 'react'
+
 import { styled } from '@src/stitches.config'
+
 import Code from './Code'
 
 export type PreProps = React.HTMLAttributes<HTMLPreElement>
 
-const Pre = ({ children, ...props }: PreProps) => {
+const Pre = ({ children, ...props }: PreProps): JSX.Element => {
   const child = React.Children.map(children, (child, index) => {
     if (index !== 0 || !React.isValidElement(child)) {
       throw new Error('Pre only accepts one Code or code child')
@@ -23,8 +25,8 @@ const Pre = ({ children, ...props }: PreProps) => {
 const Root = styled('pre', {
   backgroundColor: 'rgb($gray4)',
   overflow: 'scroll',
-  fontSize: '$sm',
-  lineHeight: '1rem',
+  fontSize: '$xsm',
+  lineHeight: '1.25em',
   padding: '1em',
 })
 

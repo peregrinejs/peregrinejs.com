@@ -3,8 +3,6 @@ import { useRouter } from 'next/router'
 import React from 'react'
 
 import Link from '@src/components/Link'
-import _Text from '@src/components/Text'
-import _Circle from '@src/icons/Circle'
 import isOutboundUrl from '@src/lib/isOutboundUrl'
 import { styled } from '@src/stitches.config'
 
