@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "npm run eslint && npm run prettier -- --check",
     "fmt": "npm run eslint -- --fix && npm run prettier -- --write",
-    "prettier": "prettier \"src/**/*.{ts,tsx}\"",
+    "prettier": "prettier \"src/**/*.{ts,tsx,md,mdx}\"",
     "eslint": "eslint src --ext .ts,.tsx"
   },
   "dependencies": {

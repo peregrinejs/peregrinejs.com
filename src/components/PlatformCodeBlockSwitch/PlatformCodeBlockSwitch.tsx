@@ -1,8 +1,9 @@
-import platformAtom from '@src/atoms/platformAtom'
-import CodeBlockSwitch from '@src/components/CodeBlockSwitch'
-import { isPlatform } from '@src/Platform'
 import { useAtom } from 'jotai'
 import React from 'react'
+
+import { isPlatform } from '@src/Platform'
+import platformAtom from '@src/atoms/platformAtom'
+import CodeBlockSwitch from '@src/components/CodeBlockSwitch'
 
 export interface SwitchProps {
   children: React.ReactNode
