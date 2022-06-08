@@ -1,14 +1,25 @@
 import NextLink from 'next/link'
+import React from 'react'
 
 import OutboundIcon from '@src/icons/OutboundIcon'
-import isOutboundUrl from '@src/lib/isOutboundUrl'
+import useLink from '@src/lib/docs/useLink'
 import { styled } from '@src/stitches.config'
 
-const Link = ({ children, href, ...props }: any): JSX.Element => {
-  const isOutbound = isOutboundUrl(href)
+export interface LinkProps
+  extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+  children: React.ReactNode
+  href: string
+}
+
+const Link = ({
+  children,
+  href: hrefProp,
+  ...props
+}: LinkProps): JSX.Element => {
+  const { href, as, isOutbound } = useLink(hrefProp)
 
   return (
-    <NextLink href={href} {...props} passHref>
+    <NextLink href={href} as={as} {...props} passHref>
       <A target={isOutbound ? '_blank' : undefined}>
         {children}
         {isOutbound ? <Icon /> : null}

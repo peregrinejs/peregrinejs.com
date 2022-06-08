@@ -1,18 +1,16 @@
-import trimStart from 'lodash/fp/trimCharsStart'
 import Link from 'next/link'
 import React, { useState } from 'react'
 
 import LinkIcon from '@src/icons/LinkIcon'
+import trimLeadingHashes from '@src/lib/trimLeadingHashes'
 import { styled } from '@src/stitches.config'
-
-const trimHashCharacter = trimStart('#')
 
 export interface AnchorProps extends React.HTMLAttributes<HTMLAnchorElement> {
   href: string
   children: React.ReactNode
 }
 
-const Anchor = ({ href, children, ...props }: AnchorProps) => {
+const Anchor = ({ href, children, ...props }: AnchorProps): JSX.Element => {
   const [hovered, setHovered] = useState(false)
 
   const child = React.Children.map(children, (child, index) => {
@@ -27,7 +25,7 @@ const Anchor = ({ href, children, ...props }: AnchorProps) => {
     return React.cloneElement(
       child,
       {
-        id: trimHashCharacter(href),
+        id: trimLeadingHashes(href),
         style: { position: 'relative' },
       },
       <>

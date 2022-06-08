@@ -1,37 +1,44 @@
-import type { CSS } from '@stitches/react'
 import Image from 'next/image'
 import React, { forwardRef } from 'react'
 
-import { styled, theme } from '@src/stitches.config'
+import { styled } from '@src/stitches.config'
 
-export interface LogoProps {
-  css?: CSS
-}
+import Box from './Box'
 
-const Logo = forwardRef<HTMLAnchorElement, LogoProps>(({ ...props }, ref) => {
-  const size = theme.sizes.logo.value
-
+const Logo = forwardRef<HTMLAnchorElement, any>(({ ...props }, ref) => {
   return (
     <Root ref={ref} {...props}>
-      <Icon src="/peregrine.svg" width={size} height={size} />
+      <Box css={{ width: '$$size', height: '$$size' }}>
+        <Icon src="/peregrine.svg" layout="responsive" width={32} height={32} />
+      </Box>
       <Text>Peregrine</Text>
     </Root>
   )
 })
 
 const Root = styled('a', {
-  display: 'flex',
-  height: '$sizes$logo',
-  gap: 'calc($sizes$logo / 5)',
-  userSelect: 'none',
+  'display': 'flex',
+  'height': 32,
+  'gap': 'calc($$size / 5)',
+  'userSelect': 'none',
+  'alignItems': 'center',
+
+  '$$size': '24px',
+
+  '@lg': {
+    $$size: '32px',
+  },
 })
 
-const Icon = styled(Image, {})
+const Icon = styled(Image, {
+  width: '$$size',
+  height: '$$size',
+})
 
 const Text = styled('h1', {
   flex: 1,
-  lineHeight: '$logo',
-  fontSize: '$logo',
+  lineHeight: '$$size',
+  fontSize: '$$size',
 })
 
 Logo.displayName = 'Logo'

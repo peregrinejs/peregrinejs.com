@@ -1,7 +1,7 @@
 import Callout from '@src/components/Callout'
-import PlatformCodeBlockSwitch from '@src/components/PlatformCodeBlockSwitch'
-import { Tab } from '@src/components/CodeBlockSwitch'
+import Content from '@src/components/docs/Content'
 import Layout from '@src/components/docs/Layout'
+import Platform from '@src/components/docs/Platform'
 
 export const meta = { title: 'Architecture' }
 
@@ -12,23 +12,22 @@ concepts before diving a bit deeper into the implementation details.
 
 ## Overview
 
-For an iOS or Android app, Peregrine has a library for web code and a library
-for native code. The native library provides the [Web Frame](#web-frames),
-which encapsulates the web view. Developers create [Remote
-Interfaces](#remote-interfaces) and attach them to the Web Frame for
-web\<-\>native communication. Remote Interfaces contain [functions](#functions)
-for request/response-style communication and [observables](#observables) for
-pub/sub-style communication. The implementation of this communication between
-web and native is often called the _bridge_.
+Peregrine has a library for web and a library for each native platform. The
+native library provides the [Web Frame](#web-frames), which encapsulates the
+web view. Developers create [Remote Interfaces](#remote-interfaces) and attach
+them to the Web Frame for web\<-\>native communication. Remote Interfaces
+contain [functions](#functions) for request/response-style communication and
+[observables](#observables) for pub/sub-style communication. The implementation
+of this communication between web and native is often called the _bridge_.
 
 ### Web Frames
 
-Web Frames are instances of the `WebFrame` class in iOS or Android.
-Essentially, they are meant to represent a single, supercharged web view. Web
-Frames are set up specifically for the web content they display, e.g. web view
-configuration and native access are tailored. Many hybrid developers may only
-use one Web Frame for their entire app--and that's fine! Others may want to
-have a mix of web and native views.
+Web Frames are instances of the `WebFrame` class in <Platform />. Essentially,
+they are meant to represent a single, supercharged web view. Web Frames are set
+up specifically for the web content they display, e.g. web view configuration
+and native access are tailored. Many hybrid developers may only use one Web
+Frame for their entire app--and that's fine! Others may want to have a mix of
+web and native views.
 
 Web Frames encapsulate the web view itself, [path handlers](#path-handlers) for
 implementing responses to web view requests, and a [Remote
@@ -36,7 +35,7 @@ Interface](#remote-interfaces) for implementing native functionality.
 
 ### Remote Interfaces
 
-Remote Interfaces are instances of the `RemoteInterface` class in iOS, Android,
+Remote Interfaces are instances of the `RemoteInterface` class in <Platform />
 or web. They represent the API of one side of the bridge. Remote Interfaces
 contain _endpoints_, which are either [functions](#functions) or
 [observables](#observables). Functions are used to invoke something, e.g. run a
@@ -57,8 +56,7 @@ Endpoints can also contain periods for namespacing. In the following example, a
 period is used in each key to organize `show()` and `hide()` functions and a
 `visible$` observable under a single `SplashScreen` namespace.
 
-<PlatformCodeBlockSwitch>
-<Tab name="iOS">
+<Content platform="iOS">
 
 ```swift
 let splashScreen = SplashScreen()
@@ -74,8 +72,8 @@ let remoteInterface = RemoteInterface(
 )
 ```
 
-</Tab>
-<Tab name="Android">
+</Content>
+<Content platform="Android">
 
 ```kotlin
 val splashScreen = SplashScreen()
@@ -91,8 +89,7 @@ val remoteInterface = RemoteInterface(
 )
 ```
 
-</Tab>
-</PlatformCodeBlockSwitch>
+</Content>
 
 #### Functions
 
@@ -107,8 +104,7 @@ retrieve request data and send a response.
 For example, the following function responds with the same data that the client
 sent.
 
-<PlatformCodeBlockSwitch>
-<Tab name="iOS">
+<Content platform="iOS">
 
 ```swift
 func echo(call: Call) {
@@ -116,8 +112,8 @@ func echo(call: Call) {
 }
 ```
 
-</Tab>
-<Tab name="Android">
+</Content>
+<Content platform="Android">
 
 ```kotlin
 fun echo(call: Call) {
@@ -125,22 +121,21 @@ fun echo(call: Call) {
 }
 ```
 
-</Tab>
-</PlatformCodeBlockSwitch>
+</Content>
 
 #### Observables
 
 Remote interface observables are reactive streams of `Event` instances. They
-are implemented with [Combine
-Framework](https://developer.apple.com/documentation/combine) in iOS,
-[Asynchronous Flows](https://kotlinlang.org/docs/flow.html) in Android, and
+are implemented with <Content platform="iOS">[Combine
+Framework](https://developer.apple.com/documentation/combine) in
+iOS</Content><Content platform="Android">[Asynchronous
+Flows](https://kotlinlang.org/docs/flow.html) in Android</Content> and
 [RxJS](https://rxjs.dev) in web.
 
 In the following example, calling the `show()` method will emit `true` to
 subscribers in the web layer.
 
-<PlatformCodeBlockSwitch>
-<Tab name="iOS">
+<Content platform="iOS">
 
 ```swift
 class SplashScreen {
@@ -154,8 +149,8 @@ class SplashScreen {
 }
 ```
 
-</Tab>
-<Tab name="Android">
+</Content>
+<Content platform="Android">
 
 ```kotlin
 class SplashScreen(val scope: CoroutineScope) {
@@ -170,12 +165,59 @@ class SplashScreen(val scope: CoroutineScope) {
 
 ```
 
-</Tab>
-</PlatformCodeBlockSwitch>
+</Content>
 
 ### Path Handlers
 
-wow
+Developers attach path handlers to the Web Frame for handling web view
+requests. Path handlers are usually used for providing assets and resources to
+the web view.
+
+In the following example, the `/photos` path is being registered and linked to
+a directory on the native device. When web view requests come in, Peregrine
+will handle them according to the given asset loader. Think of it like a static
+file server.
+
+<Content platform="iOS">
+
+```swift
+let documentsURL = try FileManager.default.url(
+    for: .documentDirectory,
+    in: .userDomainMask,
+    appropriateFor: nil,
+    create: true
+)
+
+let photosURL = documentsURL.appendingPathComponent("photos")
+
+let configuration = WebFrame.Configuration(
+    ...
+    pathHandlers = [
+        "/photos/": InternalStoragePathHandler(directory: photosURL)
+    ]
+)
+
+```
+
+</Content>
+<Content platform="Android">
+
+```kotlin
+val photosDir = context.filesDir.resolve("photos")
+photosDir.mkdirs()
+
+val configuration = WebFrame.Configuration(
+    ...
+    pathHandlers = mapOf(
+        "/photos/" to WebViewAssetLoader.InternalStoragePathHandler(
+            context,
+            photosDir
+        )
+    ),
+)
+```
+
+</Content>
 
 ## Implementation
 

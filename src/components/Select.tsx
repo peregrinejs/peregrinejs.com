@@ -3,27 +3,21 @@ import React from 'react'
 
 import { styled } from '@src/stitches.config'
 
+import SelectBase from './SelectBase'
+
 export interface SelectProps extends React.HTMLAttributes<HTMLSelectElement> {
   css?: CSS
 }
 
 const Select = ({ children, ...props }: SelectProps): JSX.Element => {
-  return <Component {...props}>{children}</Component>
+  return <Root {...props}>{children}</Root>
 }
 
-const Component = styled('select', {
-  'display': 'inline-block',
-  'position': 'relative',
+const Root = styled(SelectBase, {
   'backgroundColor': 'rgb($gray4)',
   'color': 'rgb($gray1)',
-  'border': 'none',
   'padding': '0.35em 0.75em',
-  'cursor': 'pointer',
   'fontSize': '$md',
-  '-moz-appearance': 'none',
-  '-webkit-appearance': 'none',
-  'appearance': 'none',
-  'outline': 'none',
 
   '&::before': {
     position: 'absolute',

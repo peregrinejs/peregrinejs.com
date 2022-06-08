@@ -1,4 +1,4 @@
-const PLATFORMS = ['iOS', 'Android'] as const
+export const PLATFORMS = ['ios', 'android'] as const
 
 export const isPlatform = (platform: string): platform is Platform =>
   PLATFORMS.includes(platform as Platform)

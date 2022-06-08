@@ -1,10 +1,12 @@
 import { createStitches } from '@stitches/react'
 
+import { bpMd, bpLg } from './atoms/bpAtom'
+
 const fontBasis = 16
 
 export const media = {
-  md: '(min-width: 640px)',
-  lg: '(min-width: 1024px)',
+  md: `(min-width: ${bpMd}px)`,
+  lg: `(min-width: ${bpLg}px)`,
 }
 
 export const {
@@ -27,6 +29,7 @@ export const {
       gray4: '42 41 40',
       gray5: '29 28 27',
       accent1: '100 157 255',
+      accent2: '205 220 255',
       hlcomment: '125 141 123',
       hlkeyword: '114 110 107',
       hloperator: '193 193 193',
@@ -39,6 +42,8 @@ export const {
       money: '163 255 169',
       info: '$accent1',
       warning: '255 193 61',
+      brandapple: '255 255 255',
+      brandandroid: '120 194 87',
     },
     fonts: {
       text: 'Lato, Helvetica, Arial, sans-serif, sans-serif',
@@ -72,12 +77,11 @@ export const {
       contentPaddingMd: '30px',
       contentPaddingLg: '60px',
       navItemPaddingX: '6px',
-      navItemPaddingY: 'calc($navItemPaddingX * 2)',
+      navItemPaddingY: '0px',
       headerPadding: '20px',
     },
     sizes: {
-      logo: '32px',
-      contentMaxWidth: '960px',
+      contentMaxWidth: '1140px',
     },
   },
   utils: {
@@ -182,6 +186,7 @@ export const globalStyles = globalCss({
     backgroundColor: 'rgb($gray4)',
     fontFamily: '$monospace',
     padding: '1px 3px 2px',
+    color: 'rgba($accent2 / 0.9)',
   },
   'strong': {
     fontWeight: '$bold',

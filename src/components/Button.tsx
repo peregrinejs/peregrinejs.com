@@ -3,22 +3,20 @@ import React from 'react'
 
 import { styled } from '@src/stitches.config'
 
+import ButtonBase from './ButtonBase'
+
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   css?: CSS
 }
 
 const Button = ({ children, ...props }: ButtonProps): JSX.Element => {
-  return <Component {...props}>{children}</Component>
+  return <Root {...props}>{children}</Root>
 }
 
-const Component = styled('button', {
-  'display': 'inline-block',
-  'position': 'relative',
+const Root = styled(ButtonBase, {
   'backgroundColor': 'rgb($gray4)',
   'color': 'rgb($gray1)',
-  'border': 'none',
   'padding': '0.35em 0.75em',
-  'cursor': 'pointer',
   'fontSize': '$md',
   'fontWeight': '$bold',
 

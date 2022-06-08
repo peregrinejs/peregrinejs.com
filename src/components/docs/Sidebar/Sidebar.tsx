@@ -41,7 +41,7 @@ const Root = styled(Box, {
     top: 0,
     height: '100%',
     maxHeight: '100vh',
-    width: 216,
+    width: 256,
     overflowX: 'hidden',
     overflowY: 'auto',
     borderWidth: 0,
@@ -49,13 +49,14 @@ const Root = styled(Box, {
   },
 
   '@lg': {
-    width: 272,
+    width: 332,
   },
 })
 
 const Topbar = styled(Box, {
   display: 'flex',
-  padding: '$headerPadding',
+  alignItems: 'center',
+  margin: '$headerPadding',
   justifyContent: 'space-between',
   userSelect: 'none',
 })

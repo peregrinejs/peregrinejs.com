@@ -1,21 +1,14 @@
+import { useAtom } from 'jotai'
 import Link from 'next/link'
-import { useState } from 'react'
 
+import platformAtom from '@src/atoms/platformAtom'
 import Box from '@src/components/Box'
 import CodeBlock from '@src/components/CodeBlock'
-import IconButton from '@src/components/IconButton'
-import IconButtonTabs from '@src/components/IconButtonTabs'
 import Text from '@src/components/Text'
-import AndroidIcon from '@src/icons/AndroidIcon'
-import AppleIcon from '@src/icons/AppleIcon'
 
 import Section from '../components/Section'
 
-type Platform = 'android' | 'ios'
-
 const APISection = (): JSX.Element => {
-  const [platform, setPlatform] = useState<Platform>('ios')
-
   return (
     <Section
       css={{
@@ -40,32 +33,23 @@ const APISection = (): JSX.Element => {
             '@lg': { flexDirection: 'row-reverse' },
           }}
         >
-          <IconButtonTabs>
-            <IconButton
-              active={platform === 'ios'}
-              icon={AppleIcon}
-              onClick={() => setPlatform('ios')}
-            />
-            <IconButton
-              active={platform === 'android'}
-              icon={AndroidIcon}
-              onClick={() => setPlatform('android')}
-            />
-          </IconButtonTabs>
+          {/* TODO */}
           <h2>
             Featuring a <em>slick</em> API that uses all the latest stuff
           </h2>
         </Box>
-        <TextContent platform={platform} />
+        <TextContent />
       </Box>
       <Box css={{ '@lg': { width: '50%' } }}>
-        <CodeContent platform={platform} />
+        <CodeContent />
       </Box>
     </Section>
   )
 }
 
-const TextContent = ({ platform }: { platform: Platform }) => {
+const TextContent = () => {
+  const [platform] = useAtom(platformAtom)
+
   return platform === 'ios' ? (
     <Text as="p">
       Peregrine for iOS is written in 100% Swift. Use{' '}
@@ -94,7 +78,9 @@ const TextContent = ({ platform }: { platform: Platform }) => {
   )
 }
 
-const CodeContent = ({ platform }: { platform: Platform }) => {
+const CodeContent = () => {
+  const [platform] = useAtom(platformAtom)
+
   return platform === 'ios' ? (
     <CodeBlock
       language="swift"

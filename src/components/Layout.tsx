@@ -2,6 +2,9 @@ import Head from 'next/head'
 import React from 'react'
 
 import Header from '@src/components/Header'
+import { styled } from '@src/stitches.config'
+
+import Box from './Box'
 
 export interface LayoutProps {
   title?: string
@@ -20,10 +23,17 @@ const Layout = ({
         <title>{title}</title>
         <meta name="description" content={description} />
       </Head>
-      <Header />
-      {children}
+      <Container>
+        <Header />
+        {children}
+      </Container>
     </>
   )
 }
+
+const Container = styled(Box, {
+  maxWidth: 1440,
+  margin: '0 auto',
+})
 
 export default Layout

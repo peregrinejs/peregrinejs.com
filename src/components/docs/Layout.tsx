@@ -2,6 +2,7 @@ import Head from 'next/head'
 import React from 'react'
 
 import Box from '@src/components/Box'
+import PlatformSelect from '@src/components/docs/PlatformSelect'
 import { styled } from '@src/stitches.config'
 
 import Sidebar from './Sidebar'
@@ -34,7 +35,10 @@ const Layout = ({
           <Sidebar />
         </Box>
         <Container>
-          <Main>{children}</Main>
+          <Main>
+            <PlatformSelect />
+            {children}
+          </Main>
         </Container>
       </Root>
     </>

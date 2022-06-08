@@ -1,40 +1,44 @@
 import type { CSS } from '@stitches/react'
 import React, { forwardRef } from 'react'
 
-import Box from '@src/components/Box'
 import { styled } from '@src/stitches.config'
 
-export interface IconButtonProps extends React.HTMLAttributes<HTMLDivElement> {
+import ButtonBase from './ButtonBase'
+
+export interface IconButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   active?: boolean
   icon: React.ExoticComponent<{ css?: CSS }>
-  size?: 32
+  css?: CSS
 }
 
-const IconButton = forwardRef<HTMLDivElement, IconButtonProps>(
-  ({ active = false, icon: Icon, size = 32, ...props }, ref) => {
+const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
+  ({ active = false, css, icon: Icon, ...props }, ref) => {
     return (
       <Root
-        ref={ref}
         {...props}
+        ref={ref}
         css={{
-          color: active ? 'rgb($gray1)' : undefined,
-          width: size,
-          height: size,
+          '$$size': '32px',
+          '$$color-active': '$colors$gray1',
+          '$$color': active ? '$$color-active' : '$colors$gray3',
+          ...css,
         }}
       >
-        <Icon css={{ size }} />
+        <Icon css={{ width: '$$size', height: '$$size' }} />
       </Root>
     )
   },
 )
 
-const Root = styled(Box, {
+const Root = styled(ButtonBase, {
   'cursor': 'pointer',
-  'color': 'rgb($gray3)',
-  'borderRadius': 32,
+  'color': 'rgb($$color)',
+  'width': '$$size',
+  'height': '$$size',
 
   '&:hover': {
-    color: 'rgb($gray1)',
+    color: 'rgb($$color-active)',
   },
 })
 

@@ -1,39 +1,20 @@
 import { MDXProvider } from '@mdx-js/react'
 import { useAtom } from 'jotai'
-import type { MDXComponents } from 'mdx/types'
 import type { AppProps } from 'next/app'
-import Image from 'next/image'
 import { useEffect } from 'react'
 
 import bpAtom from '@src/atoms/bpAtom'
 import sidebarAtom from '@src/atoms/sidebarAtom'
-import AnchorHeading from '@src/components/AnchorHeading'
-import Pre from '@src/components/CodeBlock/Pre'
-import Link from '@src/components/Link'
-import Table from '@src/components/Table'
+import baseComponents from '@src/lib/mdx/components'
+import docsComponents from '@src/lib/mdx/docs/components'
 import useMediaQuery from '@src/lib/useMediaQuery'
+import usePathComponents from '@src/lib/usePathComponents'
 import { globalStyles, media } from '@src/stitches.config'
-
-const ResponsiveImage = ({ alt, ...props }: any): JSX.Element => {
-  return <Image alt={alt} layout="responsive" {...props} />
-}
-
-const components: MDXComponents = {
-  img: ResponsiveImage,
-  h1: AnchorHeading.H1,
-  h2: AnchorHeading.H2,
-  h3: AnchorHeading.H3,
-  h4: AnchorHeading.H4,
-  h5: AnchorHeading.H5,
-  h6: AnchorHeading.H6,
-  a: Link,
-  table: Table,
-  pre: Pre,
-}
 
 const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
   globalStyles()
 
+  const [currentBase] = usePathComponents()
   const [bp, setBp] = useAtom(bpAtom)
   const [, setSidebar] = useAtom(sidebarAtom)
   const isMd = useMediaQuery(media.md)
@@ -50,7 +31,9 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
   )
 
   return (
-    <MDXProvider components={components}>
+    <MDXProvider
+      components={currentBase === 'docs' ? docsComponents : baseComponents}
+    >
       <Component {...pageProps} />
     </MDXProvider>
   )

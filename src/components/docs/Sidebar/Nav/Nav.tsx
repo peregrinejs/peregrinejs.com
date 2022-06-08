@@ -1,23 +1,26 @@
 import Box from '@src/components/Box'
+import usePlatform from '@src/lib/docs/usePlatform'
 import { styled } from '@src/stitches.config'
 
 import Category from './Category'
 import Item from './Item'
 
 const Nav = (): JSX.Element => {
+  const currentPlatform = usePlatform()
+
   return (
     <Root>
       <Category heading="Overview">
         <List>
-          <Item href="/docs/introduction">Introduction</Item>
-          <Item href="/docs/comparison">Comparison</Item>
-          <Item href="/docs/philosophy">Philosophy</Item>
-          <Item href="/docs/architecture">Architecture</Item>
+          <Item href="introduction">Introduction</Item>
+          <Item href="comparison">Comparison</Item>
+          <Item href="philosophy">Philosophy</Item>
+          <Item href="architecture">Architecture</Item>
         </List>
       </Category>
       <Category heading="Getting Started">
         <List>
-          <Item href="/docs/quickstart">Quickstart</Item>
+          <Item href="quickstart">Quickstart</Item>
         </List>
       </Category>
       <Category heading="Community">
@@ -34,7 +37,7 @@ const Root = styled(Box, {
   display: 'flex',
   flexDirection: 'column',
   gap: '1em',
-  padding: '0 0 $headerPadding',
+  margin: '0 0 $headerPadding',
 })
 
 const List = styled('ul', {

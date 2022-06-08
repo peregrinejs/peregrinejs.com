@@ -5,7 +5,9 @@ import Item from './Item'
 const Nav = (): JSX.Element => {
   return (
     <Root>
-      <Item href="/docs">Docs</Item>
+      <Item href="/docs/introduction" as="/docs/ios/introduction">
+        Docs
+      </Item>
       <Item href="/license">License</Item>
       <Item href="https://github.com/peregrinejs">GitHub</Item>
     </Root>
