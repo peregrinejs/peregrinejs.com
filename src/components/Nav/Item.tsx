@@ -6,13 +6,12 @@ import { styled } from '@src/stitches.config'
 
 export interface ItemProps {
   href: string
-  as?: string
   children: React.ReactNode
 }
 
-const Item = ({ href, as, children }: ItemProps): JSX.Element => {
+const Item = ({ href, children }: ItemProps): JSX.Element => {
   return (
-    <Link href={href} as={as} passHref>
+    <Link href={href} passHref>
       <Root>
         <Text>{children}</Text>
       </Root>
