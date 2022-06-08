@@ -1,5 +1,7 @@
-import Platform, { isPlatform } from '@src/Platform'
 import { useRouter } from 'next/router'
+
+import type Platform from '@src/Platform'
+import { isPlatform } from '@src/Platform'
 
 export interface Route {
   asPath: string

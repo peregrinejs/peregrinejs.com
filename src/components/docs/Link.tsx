@@ -16,10 +16,10 @@ const Link = ({
   href: hrefProp,
   ...props
 }: LinkProps): JSX.Element => {
-  const { href, as, isOutbound } = useLink(hrefProp)
+  const { href, isOutbound } = useLink(hrefProp)
 
   return (
-    <NextLink href={href} as={as} {...props} passHref>
+    <NextLink href={href} {...props} passHref>
       <A target={isOutbound ? '_blank' : undefined}>
         {children}
         {isOutbound ? <Icon /> : null}

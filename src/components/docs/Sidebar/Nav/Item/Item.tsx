@@ -1,4 +1,5 @@
 import NextLink from 'next/link'
+import { useRouter } from 'next/router'
 import React from 'react'
 
 import OutboundIcon from '@src/icons/OutboundIcon'
@@ -6,7 +7,6 @@ import useLink from '@src/lib/docs/useLink'
 import { styled } from '@src/stitches.config'
 
 import Anchor from './Anchor'
-import { useRouter } from 'next/router'
 
 export interface ItemProps {
   href: string

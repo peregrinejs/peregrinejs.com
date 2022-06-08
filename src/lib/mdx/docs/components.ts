@@ -1,10 +1,10 @@
 import type { MDXComponents } from 'mdx/types'
 
-import Link from '@src/components/docs/Link'
+import Table, { Th } from '@src/components/Table'
 import YearsAgo from '@src/components/YearsAgo'
 import Content from '@src/components/docs/Content'
+import Link from '@src/components/docs/Link'
 import Platform from '@src/components/docs/Platform'
-import Table, { Th } from '@src/components/Table'
 
 import baseComponents from '../components'
 
