@@ -6,6 +6,7 @@ import path from 'path'
 import type Platform from '@src/Platform'
 import { PLATFORMS } from '@src/Platform'
 import Layout from '@src/components/docs/Layout'
+import omitNil from '@src/lib/omitNil'
 import mdxOptions from '@src/mdxOptions'
 
 const pagesDir = path.resolve(process.cwd(), 'src/docs')
@@ -26,7 +27,7 @@ async function* getFilesR(dir: string): AsyncIterableIterator<string> {
 
 interface Path {
   params: { page: [Platform, ...string[]] }
-  locale: string
+  locale?: string
 }
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
@@ -37,9 +38,14 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
       .substring(pagesDir.length + 1, file.lastIndexOf('.'))
       .split('/')
 
-    for (const locale of locales!) {
+    for (const locale of locales ?? [undefined]) {
       for (const platform of PLATFORMS) {
-        paths.push({ params: { page: [platform, ...page] }, locale })
+        const path: Path = {
+          params: { page: [platform, ...page] },
+          locale,
+        }
+
+        paths.push(omitNil(path))
       }
     }
   }
@@ -61,19 +67,19 @@ export const getStaticProps: GetStaticProps<
   const mdx = await compile(contents, mdxOptions as any)
 
   return {
-    props: {
+    props: omitNil({
       platform,
       page,
-      locale: locale!,
+      locale,
       content: String(mdx),
-    },
+    }),
   }
 }
 
 export interface DocsPageProps {
   platform: Platform
   page: string
-  locale: string
+  locale?: string
   content: string
 }
 
