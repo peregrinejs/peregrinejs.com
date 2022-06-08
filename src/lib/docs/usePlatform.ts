@@ -1,10 +1,8 @@
-import { useRouter } from 'next/router'
-
 import type Platform from '@src/Platform'
+import useRoute from './useRoute'
 
 export default function usePlatform(): Platform {
-  const router = useRouter()
-  const { platform } = router.query
+  const route = useRoute()
 
-  return platform === 'android' ? 'android' : 'ios'
+  return route?.platform ?? 'ios'
 }

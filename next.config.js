@@ -1,9 +1,24 @@
 const nextMDX = require('@next/mdx')
-const mdxOptions = require('./src/mdxOptions')
+const remarkGfm = require('remark-gfm')
+const remarkTextr = require('remark-textr')
+const typographicBase = require('typographic-base')
 
 const withMDX = nextMDX({
   extension: /\.mdx?$/,
-  options: mdxOptions,
+  options: {
+    remarkPlugins: [
+      [
+        remarkTextr,
+        {
+          plugins: [typographicBase],
+          options: { locale: 'en-us' },
+        },
+      ],
+      remarkGfm,
+    ],
+    rehypePlugins: [],
+    providerImportSource: '@mdx-js/react',
+  },
 })
 
 /** @type {import('next').NextConfig} */
@@ -14,16 +29,6 @@ const nextConfig = withMDX({
     locales: ['default', 'en'],
     defaultLocale: 'default',
     localeDetection: false,
-  },
-  async rewrites() {
-    return {
-      beforeFiles: [
-        {
-          source: '/docs/:platform(android|ios)/:path*',
-          destination: '/docs/:path*?platform=:platform',
-        },
-      ],
-    }
   },
   async redirects() {
     // also see _middleware.ts for the locale redirect
@@ -36,11 +41,6 @@ const nextConfig = withMDX({
       {
         source: '/docs/:platform(android|ios)',
         destination: '/docs/:platform/introduction',
-        permanent: false,
-      },
-      {
-        source: '/docs/:path((?!ios)(?!android).*)',
-        destination: '/docs/ios/:path',
         permanent: false,
       },
     ]

@@ -1,13 +1,15 @@
-import { compile } from '@mdx-js/mdx'
 import { promises as fs } from 'fs'
 import type { GetStaticPaths, GetStaticProps } from 'next'
+import { MDXRemote } from 'next-mdx-remote'
+import type { MDXRemoteSerializeResult } from 'next-mdx-remote/dist/types'
+import { serialize } from 'next-mdx-remote/serialize'
 import path from 'path'
 
 import type Platform from '@src/Platform'
 import { PLATFORMS } from '@src/Platform'
 import Layout from '@src/components/docs/Layout'
+import docsComponents from '@src/lib/mdx/docs/components'
 import omitNil from '@src/lib/omitNil'
-import mdxOptions from '@src/mdxOptions'
 
 const pagesDir = path.resolve(process.cwd(), 'src/docs')
 
@@ -59,19 +61,20 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
 export const getStaticProps: GetStaticProps<
   DocsPageProps,
   { page: [Platform, ...string[]] }
-> = async ({ params, locale }) => {
+> = async context => {
+  const { params, locale } = context
   const [platform, ...pageParts] = params!.page
   const page = pageParts.join('/')
   const file = path.resolve(pagesDir, page + '.mdx')
   const contents = await fs.readFile(file, 'utf8')
-  const mdx = await compile(contents, mdxOptions as any)
+  const mdx = await serialize(contents, { parseFrontmatter: true })
 
   return {
     props: omitNil({
       platform,
       page,
       locale,
-      content: String(mdx),
+      content: mdx,
     }),
   }
 }
@@ -80,11 +83,17 @@ export interface DocsPageProps {
   platform: Platform
   page: string
   locale?: string
-  content: string
+  content: MDXRemoteSerializeResult
 }
 
-const DocsPage = ({ ...props }: DocsPageProps): JSX.Element => {
-  return <Layout>{props.content}</Layout>
+const DocsPage = ({ content, ...props }: DocsPageProps): JSX.Element => {
+  const frontmatter: { [key: string]: any } = content.frontmatter as any
+
+  return (
+    <Layout title={frontmatter.title}>
+      <MDXRemote {...content} components={docsComponents} />
+    </Layout>
+  )
 }
 
 export default DocsPage

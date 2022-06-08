@@ -7,19 +7,12 @@ import { styled } from '@src/stitches.config'
 
 import Sidebar from './Sidebar'
 
-export interface LayoutMeta {
+export interface LayoutProps {
+  children: React.ReactNode
   title?: string
 }
 
-export interface LayoutProps {
-  children: React.ReactNode
-  meta?: LayoutMeta
-}
-
-const Layout = ({
-  children,
-  meta: { title } = {},
-}: LayoutProps): JSX.Element => {
+const Layout = ({ children, title }: LayoutProps): JSX.Element => {
   return (
     <>
       <Head>

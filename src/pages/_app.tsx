@@ -6,15 +6,12 @@ import { useEffect } from 'react'
 import bpAtom from '@src/atoms/bpAtom'
 import sidebarAtom from '@src/atoms/sidebarAtom'
 import baseComponents from '@src/lib/mdx/components'
-import docsComponents from '@src/lib/mdx/docs/components'
 import useMediaQuery from '@src/lib/useMediaQuery'
-import usePathComponents from '@src/lib/usePathComponents'
 import { globalStyles, media } from '@src/stitches.config'
 
 const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
   globalStyles()
 
-  const [currentBase] = usePathComponents()
   const [bp, setBp] = useAtom(bpAtom)
   const [, setSidebar] = useAtom(sidebarAtom)
   const isMd = useMediaQuery(media.md)
@@ -31,9 +28,7 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
   )
 
   return (
-    <MDXProvider
-      components={currentBase === 'docs' ? docsComponents : baseComponents}
-    >
+    <MDXProvider components={baseComponents}>
       <Component {...pageProps} />
     </MDXProvider>
   )

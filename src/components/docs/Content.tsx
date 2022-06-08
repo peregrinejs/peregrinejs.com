@@ -1,4 +1,4 @@
-import type React from 'react'
+import React from 'react'
 
 import type Platform from '@src/Platform'
 import usePlatform from '@src/lib/docs/usePlatform'
@@ -8,10 +8,10 @@ export interface ContentProps {
   children?: React.ReactNode
 }
 
-const Content = ({ platform, children }: ContentProps): React.ReactNode => {
+const Content = ({ platform, children }: ContentProps): JSX.Element => {
   const currentPlatform = usePlatform()
 
-  return platform === currentPlatform ? children : null
+  return <>{platform === currentPlatform ? children : null}</>
 }
 
 export default Content

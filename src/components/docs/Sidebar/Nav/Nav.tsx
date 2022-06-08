@@ -1,13 +1,10 @@
 import Box from '@src/components/Box'
-import usePlatform from '@src/lib/docs/usePlatform'
 import { styled } from '@src/stitches.config'
 
 import Category from './Category'
 import Item from './Item'
 
 const Nav = (): JSX.Element => {
-  const currentPlatform = usePlatform()
-
   return (
     <Root>
       <Category heading="Overview">

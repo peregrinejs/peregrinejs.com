@@ -1,10 +1,6 @@
-import { useRouter } from 'next/router'
-
 import isOutboundUrl from '@src/lib/isOutboundUrl'
 
-import usePathComponents from '../usePathComponents'
-
-import usePlatform from './usePlatform'
+import useRoute from './useRoute'
 
 export interface UseLinkOptions {
   /**
@@ -15,7 +11,6 @@ export interface UseLinkOptions {
 
 export interface UseLinkResult {
   href: string
-  as?: string
   isOutbound: boolean
 }
 
@@ -32,13 +27,13 @@ export default function useLink(
   href: string,
   { platform }: UseLinkOptions = {},
 ): UseLinkResult {
-  const [currentBase, ...pathComponents] = usePathComponents()
-  const currentPlatform = usePlatform()
-  const isOutbound = isOutboundUrl(href)
+  const route = useRoute()
 
-  if (currentBase !== 'docs') {
+  if (!route) {
     throw new Error(`Cannot use 'useLink()' outside of docs context.`)
   }
+
+  const isOutbound = isOutboundUrl(href)
 
   if (isOutbound) {
     return { href, isOutbound }
@@ -49,18 +44,16 @@ export default function useLink(
   }
 
   if (href.startsWith('#')) {
-    const path = pathComponents.join('/') + href
+    const path = route.page + href
 
     return {
-      href: `/docs/${path}`,
-      as: `/docs/${platform ?? currentPlatform}/${path}`,
+      href: `/docs/${platform ?? route.platform}/${path}`,
       isOutbound: false,
     }
   }
 
   return {
-    href: `/docs/${href}`,
-    as: `/docs/${platform ?? currentPlatform}/${href}`,
+    href: `/docs/${platform ?? route.platform}/${href}`,
     isOutbound: false,
   }
 }

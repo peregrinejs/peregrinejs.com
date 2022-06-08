@@ -6,32 +6,23 @@ import IconButton from '@src/components/IconButton'
 import AndroidIcon from '@src/icons/AndroidIcon'
 import AppleIcon from '@src/icons/AppleIcon'
 import useLink from '@src/lib/docs/useLink'
-import usePlatform from '@src/lib/docs/usePlatform'
-import usePathComponents from '@src/lib/usePathComponents'
 import { styled } from '@src/stitches.config'
+import useRoute from '@src/lib/docs/useRoute'
 
 export interface PlatformSelectProps {
   css?: CSS
 }
 
 const PlatformSelect = ({ css }: PlatformSelectProps): JSX.Element => {
-  const currentPlatform = usePlatform()
-  const [, ...pathComponents] = usePathComponents()
-  const path = pathComponents.join('/')
-
-  const { href: androidHref, as: androidAs } = useLink(path, {
-    platform: 'android',
-  })
-
-  const { href: iosHref, as: iosAs } = useLink(path, {
-    platform: 'ios',
-  })
+  const { page, platform } = useRoute() ?? { page: '/', platform: 'ios' }
+  const { href: androidHref } = useLink(page, { platform: 'android' })
+  const { href: iosHref } = useLink(page, { platform: 'ios' })
 
   return (
     <Root css={css}>
-      <Link href={iosHref} as={iosAs} passHref>
+      <Link href={iosHref} passHref>
         <IconButton
-          active={currentPlatform === 'ios'}
+          active={platform === 'ios'}
           css={{
             '$$color-active': '$colors$brandapple',
             '$$size': '26px',
@@ -40,9 +31,9 @@ const PlatformSelect = ({ css }: PlatformSelectProps): JSX.Element => {
           icon={AppleIcon}
         />
       </Link>
-      <Link href={androidHref} as={androidAs} passHref>
+      <Link href={androidHref} passHref>
         <IconButton
-          active={currentPlatform === 'android'}
+          active={platform === 'android'}
           css={{
             '$$color-active': '$colors$brandandroid',
             '$$size': '26px',
