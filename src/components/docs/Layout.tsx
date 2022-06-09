@@ -1,6 +1,8 @@
 import Head from 'next/head'
 import React from 'react'
 
+import type Platform from '@src/Platform'
+import { prettyPlatform } from '@src/Platform'
 import Box from '@src/components/Box'
 import PlatformSelect from '@src/components/docs/PlatformSelect'
 import { styled } from '@src/stitches.config'
@@ -9,17 +11,24 @@ import Sidebar from './Sidebar'
 
 export interface LayoutProps {
   children: React.ReactNode
+  platform: Platform
   title?: string
 }
 
-const Layout = ({ children, title }: LayoutProps): JSX.Element => {
+const Layout = ({
+  children,
+  platform: platformProp,
+  title,
+}: LayoutProps): JSX.Element => {
+  const platform = prettyPlatform(platformProp)
+
   return (
     <>
       <Head>
         <title>
           {title
-            ? `${title} | Peregrine Documentation`
-            : 'Peregrine Documentation'}
+            ? `${title} | Peregrine for ${platform}`
+            : `Peregrine for ${platform}`}
         </title>
         <meta name="description" content="TODO" />
       </Head>

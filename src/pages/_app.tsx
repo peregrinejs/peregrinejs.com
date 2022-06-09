@@ -22,10 +22,11 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
     [isMd, isLg, setBp],
   )
 
-  useEffect(
-    () => setSidebar(sidebar => ({ ...sidebar, open: bp !== null })),
-    [bp, setSidebar],
-  )
+  useEffect(() => {
+    if (bp === 'md') {
+      setSidebar(sidebar => ({ ...sidebar, open: true }))
+    }
+  }, [bp, setSidebar])
 
   return (
     <MDXProvider components={baseComponents}>

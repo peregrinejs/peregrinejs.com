@@ -1,24 +1,9 @@
 const nextMDX = require('@next/mdx')
-const remarkGfm = require('remark-gfm')
-const remarkTextr = require('remark-textr')
-const typographicBase = require('typographic-base')
+const mdxOptions = require('./src/mdxOptions')
 
 const withMDX = nextMDX({
   extension: /\.mdx?$/,
-  options: {
-    remarkPlugins: [
-      [
-        remarkTextr,
-        {
-          plugins: [typographicBase],
-          options: { locale: 'en-us' },
-        },
-      ],
-      remarkGfm,
-    ],
-    rehypePlugins: [],
-    providerImportSource: '@mdx-js/react',
-  },
+  options: mdxOptions,
 })
 
 /** @type {import('next').NextConfig} */
@@ -26,6 +11,7 @@ const nextConfig = withMDX({
   reactStrictMode: true,
   pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
   i18n: {
+    // https://nextjs.org/docs/advanced-features/i18n-routing#prefixing-the-default-locale
     locales: ['default', 'en'],
     defaultLocale: 'default',
     localeDetection: false,
