@@ -3,6 +3,7 @@ import React from 'react'
 
 import type Platform from '@src/Platform'
 import { prettyPlatform } from '@src/Platform'
+import AnchorHeading from '@src/components/AnchorHeading'
 import Box from '@src/components/Box'
 import PlatformSelect from '@src/components/docs/PlatformSelect'
 import { styled } from '@src/stitches.config'
@@ -38,7 +39,10 @@ const Layout = ({
         </Box>
         <Container>
           <Main>
-            <PlatformSelect />
+            <TitleBox>
+              <Title>{title}</Title>
+              <PlatformSelect />
+            </TitleBox>
             {children}
           </Main>
         </Container>
@@ -76,6 +80,16 @@ const Main = styled('main', {
   gridArea: 'main',
   maxWidth: '$contentMaxWidth',
   minWidth: 0,
+})
+
+const TitleBox = styled(Box, {
+  display: 'flex',
+  alignItems: 'baseline',
+  justifyContent: 'space-between',
+})
+
+const Title = styled(AnchorHeading.H1, {
+  flex: 1,
 })
 
 export default Layout

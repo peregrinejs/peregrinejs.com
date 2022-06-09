@@ -3,16 +3,16 @@ import React from 'react'
 
 import Anchor from './Anchor'
 
-export type HeadingProps = React.HTMLAttributes<HTMLHeadingElement>
+export type HeadingProps = React.HTMLAttributes<HTMLAnchorElement>
 
 const createHeading = (Heading: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6') => {
-  const Component = ({ children }: HeadingProps): JSX.Element => {
+  const Component = ({ children, ...props }: HeadingProps): JSX.Element => {
     if (typeof children !== 'string') {
       throw new Error('Headings must only contain text.')
     }
 
     return (
-      <Anchor href={`#${kebabCase(children)}`}>
+      <Anchor {...props} href={`#${kebabCase(children)}`}>
         <Heading>{children}</Heading>
       </Anchor>
     )

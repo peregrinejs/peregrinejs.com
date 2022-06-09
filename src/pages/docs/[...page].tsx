@@ -69,7 +69,11 @@ export const getStaticProps: GetStaticProps<
   DocsPageProps,
   { page: [Platform, ...string[]] }
 > = async ({ params, locale }) => {
-  const [platform, ...pageParts] = params!.page
+  if (!params?.page) {
+    throw new Error(`Expected 'page' param`)
+  }
+
+  const [platform, ...pageParts] = params.page
   const page = pageParts.join('/')
   const file = path.resolve(pagesDir, page + '.mdx')
   const contents = await fs.readFile(file, 'utf8')

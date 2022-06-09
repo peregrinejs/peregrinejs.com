@@ -18,15 +18,20 @@ const PlatformSelect = ({ css }: PlatformSelectProps): JSX.Element => {
   const { href: androidHref } = useLink(page, { platform: 'android' })
   const { href: iosHref } = useLink(page, { platform: 'ios' })
 
+  const buttonCSS = {
+    '$$size': '26px',
+    '@md': { $$size: '32px' },
+    '@lg': { $$size: '42px' },
+  }
+
   return (
     <Root css={css}>
       <Link href={iosHref} passHref>
         <IconButton
           active={platform === 'ios'}
           css={{
+            ...buttonCSS,
             '$$color-active': '$colors$brandapple',
-            '$$size': '26px',
-            '@lg': { $$size: '32px' },
           }}
           icon={AppleIcon}
         />
@@ -35,9 +40,8 @@ const PlatformSelect = ({ css }: PlatformSelectProps): JSX.Element => {
         <IconButton
           active={platform === 'android'}
           css={{
+            ...buttonCSS,
             '$$color-active': '$colors$brandandroid',
-            '$$size': '26px',
-            '@lg': { $$size: '32px' },
           }}
           icon={AndroidIcon}
         />
