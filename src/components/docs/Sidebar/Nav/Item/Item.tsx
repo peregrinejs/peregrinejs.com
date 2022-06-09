@@ -1,9 +1,9 @@
 import NextLink from 'next/link'
-import { useRouter } from 'next/router'
 import React from 'react'
 
 import OutboundIcon from '@src/icons/OutboundIcon'
 import useLink from '@src/lib/docs/useLink'
+import useRoute from '@src/lib/docs/useRoute'
 import { styled } from '@src/stitches.config'
 
 import Anchor from './Anchor'
@@ -14,9 +14,9 @@ export interface ItemProps {
 }
 
 const Item = ({ href: hrefProp, children }: ItemProps): JSX.Element => {
-  const { asPath } = useRouter()
+  const route = useRoute()
   const { href, isOutbound } = useLink(hrefProp)
-  const current = asPath === href
+  const current = route?.path === href
 
   return (
     <Root>

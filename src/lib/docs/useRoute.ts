@@ -4,7 +4,7 @@ import type Platform from '@src/Platform'
 import { isPlatform } from '@src/Platform'
 
 export interface Route {
-  asPath: string
+  path: string
   page: string
   platform: Platform
 }
@@ -13,22 +13,23 @@ export interface Route {
  * Returns a route object for docs.
  */
 export default function useRoute(): Route | null {
-  const { asPath, route, query } = useRouter()
-  const { page } = query
+  const { route, query } = useRouter()
 
-  if (!page || typeof page === 'string' || route !== '/docs/[...page]') {
+  if (route !== '/docs/[...page]' || !Array.isArray(query.page)) {
     return null
   }
 
-  const [platform, ...pageParts] = page
+  const [platform, ...pageParts] = query.page
 
   if (!isPlatform(platform)) {
     return null
   }
 
+  const page = pageParts.join('/')
+
   return {
-    asPath,
-    page: pageParts.join('/'),
+    path: `/docs/${platform}/${page}`,
+    page,
     platform,
   }
 }
