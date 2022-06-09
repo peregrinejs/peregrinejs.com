@@ -37,7 +37,7 @@ const Root = styled(Box, {
   margin: '0 0 $headerPadding',
 })
 
-const List = styled('ul', {
+const List = styled('menu', {
   listStyle: 'none',
   margin: 0,
   padding: 0,
