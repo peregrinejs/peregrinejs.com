@@ -51,7 +51,7 @@ Endpoints can also contain periods for namespacing. In the following example, a
 period is used in each key to organize `show()` and `hide()` functions and a
 `visible$` observable under a single `SplashScreen` namespace.
 
-<Content platform="iOS">
+<T ios>
 
 ```swift
 let splashScreen = SplashScreen()
@@ -67,8 +67,8 @@ let remoteInterface = RemoteInterface(
 )
 ```
 
-</Content>
-<Content platform="Android">
+</T>
+<T android>
 
 ```kotlin
 val splashScreen = SplashScreen()
@@ -84,13 +84,14 @@ val remoteInterface = RemoteInterface(
 )
 ```
 
-</Content>
+</T>
 
 #### Functions
 
-Remote interface functions are regular functions in Swift, Kotlin, and
-JavaScript. Since functions in each of these languages have first-class
-support, we can simply pass them as references to the remote interface(s).
+Remote interface functions are regular functions in <T ios>Swift</T><T
+android>Kotlin</T>, and JavaScript. Since functions in each of these languages
+have first-class support, we can simply pass them as references to the remote
+interface(s).
 
 Remote functions should accept a single parameter: `call`. An instance of the
 `Call` class represents a single function call over the bridge. It is used to
@@ -99,7 +100,7 @@ retrieve request data and send a response.
 For example, the following function responds with the same data that the client
 sent.
 
-<Content platform="iOS">
+<T ios>
 
 ```swift
 func echo(call: Call) {
@@ -107,8 +108,8 @@ func echo(call: Call) {
 }
 ```
 
-</Content>
-<Content platform="Android">
+</T>
+<T android>
 
 ```kotlin
 fun echo(call: Call) {
@@ -116,21 +117,20 @@ fun echo(call: Call) {
 }
 ```
 
-</Content>
+</T>
 
 #### Observables
 
 Remote interface observables are reactive streams of `Event` instances. They
-are implemented with <Content platform="iOS">[Combine
-Framework](https://developer.apple.com/documentation/combine) in
-iOS</Content><Content platform="Android">[Asynchronous
-Flows](https://kotlinlang.org/docs/flow.html) in Android</Content> and
-[RxJS](https://rxjs.dev) in web.
+are implemented with <T ios>[Combine
+Framework](https://developer.apple.com/documentation/combine) in iOS</T><T
+android>[Asynchronous Flows](https://kotlinlang.org/docs/flow.html) in
+Android</T> and [RxJS](https://rxjs.dev) in web.
 
 In the following example, calling the `show()` method will emit `true` to
 subscribers in the web layer.
 
-<Content platform="iOS">
+<T ios>
 
 ```swift
 class SplashScreen {
@@ -144,8 +144,8 @@ class SplashScreen {
 }
 ```
 
-</Content>
-<Content platform="Android">
+</T>
+<T android>
 
 ```kotlin
 class SplashScreen(val scope: CoroutineScope) {
@@ -160,7 +160,7 @@ class SplashScreen(val scope: CoroutineScope) {
 
 ```
 
-</Content>
+</T>
 
 ### Path Handlers
 
@@ -168,12 +168,12 @@ Developers attach path handlers to the Web Frame for handling web view
 requests. Path handlers are usually used for providing assets and resources to
 the web view.
 
-In the following example, the `/photos` path is being registered and linked to
+In the following example, the `/photos/` path is being registered and linked to
 a directory on the native device. When web view requests come in, Peregrine
 will handle them according to the given asset loader. Think of it like a static
 file server.
 
-<Content platform="iOS">
+<T ios>
 
 ```swift
 let documentsURL = try FileManager.default.url(
@@ -194,8 +194,8 @@ let configuration = WebFrame.Configuration(
 
 ```
 
-</Content>
-<Content platform="Android">
+</T>
+<T android>
 
 ```kotlin
 val photosDir = context.filesDir.resolve("photos")
@@ -212,7 +212,7 @@ val configuration = WebFrame.Configuration(
 )
 ```
 
-</Content>
+</T>
 
 ## Implementation
 

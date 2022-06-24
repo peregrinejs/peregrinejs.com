@@ -3,7 +3,9 @@ import React from 'react'
 
 import Anchor from './Anchor'
 
-export type HeadingProps = React.HTMLAttributes<HTMLAnchorElement>
+export type HeadingProps = React.HTMLAttributes<
+  HTMLAnchorElement & HTMLHeadingElement
+>
 
 const createHeading = (Heading: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6') => {
   const Component = ({ children, ...props }: HeadingProps): JSX.Element => {
