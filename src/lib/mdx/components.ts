@@ -2,7 +2,6 @@ import type { MDXComponents } from 'mdx/types'
 import Link from 'next/link'
 
 import { H1, H2, H3, H4, H5, H6 } from '@src/components/AnchorHeading'
-import Pre from '@src/components/CodeBlock/Pre'
 import ResponsiveImage from '@src/components/ResponsiveImage'
 import Table from '@src/components/Table'
 
@@ -15,7 +14,6 @@ const components: MDXComponents = {
   h5: H5,
   h6: H6,
   img: ResponsiveImage,
-  pre: Pre,
   table: Table,
 }
 

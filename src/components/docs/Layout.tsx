@@ -5,7 +5,7 @@ import type Platform from '@src/Platform'
 import { prettyPlatform } from '@src/Platform'
 import { createSlug } from '@src/components/AnchorHeading'
 import Box from '@src/components/Box'
-import { styled, theme } from '@src/stitches.config'
+import { styled } from '@src/stitches.config'
 
 import Main from './Main'
 import Sidebar from './Sidebar'

@@ -1,17 +1,17 @@
-import { promises as fs } from 'fs'
 import omit from 'lodash/fp/omit'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 import { MDXRemote } from 'next-mdx-remote'
 import type { MDXRemoteSerializeResult } from 'next-mdx-remote/dist/types'
 import { serialize } from 'next-mdx-remote/serialize'
-import path from 'path'
+import { promises as fs } from 'node:fs'
+import path from 'node:path'
 
 import type Platform from '@src/Platform'
 import { PLATFORMS, prettyPlatform } from '@src/Platform'
 import Layout from '@src/components/docs/Layout'
 import docsComponents from '@src/lib/mdx/docs/components'
 import omitNil from '@src/lib/omitNil'
-import _mdxOptions from '@src/mdxOptions'
+import _mdxOptions from '@src/mdxOptions.mjs'
 
 const pagesDir = path.resolve(process.cwd(), 'src/docs')
 

@@ -3,11 +3,11 @@ import type { MDXComponents } from 'mdx/types'
 import Callout from '@src/components/Callout'
 import Table, { Th } from '@src/components/Table'
 import YearsAgo from '@src/components/YearsAgo'
+import { H1, H2, H3, H4, H5, H6 } from '@src/components/docs/AnchorHeading'
 import Link from '@src/components/docs/Link'
 import Template from '@src/components/docs/Template'
 
 import baseComponents from '../components'
-import { H1, H2, H3, H4, H5, H6 } from '@src/components/docs/AnchorHeading'
 
 const components: MDXComponents = {
   ...baseComponents,

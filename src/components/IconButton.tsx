@@ -2,6 +2,7 @@ import type { CSS } from '@stitches/react'
 import React, { forwardRef } from 'react'
 
 import { styled } from '@src/stitches.config'
+
 import ButtonBase from './ButtonBase'
 
 export interface IconButtonProps

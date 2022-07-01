@@ -1,6 +1,7 @@
-import { styled } from '@src/stitches.config'
 import kebabCase from 'lodash/fp/kebabCase'
 import React from 'react'
+
+import { styled } from '@src/stitches.config'
 
 import AnchorHeadingLink from './AnchorHeadingLink'
 
@@ -46,28 +47,28 @@ const Anchor = styled('a', {
   visibility: 'hidden',
 })
 
-export const H1 = (props: Omit<AnchorHeadingProps, 'Component'>) => (
-  <AnchorHeading {...props} Component="h1" />
-)
+export const H1 = (
+  props: Omit<AnchorHeadingProps, 'Component'>,
+): JSX.Element => <AnchorHeading {...props} Component="h1" />
 
-export const H2 = (props: Omit<AnchorHeadingProps, 'Component'>) => (
-  <AnchorHeading {...props} Component="h2" />
-)
+export const H2 = (
+  props: Omit<AnchorHeadingProps, 'Component'>,
+): JSX.Element => <AnchorHeading {...props} Component="h2" />
 
-export const H3 = (props: Omit<AnchorHeadingProps, 'Component'>) => (
-  <AnchorHeading {...props} Component="h3" />
-)
+export const H3 = (
+  props: Omit<AnchorHeadingProps, 'Component'>,
+): JSX.Element => <AnchorHeading {...props} Component="h3" />
 
-export const H4 = (props: Omit<AnchorHeadingProps, 'Component'>) => (
-  <AnchorHeading {...props} Component="h4" />
-)
+export const H4 = (
+  props: Omit<AnchorHeadingProps, 'Component'>,
+): JSX.Element => <AnchorHeading {...props} Component="h4" />
 
-export const H5 = (props: Omit<AnchorHeadingProps, 'Component'>) => (
-  <AnchorHeading {...props} Component="h5" />
-)
+export const H5 = (
+  props: Omit<AnchorHeadingProps, 'Component'>,
+): JSX.Element => <AnchorHeading {...props} Component="h5" />
 
-export const H6 = (props: Omit<AnchorHeadingProps, 'Component'>) => (
-  <AnchorHeading {...props} Component="h6" />
-)
+export const H6 = (
+  props: Omit<AnchorHeadingProps, 'Component'>,
+): JSX.Element => <AnchorHeading {...props} Component="h6" />
 
 export default AnchorHeading

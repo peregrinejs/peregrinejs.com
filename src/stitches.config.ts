@@ -30,15 +30,6 @@ export const {
       gray5: '29 28 27',
       accent1: '100 157 255',
       accent2: '205 220 255',
-      hlcomment: '125 141 123',
-      hlkeyword: '114 110 107',
-      hloperator: '193 193 193',
-      hlvariable: '95 135 135',
-      hlclass: '241 217 178',
-      hlstring: '124 92 93',
-      hlconstant: '170 170 170',
-      hlfunction: '136 136 136',
-      hlmeta: '97 136 156',
       money: '163 255 169',
       info: '$accent1',
       warning: '255 193 61',
@@ -116,6 +107,19 @@ export const globalStyles = globalCss({
       backgroundColor: 'rgb($gray3)',
     },
   },
+  ':root': {
+    $shiki$color$background: 'rgb($colors$gray5)',
+    $shiki$color$text: 'rgb($colors$gray2)',
+    $shiki$token$comment: 'rgb(125 141 123)',
+    $shiki$token$constant: 'rgb(170 170 170)',
+    $shiki$token$function: 'rgb(136 136 136)',
+    $shiki$token$parameter: '$shiki$color$text',
+    $shiki$token$keyword: 'rgb(114 110 107)',
+    $shiki$token$link: 'rgb($colors$accent1)',
+    $shiki$token$punctuation: '$shiki$token$function',
+    $shiki$token$string: 'rgb(124 92 93)',
+    $shiki$token$string$expression: '$shiki$token$string',
+  },
   'html, body': {
     margin: 0,
     padding: 0,
@@ -135,7 +139,6 @@ export const globalStyles = globalCss({
     backgroundColor: 'rgb($bg)',
     fontFamily: '$text',
     fontWeight: '$light',
-    lineHeight: '$text',
     color: 'rgb($gray2)',
   },
   'body, #__next': {
@@ -184,16 +187,45 @@ export const globalStyles = globalCss({
   },
   ':not(pre) > code': {
     backgroundColor: 'rgb($gray4)',
-    fontFamily: '$monospace',
     padding: '1px 3px',
     color: 'rgba($accent2 / 0.9)',
+  },
+  'code': {
+    fontFamily: '$monospace',
+  },
+  'pre.shiki': {
+    'padding': '0.75em',
+    'overflow': 'scroll',
+
+    '& code': {
+      'fontSize': '0.75em',
+      'lineHeight': '1.5em',
+
+      '& .line': {
+        display: 'block',
+      },
+
+      '& .line[data-line-number]::before': {
+        display: 'inline-block',
+        width: '1em',
+        fontSize: '0.85em',
+        content: 'attr(data-line-number)',
+        margin: '0 1.5em 0 0.5em',
+        textAlign: 'right',
+        color: 'rgba($gray3 / 0.5)',
+        userSelect: 'none',
+      },
+    },
+  },
+  'p': {
+    lineHeight: '$text',
+  },
+  'th p, td p, dd p, dt p': {
+    margin: 0,
   },
   'strong': {
     fontWeight: '$bold',
     color: 'rgb($gray1)',
-  },
-  'th p, td p, dd p, dt p': {
-    margin: 0,
   },
   'abbr': {
     textDecoration: 'none',
@@ -203,6 +235,9 @@ export const globalStyles = globalCss({
   },
   'ul': {
     listStyleType: 'square',
+  },
+  'ul, ol, dl': {
+    lineHeight: '$text',
   },
   'dd': {
     marginBottom: '0.5em',

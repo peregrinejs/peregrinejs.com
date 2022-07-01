@@ -1,10 +1,10 @@
-import React, { useLayoutEffect, useRef } from 'react'
+import { useAtom } from 'jotai'
+import React, { useEffect, useRef } from 'react'
 
+import docsTitleBoxAtom from '@src/atoms/docsTitleBoxAtom'
 import Box from '@src/components/Box'
 import PlatformSelect from '@src/components/docs/PlatformSelect'
 import { styled } from '@src/stitches.config'
-import { useAtom } from 'jotai'
-import docsTitleBoxAtom from '@src/atoms/docsTitleBoxAtom'
 
 export interface TitleBoxProps {
   title?: string
@@ -15,7 +15,7 @@ const TitleBox = ({ title, titleSlug }: TitleBoxProps): JSX.Element => {
   const ref = useRef<HTMLDivElement>(null)
   const [, setState] = useAtom(docsTitleBoxAtom)
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (ref.current) {
       const currentHeight = ref.current.offsetHeight
 

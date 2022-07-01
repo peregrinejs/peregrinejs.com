@@ -1,7 +1,8 @@
 import React from 'react'
 
-import TitleBox from './TitleBox'
 import { styled } from '@src/stitches.config'
+
+import TitleBox from './TitleBox'
 
 export interface MainProps {
   children: React.ReactNode

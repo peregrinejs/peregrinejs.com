@@ -1,5 +1,5 @@
-const nextMDX = require('@next/mdx')
-const mdxOptions = require('./src/mdxOptions')
+import nextMDX from '@next/mdx'
+import mdxOptions from './src/mdxOptions.mjs'
 
 const withMDX = nextMDX({
   extension: /\.mdx?$/,
@@ -17,7 +17,7 @@ const nextConfig = withMDX({
     localeDetection: false,
   },
   async redirects() {
-    // also see _middleware.ts for the locale redirect
+    // also see middleware.ts for the locale redirect
     return [
       {
         source: '/docs',
@@ -31,6 +31,14 @@ const nextConfig = withMDX({
       },
     ]
   },
+  webpack: config => {
+    config.experiments = {
+      layers: true,
+      topLevelAwait: true,
+    }
+
+    return config
+  },
 })
 
-module.exports = nextConfig
+export default nextConfig
