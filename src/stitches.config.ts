@@ -185,7 +185,7 @@ export const globalStyles = globalCss({
   ':not(pre) > code': {
     backgroundColor: 'rgb($gray4)',
     fontFamily: '$monospace',
-    padding: '1px 3px 2px',
+    padding: '1px 3px',
     color: 'rgba($accent2 / 0.9)',
   },
   'strong': {
@@ -194,6 +194,15 @@ export const globalStyles = globalCss({
   },
   'th p, td p, dd p, dt p': {
     margin: 0,
+  },
+  'abbr': {
+    textDecoration: 'none',
+    borderBottomColor: 'rgb($gray3)',
+    borderBottomWidth: 1,
+    borderBottomStyle: 'dashed',
+  },
+  'ul': {
+    listStyleType: 'square',
   },
   'dd': {
     marginBottom: '0.5em',

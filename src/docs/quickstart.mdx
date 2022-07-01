@@ -2,4 +2,62 @@
 title: Quickstart
 ---
 
-hi
+This guide will help you get started quickly with Peregrine. You will learn how
+to install Peregrine for {platform} and use it to display web contents in an
+existing {platform} app. As a reminder, you can use the buttons above to switch
+platforms for this documentation.
+
+If you don't have an {platform} app, use <T
+ios>[XCode](https://developer.apple.com/xcode)</T><T android>[Android
+Studio](https://developer.android.com/studio)</T> to create one.
+
+<T ios>
+
+## iOS Requirements
+
+- **iOS 14+**
+- **Swift 5+**
+- **SwiftUI**. Peregrine provides a
+  [`UIViewRepresentable`](https://developer.apple.com/documentation/swiftui/uiviewrepresentable)
+  which must be used within a SwiftUI view hierarchy. If your app uses UIKit,
+  it is possible to [interface with
+  SwiftUI](https://developer.apple.com/tutorials/swiftui/interfacing-with-uikit).
+
+</T>
+
+<T android>
+
+## Android Requirements
+
+- **API 24+** (Android 7 or later)
+- **Kotlin**. Peregrine is written entirely in Kotlin, so you must [set up your
+  app to compile Kotlin](https://developer.android.com/kotlin/add-kotlin).
+
+</T>
+
+## Installation
+
+The first step is to install the Peregrine {platform} library.
+
+<T ios>
+1. In XCode, click on your project in the Project Navigator.
+1. Under "General", find "Frameworks, Libraries, and Embedded Content" and
+   click the add button.
+1. Click "Add Other..." and select "Add Package Dependency..."
+1. Paste the following URL into the search bar.
+
+    ```
+    https://github.com/peregrinejs/iOS
+    ```
+
+1. Click "Add Package".
+1. Make sure the `Peregrine` framework is selected when confirming.
+</T>
+
+<T android>
+TODO
+</T>
+
+## Configuration
+
+TODO

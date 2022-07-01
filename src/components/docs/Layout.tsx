@@ -3,11 +3,11 @@ import React from 'react'
 
 import type Platform from '@src/Platform'
 import { prettyPlatform } from '@src/Platform'
-import AnchorHeading from '@src/components/AnchorHeading'
+import { createSlug } from '@src/components/AnchorHeading'
 import Box from '@src/components/Box'
-import PlatformSelect from '@src/components/docs/PlatformSelect'
-import { styled } from '@src/stitches.config'
+import { styled, theme } from '@src/stitches.config'
 
+import Main from './Main'
 import Sidebar from './Sidebar'
 
 export interface LayoutProps {
@@ -22,6 +22,7 @@ const Layout = ({
   title,
 }: LayoutProps): JSX.Element => {
   const platform = prettyPlatform(platformProp)
+  const titleSlug = title ? createSlug(title) : undefined
 
   return (
     <>
@@ -33,16 +34,12 @@ const Layout = ({
         </title>
         <meta name="description" content="TODO" />
       </Head>
-      <Root>
+      <Root id={titleSlug}>
         <Box>
           <Sidebar />
         </Box>
         <Container>
-          <Main>
-            <TitleBox>
-              <Title>{title}</Title>
-              <PlatformSelect />
-            </TitleBox>
+          <Main title={title} titleSlug={titleSlug}>
             {children}
           </Main>
         </Container>
@@ -74,22 +71,6 @@ const Container = styled(Box, {
   '@lg': {
     padding: '$contentPaddingLg',
   },
-})
-
-const Main = styled('main', {
-  gridArea: 'main',
-  maxWidth: '$contentMaxWidth',
-  minWidth: 0,
-})
-
-const TitleBox = styled(Box, {
-  display: 'flex',
-  alignItems: 'baseline',
-  justifyContent: 'space-between',
-})
-
-const Title = styled(AnchorHeading.H1, {
-  flex: 1,
 })
 
 export default Layout

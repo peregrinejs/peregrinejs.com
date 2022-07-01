@@ -7,21 +7,33 @@ import { styled } from '@src/stitches.config'
 import Box from './Box'
 
 export interface CalloutProps {
-  type?: 'info'
+  title?: string
+  type?: 'info' | 'warning' | 'construction'
   children: React.ReactNode
 }
 
-const Callout = ({ type = 'info', children }: CalloutProps): JSX.Element => {
+const Callout = ({
+  title,
+  type = 'info',
+  children,
+}: CalloutProps): JSX.Element => {
+  const typeVariant = type === 'construction' ? 'warning' : type
+
   return (
-    <Root type={type}>
-      <Box css={{ height: 32 }}>
+    <Root type={typeVariant}>
+      <IconBox>
         {type === 'info' ? (
           <InfoIcon />
         ) : type === 'warning' ? (
           <WarningIcon />
+        ) : type === 'construction' ? (
+          '🚧'
         ) : null}
-      </Box>
-      {children}
+      </IconBox>
+      <Content>
+        {title ? <Title>{title}</Title> : null}
+        {children}
+      </Content>
     </Root>
   )
 }
@@ -32,12 +44,12 @@ const Root = styled(Box, {
   'margin': '1em 0',
   'padding': '1em',
 
-  '& > *': {
-    margin: 0,
-  },
-
   '& a': {
     color: 'rgb($gray1)',
+  },
+
+  '& h1, h2, h3, h4, h5, h6': {
+    color: 'inherit',
   },
 
   'variants': {
@@ -52,6 +64,35 @@ const Root = styled(Box, {
       },
     },
   },
+})
+
+const IconBox = styled(Box, {
+  $$size: '32px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: '$$size',
+  height: '$$size',
+  fontSize: 'calc($$size * 0.65)',
+  userSelect: 'none',
+})
+
+const Content = styled(Box, {
+  'display': 'flex',
+  'flexDirection': 'column',
+  'justifyContent': 'center',
+
+  '& > *:first-child': {
+    marginTop: 0,
+  },
+
+  '& > *:last-child': {
+    marginBottom: 0,
+  },
+})
+
+const Title = styled('h5', {
+  margin: 0,
 })
 
 const InfoIcon = styled(_InfoIcon, {

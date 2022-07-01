@@ -2,15 +2,21 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 
 import LinkIcon from '@src/icons/LinkIcon'
-import trimLeadingHashes from '@src/lib/trimLeadingHashes'
 import { styled } from '@src/stitches.config'
 
-export interface AnchorProps extends React.HTMLAttributes<HTMLAnchorElement> {
+export interface AnchorHeadingLinkProps
+  extends React.HTMLAttributes<HTMLAnchorElement> {
   href: string
   children: React.ReactNode
+  icon?: boolean
 }
 
-const Anchor = ({ href, children, ...props }: AnchorProps): JSX.Element => {
+const AnchorHeadingLink = ({
+  href,
+  children,
+  icon = true,
+  ...props
+}: AnchorHeadingLinkProps): JSX.Element => {
   const [hovered, setHovered] = useState(false)
 
   const child = React.Children.map(children, (child, index) => {
@@ -19,17 +25,18 @@ const Anchor = ({ href, children, ...props }: AnchorProps): JSX.Element => {
       !React.isValidElement(child) ||
       typeof child.type !== 'string'
     ) {
-      throw new Error('Anchor must only have one child heading element.')
+      throw new Error(
+        'AnchorHeadingLink must only have one child heading element.',
+      )
     }
 
     return React.cloneElement(
       child,
-      {
-        id: trimLeadingHashes(href),
-        style: { position: 'relative' },
-      },
+      {},
       <>
-        <Icon aria-hidden css={hovered ? {} : { display: 'none' }} />
+        {icon ? (
+          <Icon aria-hidden css={hovered ? {} : { display: 'none' }} />
+        ) : null}
         {child.props.children}
       </>,
     )
@@ -48,7 +55,7 @@ const Anchor = ({ href, children, ...props }: AnchorProps): JSX.Element => {
   )
 }
 
-Anchor.displayName = 'Anchor'
+AnchorHeadingLink.displayName = 'AnchorHeadingLink'
 
 const A = styled('a', {
   display: 'block',
@@ -58,12 +65,12 @@ const A = styled('a', {
 
 const Icon = styled(LinkIcon, {
   $$size: '0.75em',
-  position: 'absolute',
-  left: 'calc(-$$size - 0.1em)',
-  top: 'calc(50% - $$size / 2)',
+  $$padding: '0.1em',
+  marginLeft: 'calc(-$$size - $$padding)',
+  marginRight: '$$padding',
   width: '$$size',
   height: '$$size',
   color: 'rgb($gray3)',
 })
 
-export default Anchor
+export default AnchorHeadingLink

@@ -17,8 +17,7 @@ const Header = (): JSX.Element => {
 
 const Root = styled('header', {
   display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
+  placeContent: 'center space-between',
   padding: '$headerPadding',
 })
 

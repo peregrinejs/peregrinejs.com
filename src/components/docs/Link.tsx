@@ -28,9 +28,7 @@ const Link = ({
   )
 }
 
-const A = styled('a', {
-  whiteSpace: 'nowrap',
-})
+const A = styled('a')
 
 const Icon = styled(OutboundIcon, {
   width: 14,

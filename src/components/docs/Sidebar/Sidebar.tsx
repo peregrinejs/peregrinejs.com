@@ -55,9 +55,8 @@ const Root = styled(Box, {
 
 const Topbar = styled(Box, {
   display: 'flex',
-  alignItems: 'center',
+  placeContent: 'center space-between',
   margin: '$headerPadding',
-  justifyContent: 'space-between',
   userSelect: 'none',
 })
 
