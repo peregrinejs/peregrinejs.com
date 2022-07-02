@@ -2,7 +2,9 @@ import { createStitches } from '@stitches/react'
 
 import { bpMd, bpLg } from './atoms/bpAtom'
 
-const fontBasis = 16
+export const fontBasis = 16
+export const shikiCopySpacing = 13
+export const shikiCopySize = 18
 
 export const media = {
   md: `(min-width: ${bpMd}px)`,
@@ -194,8 +196,36 @@ export const globalStyles = globalCss({
     fontFamily: '$monospace',
   },
   'pre.shiki': {
+    'position': 'relative',
     'padding': '0.75em',
     'overflow': 'scroll',
+
+    '&::after': {
+      display: 'block',
+      position: 'absolute',
+      top: shikiCopySpacing,
+      right: shikiCopySpacing,
+      width: shikiCopySize,
+      height: shikiCopySize,
+      fontSize: shikiCopySize,
+      content: ' ',
+    },
+
+    '&:hover': {
+      '&::after': {
+        backgroundImage:
+          'url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KICA8cmVjdCB4PSIxMjgiIHk9IjEyOCIgd2lkdGg9IjMzNiIgaGVpZ2h0PSIzMzYiIHJ4PSI1NyIgcnk9IjU3IiBmaWxsPSJub25lIiBzdHJva2U9IiNhYWEiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMzIiIC8+CiAgPHBhdGggZD0iTTM4My41IDEyOGwuNS0yNGE1Ni4xNiA1Ni4xNiAwIDAwLTU2LTU2SDExMmE2NC4xOSA2NC4xOSAwIDAwLTY0IDY0djIxNmE1Ni4xNiA1Ni4xNiAwIDAwNTYgNTZoMjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2FhYSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMyIiAvPgo8L3N2Zz4K)', // src/copy.svg
+        cursor: 'pointer',
+      },
+    },
+
+    '&[data-copied]': {
+      '&::after': {
+        backgroundImage:
+          'url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KICA8cGF0aCBkPSJNNDQ4IDI1NmMwLTEwNi04Ni0xOTItMTkyLTE5MlM2NCAxNTAgNjQgMjU2czg2IDE5MiAxOTIgMTkyIDE5Mi04NiAxOTItMTkyeiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjYWFhIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHN0cm9rZS13aWR0aD0iMzIiIC8+CiAgPHBhdGggZmlsbD0ibm9uZSIgc3Ryb2tlPSIjYWFhIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMzIiIGQ9Ik0zNTIgMTc2TDIxNy42IDMzNiAxNjAgMjcyIiAvPgo8L3N2Zz4K)', // src/checkmark.svg
+        cursor: 'default',
+      },
+    },
 
     '& code': {
       'fontSize': '0.75em',
