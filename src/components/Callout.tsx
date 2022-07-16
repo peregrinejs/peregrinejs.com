@@ -38,62 +38,65 @@ const Callout = ({
   )
 }
 
+const IconBox = styled(Box, {
+  '$$size': '32px',
+  'display': 'flex',
+  'alignItems': 'center',
+  'justifyContent': 'center',
+  'margin': '0.5rem 0',
+  'width': '$$size',
+  'height': '$$size',
+  'fontSize': 'calc($$size * 0.65)',
+  'userSelect': 'none',
+
+  '@md': {
+    $$size: '36px',
+  },
+
+  '@lg': {
+    $$size: '48px',
+  },
+})
+
 const Root = styled(Box, {
   'display': 'flex',
-  'gap': '0.75em',
-  'margin': '1em 0',
-  'padding': '1em',
+  'gap': '0.75rem',
+  'margin': '1rem 0',
+  'padding': '0.5rem 1rem',
 
   '& a': {
     color: 'rgb($gray1)',
   },
 
-  '& h1, h2, h3, h4, h5, h6': {
+  '& h1, h2, h3, h4, h5, h6, strong': {
     color: 'inherit',
   },
 
   'variants': {
     type: {
       info: {
-        color: 'rgb($info)',
-        backgroundColor: 'rgba($info / 0.25)',
+        color: 'rgba($info / 0.9)',
+        backgroundColor: 'rgba($info / 0.1)',
+
+        [`& :is(h1, h2, h3, h4, h5, h6, strong, ${IconBox})`]: {
+          color: 'rgba($info)',
+        },
       },
       warning: {
-        color: 'rgb($warning)',
-        backgroundColor: 'rgba($warning / 0.25)',
+        color: 'rgba($warning / 0.8)',
+        backgroundColor: 'rgba($warning / 0.125)',
+
+        [`& :is(h1, h2, h3, h4, h5, h6, strong, ${IconBox})`]: {
+          color: 'rgba($warning)',
+        },
       },
     },
   },
 })
 
-const IconBox = styled(Box, {
-  $$size: '32px',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  width: '$$size',
-  height: '$$size',
-  fontSize: 'calc($$size * 0.65)',
-  userSelect: 'none',
-})
+const Content = styled(Box)
 
-const Content = styled(Box, {
-  'display': 'flex',
-  'flexDirection': 'column',
-  'justifyContent': 'center',
-
-  '& > *:first-child': {
-    marginTop: 0,
-  },
-
-  '& > *:last-child': {
-    marginBottom: 0,
-  },
-})
-
-const Title = styled('h5', {
-  margin: 0,
-})
+const Title = styled('h4')
 
 const InfoIcon = styled(_InfoIcon, {
   width: 32,

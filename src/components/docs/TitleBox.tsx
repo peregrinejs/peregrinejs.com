@@ -41,13 +41,12 @@ const Root = styled(Box, {
   'display': 'flex',
   'alignItems': 'center',
   'justifyContent': 'space-between',
-  'padding': '1em 0',
 
   '@md': {
     position: 'sticky',
     top: 0,
-    backgroundColor: 'rgba($bg / 0.88)',
-    backdropFilter: 'blur(2px) saturate(250%)',
+    backgroundColor: 'rgba($bg / 0.7)',
+    backdropFilter: 'blur(2.5px) saturate(250%)',
     zIndex: 1,
   },
 })

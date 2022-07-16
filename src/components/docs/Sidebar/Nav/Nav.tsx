@@ -17,6 +17,7 @@ const Nav = (): JSX.Element => {
       </Category>
       <Category heading="Getting Started">
         <List>
+          <Item href="requirements">Project Requirements</Item>
           <Item href="quickstart">Quickstart</Item>
         </List>
       </Category>

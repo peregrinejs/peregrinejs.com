@@ -2,62 +2,364 @@
 title: Quickstart
 ---
 
-This guide will help you get started quickly with Peregrine. You will learn how
-to install Peregrine for {platform} and use it to display web contents in an
-existing {platform} app. As a reminder, you can use the buttons above to switch
-platforms for this documentation.
+This guide is for developers who want to quickly set up and use Peregrine in an
+example {platform} app to see it in action for themselves. As a reminder, you
+can use the buttons above to switch platforms for this documentation.
 
-If you don't have an {platform} app, use <T
-ios>[XCode](https://developer.apple.com/xcode)</T><T android>[Android
-Studio](https://developer.android.com/studio)</T> to create one.
+### Create an example app
 
-<T ios>
+Use <T ios>[XCode](https://developer.apple.com/xcode)</T><T android>[Android
+Studio](https://developer.android.com/studio)</T> to create a throwaway
+{platform} app. <T ios>Make sure to select **SwiftUI** for interface.</T><T
+android>Make sure to use the **Empty Activity** template and select **Kotlin**
+for language.</T> Review [these requirements](requirements) for more
+information.
 
-## iOS Requirements
-
-- **iOS 14+**
-- **Swift 5+**
-- **SwiftUI**. Peregrine provides a
-  [`UIViewRepresentable`](https://developer.apple.com/documentation/swiftui/uiviewrepresentable)
-  which must be used within a SwiftUI view hierarchy. If your app uses UIKit,
-  it is possible to [interface with
-  SwiftUI](https://developer.apple.com/tutorials/swiftui/interfacing-with-uikit).
-
-</T>
-
-<T android>
-
-## Android Requirements
-
-- **API 24+** (Android 7 or later)
-- **Kotlin**. Peregrine is written entirely in Kotlin, so you must [set up your
-  app to compile Kotlin](https://developer.android.com/kotlin/add-kotlin).
-
-</T>
-
-## Installation
+### Install Peregrine
 
 The first step is to install the Peregrine {platform} library.
 
 <T ios>
 
 1. In XCode, click on your project in the Project Navigator.
-1. Under "General", find "Frameworks, Libraries, and Embedded Content" and
+2. Under "General", find "Frameworks, Libraries, and Embedded Content" and
    click the add button.
-1. Click "Add Other..." and select "Add Package Dependency..."
-1. Paste the following URL into the search bar.
+3. Click "Add Other..." and select "Add Package Dependency..."
+4. Paste the following URL into the search bar.
 
-   ```
-   https://github.com/peregrinejs/iOS
-   ```
+```
+https://github.com/peregrinejs/iOS
+```
 
-1. Click "Add Package".
-1. Make sure the `Peregrine` framework is selected when confirming.
+5. Click "Add Package" and make sure the `Peregrine` library is added to your
+   app target.
 
 </T>
 
-<T android>TODO</T>
+### Add web assets
 
-## Configuration
+Before we can use Peregrine, we need an `index.html` file and any accompanying web assets.
 
-TODO
+<T ios>
+
+1. In XCode, right click on your project in the Project Navigator and select
+   "Show in Finder".
+2. In the Finder window, create a new folder named `www`.
+3. Within that folder, create an `index.html` file and paste in the following
+   contents.
+
+</T>
+
+```html-diff { file: 'index.html', contentHash: 'd0c20536a89e7c6ff761991e230f9acda6e946ba' }
++<!DOCTYPE html>
++<html dir="ltr" lang="en">
++  <head>
++    <meta charset="utf-8" />
++    <title>My App</title>
++    <meta
++      name="viewport"
++      content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
++    />
++  </head>
++  <body>
++    <p>Hello World!</p>
++  </body>
++</html>
+```
+
+### Instantiate a Web Frame
+
+<T ios>
+
+For this example, we'll replace the "Hello World" view in the SwiftUI example
+template with a Web Frame that will render our `index.html`.
+
+1. In XCode, open `ContentView.swift`. This is your app's root view.
+2. Add a `frame` property to the struct.
+3. Replace the example text view in the `body` property with `frame.view`.
+4. Provide the `frame` property in the preview provider.
+
+```swift-diff { file: 'ContentView.swift', contentHash: 'f9a90f6a95496c56f73b7ce44ad23e7bccb263f4' }
+ import SwiftUI
++import Peregrine
+
+ struct ContentView: View {
++    let frame: WebFrame
++
+     var body: some View {
+-        Text("Hello, world!")
+-            .padding()
++        frame.view
+     }
+ }
+
+ struct ContentView_Previews: PreviewProvider {
+     static var previews: some View {
+-        ContentView()
++        ContentView(frame: WebFrame(configuration: WebFrame.Configuration()))
+     }
+ }
+```
+
+5. Next, open `*App.swift`. This is your app's entry point. It should be
+   decorated with `@main`.
+6. Add an initializer that creates a Web Frame. Be sure to configure `baseURL`
+   to point to the `www` folder in your bundle.
+7. Finally, pass the Web Frame into your `ContentView`.
+
+```swift-diff { file: '*App.swift', contentHash: 'fb6acb1d2dfdb6677561525f151d864ac42d75c5' }
+ import SwiftUI
++import Peregrine
+
+ @main
+ struct MyApp: App {
++    let frame: WebFrame
++
++    init() {
++        let baseURL = Bundle.main.url(forResource: "www", withExtension: nil)!
++        let configuration = WebFrame.Configuration(baseURL: baseURL)
++        frame = WebFrame(configuration: configuration)
++    }
++
+     var body: some Scene {
+         WindowGroup {
+-            ContentView()
++            ContentView(frame: frame)
+         }
+     }
+ }
+```
+
+</T>
+
+### Run the app
+
+<Callout type="construction" title="Under Construction" />
+
+#### Add native functionality
+
+Let's add some native functionality to our {platform} app that we can invoke
+from our web content. In the interest of time, we'll be implementing a simple
+ping/pong example.
+
+<T ios>
+
+1. In XCode, open `*App.swift`.
+2. Add a `ping` function that expects the string `'ping'` to be sent as the
+   request data--if so, `'pong'` is sent back; otherwise, the request fails
+   with a message and an error code.
+
+```swift-diff { file: '*App.swift', contentAfter: true, contentHash: 'd4380e19a00262d29c8c863b7454807a0504ad58' }
+ import SwiftUI
+ import Peregrine
+
++func ping(call: Call) {
++    if call.request.text == "ping" {
++        call.respond(with: "pong")
++    } else {
++        call.fail("Expected 'ping' in request.", code: "EXPECTED_PING")
++    }
++}
++
+ @main
+ struct MyApp: App {
+```
+
+3. Add the `functions` option to the Web Frame configuration and pass in the
+   `ping` function under the `'ping'` key. This key will be used by the web
+   client. Read more about [remote interfaces](architecture#remote-interfaces).
+
+```swift-diff { file: '*App.swift', lineNumberOffset: 7, contentBefore: true, contentAfter: true, contentHash: '952d4d38b00d14909657d3ddc94276b382e7c5c8' }
+     init() {
+         let baseURL = Bundle.main.url(forResource: "www", withExtension: nil)!
+-        let configuration = WebFrame.Configuration(baseURL: baseURL)
++        let configuration = WebFrame.Configuration(
++            baseURL: baseURL,
++            functions: [
++                "ping": ping,
++            ]
++        )
+         frame = WebFrame(configuration: configuration)
+     }
+```
+
+4. Open `index.html`.
+5. Add a script in `<head>` that imports the `ProxyClient` from the Peregrine
+   web library and connect it to the `window` instance..
+6. Add a button to the `<body>` with an ID of `pingButton`.
+7. Attach a click event listener to the button by its ID. When clicked, we'll
+   call the `ping` function and print the response to the screen. If the
+   request is unsuccessful, we'll log the error message and code.
+
+```html-diff { file: 'index.html', lineNumberOffset: 7, contentBefore: true, contentAfter: true, contentHash: '7fa60e4003d6fdd4cf7f300bebbb19e16737ba10' }
+       content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+     />
++    <script type="module">
++      import { ProxyClient } from 'https://unpkg.com/@peregrine/web'
++      const client = new ProxyClient()
++      client.connect(window)
++      const btn = document.getElementById('pingButton')
++      btn.addEventListener('click', async () => {
++          try {
++              const response = await client.ping('ping')
++              document.body.append(response, document.createElement('p'))
++          } catch (error) {
++              console.error(`${error.code}: ${error.message}`)
++          }
++      })
++    </script>
+   </head>
+   <body>
+     <p>Hello World!</p>
++    <button id="pingButton">Ping!</button>
++    <br />
+   </body>
+ </html>
+```
+
+When we run the app again, we'll see our button. Whenever the button is tapped,
+"pong" will be appended to the web view.
+
+<Callout type="info" title="Congrats! 🎁">
+
+You've just built your first bit of cross-platform interaction powered by
+Peregrine. From here you have a few options:
+
+- Try some [debugging](debugging) by adding breakpoints in XCode and Safari.
+- Change `'ping'` to another string to see the error message and code we've
+  defined.
+- Change `.ping()` to an unknown function name to see what happens.
+- Read about the [architecture](architecture) of Peregrine to learn more.
+- Continue on to learn two other main features of the Web Frame: **events** and
+  **path handlers**.
+
+</Callout>
+
+</T>
+
+<T android>
+
+<Callout type="construction" title="Under Construction" />
+
+</T>
+
+#### Add native events
+
+Now that we've seen how we can implement native functionality, let's add native
+events that propagate to the web layer. We'll be implementing a new function
+that will initiate a mock download and report status events to the web layer.
+
+<T ios>
+
+1. In XCode, open `*App.swift`.
+2. Add the import for the [Combine
+   framework](https://developer.apple.com/documentation/combine).
+3. Create a `CurrentValueSubject` which will report status events.
+4. Create a `startDownload` function that immediately reports a "pending" event
+   and then starts a repeating timer that reports "progress" and "completed"
+   events.
+5. Pass in the `startDownload` function to the `functions` option under the
+   `'startDownload'` key.
+6. Add the `observables` option to the Web Frame configuration and pass in the
+   `status` publisher under the `'downloadStatus$'` key, first converting it to
+   an `AnyPublisher`.
+
+```swift-diff { file: '*App.swift', contentAfter: true, contentHash: '59f735c1332abe2dbe344eb13f1b5395eec9f648' }
++import Combine
+ import SwiftUI
+ import Peregrine
+
+ func ping(call: Call) {
+     if call.request.text == "ping" {
+         call.respond(with: "pong")
+     } else {
+         call.fail("Expected 'ping' in request.", code: "EXPECTED_PING")
+     }
+ }
+
++let status = CurrentValueSubject<Event?, Never>(nil)
++
++func startDownload(call: Call) {
++    var progress = 0
++    status.value = Event("pending")
++    DispatchQueue.main.async {
++        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { timer in
++            if progress >= 100 {
++                status.value = Event("progress: 100")
++                status.value = Event("completed")
++                timer.invalidate()
++            } else {
++                status.value = Event("progress: \(progress)")
++                progress += 25
++            }
++        }
++    }
++}
++
+ @main
+ struct MyApp: App {
+     let frame: WebFrame
+
+     init() {
+         let baseURL = Bundle.main.url(forResource: "www", withExtension: nil)!
+         let configuration = WebFrame.Configuration(
+             baseURL: baseURL,
+             functions: [
+                 "ping": ping,
++                "startDownload": startDownload,
++            ],
++            observables: [
++                "downloadStatus$": status.eraseToAnyPublisher(),
+             ]
+         )
+```
+
+7. Open `index.html`.
+8. Add a button next to the ping button with the ID of `downloadButton`.
+9. Attach a click event listener to the button by its ID. When clicked, we'll
+   call the `startDownload` function to initiate the mock download.
+10. Create a `listenForStatus` function which asynchronously iterates over
+    status events from the `downloadStatus$` observable and prints them to the
+    screen.
+11. Call `listenForStatus` immediately to begin listening.
+
+```html-diff { file: 'index.html', lineNumberOffset: 20, contentBefore: true, contentAfter: true, contentHash: '5fc61fe69c89a5d90ceaa86bf11f93c12d6a302a' }
+             }
+         })
++
++        const downloadBtn = document.getElementById('downloadButton')
++        downloadBtn.addEventListener('click', () => {
++            client.startDownload()
++        })
++
++        const listenForStatus = async () => {
++            for await (const status of client.downloadStatus$) {
++                document.body.append(status, document.createElement('p'))
++            }
++        }
++
++        listenForStatus()
+     </script>
+   </head>
+   <body>
+     <p>Hello World!</p>
+     <button id="pingButton">Ping!</button>
++    <button id="downloadButton">Download</button>
+     <br />
+   </body>
+```
+
+When we run the app again, we'll see our new download button. When the button
+is tapped, the mock download statuses will be appended to the web view.
+
+</T>
+
+<T android>
+
+<Callout type="construction" title="Under Construction" />
+
+</T>
+
+#### Add path handlers
+
+<Callout type="construction" title="Under Construction" />

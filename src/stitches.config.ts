@@ -30,26 +30,29 @@ export const {
       gray3: '116 112 106',
       gray4: '42 41 40',
       gray5: '29 28 27',
-      accent1: '100 157 255',
+      accent1: '89 142 255',
       accent2: '205 220 255',
       money: '163 255 169',
-      info: '$accent1',
+      info: '86 189 255',
       warning: '255 193 61',
       brandapple: '255 255 255',
       brandandroid: '120 194 87',
+      red: '255 0 0',
+      green: '0 255 0',
+      blue: '0 0 255',
     },
     fonts: {
       text: 'Lato, Helvetica, Arial, sans-serif, sans-serif',
       monospace: 'Menlo, monospace',
     },
     fontSizes: {
-      xsm: '0.75rem',
-      sm: '0.85rem',
+      xsm: '0.65rem',
+      sm: '0.8rem',
       md: '1rem',
-      lg: '1.25rem',
-      xlg: '1.5rem',
-      xxlg: '2rem',
-      xxxlg: '3rem',
+      lg: '1.2rem',
+      xlg: '1.6rem',
+      xxlg: '2.1rem',
+      xxxlg: '3.2rem',
       logo: 'calc($lineHeights$logo * 0.875)',
     },
     fontWeights: {
@@ -147,7 +150,7 @@ export const globalStyles = globalCss({
     minHeight: '100vh',
   },
   'h1, h2, h3, h4, h5, h6': {
-    margin: 0,
+    margin: '1rem 0',
     fontFamily: '$text',
     fontWeight: '$black',
     lineHeight: '$heading',
@@ -197,8 +200,44 @@ export const globalStyles = globalCss({
   },
   'pre.shiki': {
     'position': 'relative',
-    'padding': '0.75em',
     'overflow': 'scroll',
+
+    '& code': {
+      'fontSize': '$sm',
+      'lineHeight': '1.5em',
+
+      '& .line': {
+        display: 'block',
+        padding: '0 1.5rem',
+        content: ' ',
+      },
+
+      '& .line::before': {
+        textAlign: 'right',
+      },
+
+      '&::before, &::after, & .line::before': {
+        display: 'inline-block',
+        margin: '0 0.5em',
+        fontSize: '$xsm',
+        color: 'rgba($gray3 / 0.5)',
+        userSelect: 'none',
+      },
+    },
+
+    '&[data-file]': {
+      '&::before': {
+        display: 'block',
+        content: 'attr(data-file)',
+        margin: '1em 1em 0',
+        paddingLeft: '1.7em',
+        fontSize: '$sm',
+        color: 'rgb($gray2)',
+        backgroundImage:
+          'url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KICA8cGF0aCBkPSJNNDE2IDIyMS4yNVY0MTZhNDggNDggMCAwMS00OCA0OEgxNDRhNDggNDggMCAwMS00OC00OFY5NmE0OCA0OCAwIDAxNDgtNDhoOTguNzVhMzIgMzIgMCAwMTIyLjYyIDkuMzdsMTQxLjI2IDE0MS4yNmEzMiAzMiAwIDAxOS4zNyAyMi42MnoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2FhYSIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzMiIgLz4KICA8cGF0aCBkPSJNMjU2IDU2djEyMGEzMiAzMiAwIDAwMzIgMzJoMTIwIiBmaWxsPSJub25lIiBzdHJva2U9IiNhYWEiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzMiIgLz4KPC9zdmc+Cg==)', // src/file.svg
+        backgroundRepeat: 'no-repeat',
+      },
+    },
 
     '&::after': {
       display: 'block',
@@ -207,7 +246,6 @@ export const globalStyles = globalCss({
       right: shikiCopySpacing,
       width: shikiCopySize,
       height: shikiCopySize,
-      fontSize: shikiCopySize,
       content: ' ',
     },
 
@@ -227,23 +265,38 @@ export const globalStyles = globalCss({
       },
     },
 
-    '& code': {
-      'fontSize': '0.75em',
-      'lineHeight': '1.5em',
+    '& code::before, & code::after': {
+      display: 'inline-block',
+      content: ' ',
+    },
 
-      '& .line': {
-        display: 'block',
+    '&[data-content-before] code::before': {
+      marginTop: '0.5em',
+    },
+
+    '&[data-content-after] code::after': {
+      marginBottom: '0.5em',
+    },
+
+    '&[data-content-before] code::before, &[data-content-after] code::after': {
+      content: `attr(data-line-number-padding) '⋮'`,
+    },
+
+    '&[data-language] code': {
+      '&::before, &::after, & .line': {
+        padding: '0 0.5rem',
+      },
+
+      '& .line[data-diff-symbol="+"]': {
+        backgroundColor: 'rgba($green / 0.05)',
+      },
+
+      '& .line[data-diff-symbol="-"]': {
+        backgroundColor: 'rgba($red / 0.115)',
       },
 
       '& .line[data-line-number]::before': {
-        display: 'inline-block',
-        width: '1em',
-        fontSize: '0.85em',
-        content: 'attr(data-line-number)',
-        margin: '0 1.5em 0 0.5em',
-        textAlign: 'right',
-        color: 'rgba($gray3 / 0.5)',
-        userSelect: 'none',
+        content: `attr(data-line-number-padding) attr(data-line-number) ' ' attr(data-diff-symbol)`,
       },
     },
   },
@@ -268,6 +321,18 @@ export const globalStyles = globalCss({
   },
   'ul, ol, dl': {
     lineHeight: '$text',
+    paddingLeft: '2rem',
+  },
+  'li': {
+    'margin': '0.75em 0',
+
+    '&::marker': {
+      fontWeight: '$bold',
+      color: 'rgb($gray1)',
+    },
+  },
+  'menu > li': {
+    margin: 0,
   },
   'dd': {
     marginBottom: '0.5em',
