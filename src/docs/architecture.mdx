@@ -9,8 +9,8 @@ concepts before diving a bit deeper into the implementation details.
 
 Peregrine has a library for web and a library for each native platform. The
 native library provides the [Web Frame](#web-frames), which encapsulates the
-web view. Developers create [Remote Interfaces](#remote-interfaces) and attach
-them to the Web Frame for web\<-\>native communication. Remote Interfaces
+web view. Developers create [remote interfaces](#remote-interfaces) and attach
+them to the Web Frame for web\<-\>native communication. Remote interfaces
 contain [functions](#functions) for request/response-style communication and
 [observables](#observables) for pub/sub-style communication. The implementation
 of this communication between web and native is often called the _bridge_.
@@ -25,12 +25,12 @@ Frame for their entire app--and that's fine! Others may want to have a mix of
 web and native views.
 
 Web Frames encapsulate the web view itself, [path handlers](#path-handlers) for
-implementing responses to web view requests, and a [Remote
-Interface](#remote-interfaces) for implementing native functionality.
+implementing responses to web view requests, and a [remote
+interface](#remote-interfaces) for implementing native functionality.
 
 ### Remote Interfaces
 
-Remote Interfaces contain [functions](#functions) and
+Remote interfaces contain [functions](#functions) and
 [observables](#observables) in {platform} or web that are used by the other
 side of the bridge. Functions are used to invoke something, e.g. run a native
 API, send back data, be notified of a particular lifecycle event, etc.

@@ -2,6 +2,7 @@
   "name": "peregrinejs.com",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -13,6 +14,7 @@
     "eslint": "eslint src --ext .ts,.tsx"
   },
   "dependencies": {
+    "@imhoff/react-hooks": "^0.0.2",
     "@stitches/react": "^1.2.8",
     "jotai": "^1.7.3",
     "lodash": "^4.17.21",

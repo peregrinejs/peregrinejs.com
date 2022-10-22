@@ -6,14 +6,12 @@ import TitleBox from './TitleBox'
 
 export interface MainProps {
   children: React.ReactNode
-  title?: string
-  titleSlug?: string
 }
 
-const Main = ({ children, title, titleSlug }: MainProps): JSX.Element => {
+const Main = ({ children }: MainProps): JSX.Element => {
   return (
     <Root>
-      <TitleBox title={title} titleSlug={titleSlug} />
+      <TitleBox />
       {children}
     </Root>
   )

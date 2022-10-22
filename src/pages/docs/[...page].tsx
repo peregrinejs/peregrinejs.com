@@ -1,40 +1,30 @@
-import omit from 'lodash/fp/omit'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 import { MDXRemote } from 'next-mdx-remote'
-import type { MDXRemoteSerializeResult } from 'next-mdx-remote/dist/types'
-import { serialize } from 'next-mdx-remote/serialize'
 import { promises as fs } from 'node:fs'
 import path from 'node:path'
 
 import type Platform from '@src/Platform'
 import { PLATFORMS, prettyPlatform } from '@src/Platform'
 import Layout from '@src/components/docs/Layout'
+import FrontmatterContext from '@src/lib/docs/FrontmatterContext'
+import getFilesR from '@src/lib/getFilesR'
 import docsComponents from '@src/lib/mdx/docs/components'
+import type { SerializeResult, Scope } from '@src/lib/mdx/serialize'
+import serialize from '@src/lib/mdx/serialize'
 import omitNil from '@src/lib/omitNil'
-import _mdxOptions from '@src/mdxOptions.mjs'
 
 const pagesDir = path.resolve(process.cwd(), 'src/docs')
 
-async function* getFilesR(dir: string): AsyncIterableIterator<string> {
-  const entries = await fs.readdir(dir, { withFileTypes: true })
-
-  for (const entry of entries) {
-    const p = path.resolve(dir, entry.name)
-
-    if (entry.isDirectory()) {
-      yield* getFilesR(p)
-    } else {
-      yield p
-    }
-  }
+type PathParams = {
+  page: [Platform, ...string[]]
 }
 
 interface Path {
-  params: { page: [Platform, ...string[]] }
+  params: PathParams
   locale?: string
 }
 
-export const getStaticPaths: GetStaticPaths = async context => {
+export const getStaticPaths: GetStaticPaths<PathParams> = async context => {
   const paths: Path[] = []
   const locales: (string | undefined)[] = context.locales ?? [undefined]
 
@@ -50,7 +40,9 @@ export const getStaticPaths: GetStaticPaths = async context => {
     for (const locale of filteredLocales) {
       for (const platform of PLATFORMS) {
         const path: Path = {
-          params: { page: [platform, ...page] },
+          params: {
+            page: [platform, ...page],
+          },
           locale,
         }
 
@@ -67,24 +59,18 @@ export const getStaticPaths: GetStaticPaths = async context => {
 
 export const getStaticProps: GetStaticProps<
   DocsPageProps,
-  { page: [Platform, ...string[]] }
+  PathParams
 > = async ({ params, locale }) => {
-  if (!params?.page) {
-    throw new Error(`Expected 'page' param`)
+  if (!params) {
+    throw new Error('Expected params to be defined')
   }
 
   const [platform, ...pageParts] = params.page
   const page = pageParts.join('/')
   const file = path.resolve(pagesDir, page + '.mdx')
   const contents = await fs.readFile(file, 'utf8')
-  const mdxOptions = omit(['outputFormat', 'providerImportSource'], _mdxOptions)
-  const mdx = await serialize(contents, {
-    scope: {
-      platform: prettyPlatform(platform),
-    },
-    mdxOptions,
-    parseFrontmatter: true,
-  })
+  const scope: Scope = { platform: prettyPlatform(platform) }
+  const mdx = await serialize(contents, scope)
 
   return {
     props: omitNil({
@@ -100,16 +86,16 @@ export interface DocsPageProps {
   platform: Platform
   page: string
   locale?: string
-  content: MDXRemoteSerializeResult
+  content: SerializeResult
 }
 
 const DocsPage = ({ content, platform }: DocsPageProps): JSX.Element => {
-  const frontmatter: { [key: string]: any } = content.frontmatter as any
-
   return (
-    <Layout title={frontmatter.title} platform={platform}>
-      <MDXRemote {...content} components={docsComponents} />
-    </Layout>
+    <FrontmatterContext.Provider value={{ ...(content.frontmatter as any) }}>
+      <Layout platform={platform}>
+        <MDXRemote {...content} components={docsComponents} />
+      </Layout>
+    </FrontmatterContext.Provider>
   )
 }
 

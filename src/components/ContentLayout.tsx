@@ -1,27 +1,17 @@
 import React from 'react'
 
+import Content from '@src/components/Content'
 import type { LayoutProps } from '@src/components/Layout'
 import Layout from '@src/components/Layout'
-import { styled } from '@src/stitches.config'
 
 const ContentLayout = ({ children, ...props }: LayoutProps): JSX.Element => {
   return (
     <Layout {...props}>
-      <Main>{children}</Main>
+      <main>
+        <Content>{children}</Content>
+      </main>
     </Layout>
   )
 }
-
-const Main = styled('main', {
-  '@md': {
-    maxWidth: '$contentMaxWidth',
-    margin: '0 auto',
-    padding: '$contentPaddingMd',
-  },
-
-  '@lg': {
-    padding: '$contentPaddingLg',
-  },
-})
 
 export default ContentLayout

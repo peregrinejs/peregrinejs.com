@@ -1,16 +1,13 @@
-import Image from 'next/image'
 import React, { forwardRef } from 'react'
 
 import { styled } from '@src/stitches.config'
 
-import Box from './Box'
+import LogoIcon from './LogoIcon'
 
 const Logo = forwardRef<HTMLAnchorElement, any>(({ ...props }, ref) => {
   return (
     <Root ref={ref} {...props}>
-      <Box css={{ width: '$$size', height: '$$size' }}>
-        <Icon src="/peregrine.svg" layout="responsive" width={32} height={32} />
-      </Box>
+      <LogoIcon />
       <Text>Peregrine</Text>
     </Root>
   )
@@ -28,11 +25,6 @@ const Root = styled('a', {
   '@lg': {
     $$size: '32px',
   },
-})
-
-const Icon = styled(Image, {
-  width: '$$size',
-  height: '$$size',
 })
 
 const Text = styled('h1', {

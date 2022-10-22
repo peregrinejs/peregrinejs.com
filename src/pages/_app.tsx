@@ -1,3 +1,4 @@
+import useMediaQuery from '@imhoff/react-hooks/useMediaQuery'
 import { MDXProvider } from '@mdx-js/react'
 import { useAtom } from 'jotai'
 import inRange from 'lodash/fp/inRange'
@@ -8,7 +9,6 @@ import bpAtom from '@src/atoms/bpAtom'
 import sidebarAtom from '@src/atoms/sidebarAtom'
 import baseComponents from '@src/lib/mdx/components'
 import { useEvent } from '@src/lib/useEvent'
-import useMediaQuery from '@src/lib/useMediaQuery'
 import {
   globalStyles,
   media,

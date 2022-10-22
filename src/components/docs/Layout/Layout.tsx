@@ -5,6 +5,7 @@ import type Platform from '@src/Platform'
 import { prettyPlatform } from '@src/Platform'
 import { createSlug } from '@src/components/AnchorHeading'
 import Box from '@src/components/Box'
+import useFrontmatterContext from '@src/lib/docs/useFrontmatterContext'
 import { styled } from '@src/stitches.config'
 
 import Main from './Main'
@@ -13,14 +14,13 @@ import Sidebar from './Sidebar'
 export interface LayoutProps {
   children: React.ReactNode
   platform: Platform
-  title?: string
 }
 
 const Layout = ({
   children,
   platform: platformProp,
-  title,
 }: LayoutProps): JSX.Element => {
+  const { title } = useFrontmatterContext()
   const platform = prettyPlatform(platformProp)
   const titleSlug = title ? createSlug(title) : undefined
 
@@ -39,9 +39,7 @@ const Layout = ({
           <Sidebar />
         </Box>
         <Container>
-          <Main title={title} titleSlug={titleSlug}>
-            {children}
-          </Main>
+          <Main>{children}</Main>
         </Container>
       </Root>
     </>
@@ -52,6 +50,7 @@ const Root = styled(Box, {
   'display': 'flex',
   'flexDirection': 'column',
   'minHeight': '100vh',
+  'backgroundColor': 'rgb($contentbg)',
 
   '@md': {
     flexDirection: 'row',

@@ -24,7 +24,8 @@ export const {
   media,
   theme: {
     colors: {
-      bg: '20 21 22',
+      bg: '12 13 13',
+      contentbg: '20 21 22',
       gray1: '255 255 255',
       gray2: '186 185 182',
       gray3: '116 112 106',

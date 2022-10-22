@@ -1,22 +1,25 @@
----
-title: Comparison with Cordova and Capacitor
----
+import Layout from '@src/components/ContentLayout'
+import Table, { Th } from '@src/components/Table'
+import YearsAgo from '@src/components/YearsAgo'
+
+# Comparison with Cordova and Capacitor
 
 This page compares Peregrine with [Cordova](https://cordova.apache.org) and
 [Capacitor](https://capacitorjs.com). Other hybrid mobile solutions such as
-[React Native](https://reactnative.dev), [Flutter](https://flutter.dev), and
-[Turbo Native](https://turbo.hotwired.dev) are out of scope for this page.
+[React Native](https://reactnative.dev), [Flutter](https://flutter.dev),
+[NativeScript](https://nativescript.org), and [Turbo
+Native](https://turbo.hotwired.dev) are out of scope for this page.
 
 There are several differences between Peregrine and similar solutions such as
 Cordova and Capacitor. This page attempts to highlight these differences in an
 unbiased way. For more in-depth explanations of these differences and the
-reasoning behind them, see the [Philosophy](philosophy) page.
+reasoning behind them, see the [Philosophy](/philosophy) page.
 
 ## Technology
 
 Peregrine has many technological differences between Cordova and Capacitor. To
 learn more about the technical implementation of Peregrine, see the
-[Architecture](architecture) page.
+[Architecture](/docs/ios/architecture) page.
 
 ### Library, not Framework
 
@@ -37,8 +40,9 @@ which are used along with platform APIs to implement native functionality.
 
 Peregrine does **not** have "plugins" in the same sense. Instead, developers
 explicitly attach functions and observables to each [Web
-Frame](architecture#web-frames) that the web layer will be able to access. This
-is what's known as the [Remote Interface](architecture#remote-interfaces).
+Frame](/docs/ios/architecture#web-frames) that the web layer will be able to
+access. This is what's known as the [remote
+interface](/docs/ios/architecture#remote-interfaces).
 
 While creating and distributing collections of native functionality is
 possible, it should be **discouraged**. Instead, developers should use recipes
@@ -149,3 +153,5 @@ To summarize, Peregrine is free to use if your app is open source. If your app
 is closed source, then you must purchase an appropriate commercial license.
 This is not legal advice. Please see the [Licenses](/license) page for a full
 description and legal information.
+
+export default ({ children }) => <Layout>{children}</Layout>
