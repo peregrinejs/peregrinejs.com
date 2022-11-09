@@ -27,7 +27,7 @@ const Item = ({ href: hrefProp, children }: ItemProps): JSX.Element => {
           </Text>
         </Link>
       ) : (
-        <Link href={href} target="_blank" aria-current={current}>
+        <Link href={href} aria-current={current}>
           <Text current={current}>{children}</Text>
         </Link>
       )}
