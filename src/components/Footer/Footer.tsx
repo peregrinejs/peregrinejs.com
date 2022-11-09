@@ -14,7 +14,7 @@ const Footer = (): JSX.Element => {
     <Content>
       <Grid>
         <Box>
-          <Link href="/" passHref>
+          <Link href="/">
             <LogoIcon css={{ $$size: '32px' }} />
           </Link>
           <Copyright>

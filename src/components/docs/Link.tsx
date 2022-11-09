@@ -19,16 +19,12 @@ const Link = ({
   const { href, isOutbound } = useLink(hrefProp)
 
   return (
-    <NextLink href={href} {...props} passHref>
-      <A target={isOutbound ? '_blank' : undefined}>
-        {children}
-        {isOutbound ? <Icon /> : null}
-      </A>
+    <NextLink {...props} href={href} target={isOutbound ? '_blank' : undefined}>
+      {children}
+      {isOutbound ? <Icon /> : null}
     </NextLink>
   )
 }
-
-const A = styled('a')
 
 const Icon = styled(OutboundIcon, {
   width: 14,

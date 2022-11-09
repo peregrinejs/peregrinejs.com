@@ -4,6 +4,8 @@ import React, { useState } from 'react'
 import LinkIcon from '@src/icons/LinkIcon'
 import { styled } from '@src/stitches.config'
 
+import _Text from './Text'
+
 export interface AnchorHeadingLinkProps
   extends React.HTMLAttributes<HTMLAnchorElement> {
   href: string
@@ -43,21 +45,20 @@ const AnchorHeadingLink = ({
   })
 
   return (
-    <Link href={href} passHref>
-      <A
-        {...props}
-        onMouseOver={() => setHovered(true)}
-        onMouseOut={() => setHovered(false)}
-      >
-        {child}
-      </A>
+    <Link
+      {...props}
+      href={href}
+      onMouseOver={() => setHovered(true)}
+      onMouseOut={() => setHovered(false)}
+    >
+      <Text>{child}</Text>
     </Link>
   )
 }
 
 AnchorHeadingLink.displayName = 'AnchorHeadingLink'
 
-const A = styled('a', {
+const Text = styled(_Text, {
   display: 'block',
   marginLeft: '-$docsX',
   paddingLeft: '$docsX',

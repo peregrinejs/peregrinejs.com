@@ -12,7 +12,7 @@ export interface ItemProps {
 
 const Item = ({ href, children }: ItemProps): JSX.Element => {
   return (
-    <Link href={href} passHref>
+    <Link href={href}>
       <Root>
         <Text>{children}</Text>
       </Root>

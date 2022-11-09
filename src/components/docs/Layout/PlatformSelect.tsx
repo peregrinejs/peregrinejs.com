@@ -31,12 +31,12 @@ const PlatformSelect = ({ css }: PlatformSelectProps): JSX.Element => {
 
   return (
     <Root css={css}>
-      <Link href={iosHref} scroll={false} passHref>
+      <Link href={iosHref} scroll={false}>
         <PlatformButton active={platform === 'ios'} css={buttonCSS}>
           <AppleIcon />
         </PlatformButton>
       </Link>
-      <Link href={androidHref} scroll={false} passHref>
+      <Link href={androidHref} scroll={false}>
         <PlatformButton active={platform === 'android'} css={buttonCSS}>
           <AndroidIcon />
         </PlatformButton>
@@ -51,7 +51,7 @@ const Root = styled(Box, {
   gap: '0.35em',
 })
 
-const PlatformButton = styled('a', {
+const PlatformButton = styled(Box, {
   'cursor': 'pointer',
   'width': 'calc($$size * 1.5)',
   'height': 'calc($$size * 1.5)',

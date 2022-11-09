@@ -7,7 +7,7 @@ import { styled } from '@src/stitches.config'
 const Header = (): JSX.Element => {
   return (
     <Root>
-      <Link href="/" passHref>
+      <Link href="/">
         <Logo />
       </Link>
       <Nav />

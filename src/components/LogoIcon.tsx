@@ -13,13 +13,7 @@ export interface LogoIconProps {
 const LogoIcon = ({ css }: LogoIconProps): JSX.Element => {
   return (
     <Root css={css}>
-      <Icon
-        alt="Peregrine Logo"
-        src="/peregrine.svg"
-        layout="responsive"
-        width={32}
-        height={32}
-      />
+      <Icon alt="Peregrine Logo" src="/peregrine.svg" width={32} height={32} />
     </Root>
   )
 }

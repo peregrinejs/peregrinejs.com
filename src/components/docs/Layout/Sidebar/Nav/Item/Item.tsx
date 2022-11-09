@@ -1,12 +1,11 @@
-import NextLink from 'next/link'
+import Link from 'next/link'
 import React from 'react'
 
+import _Text from '@src/components/Text'
 import OutboundIcon from '@src/icons/OutboundIcon'
 import useLink from '@src/lib/docs/useLink'
 import useRoute from '@src/lib/docs/useRoute'
 import { styled } from '@src/stitches.config'
-
-import Anchor from './Anchor'
 
 export interface ItemProps {
   href: string
@@ -21,18 +20,16 @@ const Item = ({ href: hrefProp, children }: ItemProps): JSX.Element => {
   return (
     <Root>
       {isOutbound ? (
-        <NextLink href={href} passHref>
-          <Anchor target="_blank">
+        <Link href={href} target="_blank">
+          <Text>
             {children}
             <Icon />
-          </Anchor>
-        </NextLink>
+          </Text>
+        </Link>
       ) : (
-        <NextLink href={href} passHref>
-          <Anchor current={current} aria-current={current}>
-            {children}
-          </Anchor>
-        </NextLink>
+        <Link href={href} target="_blank" aria-current={current}>
+          <Text current={current}>{children}</Text>
+        </Link>
       )}
     </Root>
   )
@@ -40,6 +37,33 @@ const Item = ({ href: hrefProp, children }: ItemProps): JSX.Element => {
 
 const Root = styled('li', {
   userSelect: 'none',
+})
+
+const Text = styled(_Text, {
+  'display': 'block',
+  'cursor': 'pointer',
+  'padding': '0 $headerPadding',
+  'lineHeight': '$navItem',
+  'color': 'rgb($gray2)',
+
+  '&:hover': {
+    color: 'rgb($accent1)',
+    textDecoration: 'none',
+  },
+
+  '@md': {
+    fontSize: '$sm',
+  },
+
+  'variants': {
+    current: {
+      true: {
+        color: 'rgb($accent1)',
+        backgroundColor: 'rgba($accent1 / 29%)',
+        fontWeight: '$bold',
+      },
+    },
+  },
 })
 
 const Icon = styled(OutboundIcon, {

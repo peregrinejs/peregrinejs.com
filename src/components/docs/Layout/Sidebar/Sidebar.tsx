@@ -19,7 +19,7 @@ const Sidebar = (): JSX.Element => {
   return (
     <Root>
       <Topbar>
-        <Link href="/" passHref>
+        <Link href="/">
           <Logo />
         </Link>
         <MenuButton icon={MenuIcon} onClick={toggleSidebar} />
