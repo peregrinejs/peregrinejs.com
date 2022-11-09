@@ -15,9 +15,7 @@ const Footer = (): JSX.Element => {
       <Grid>
         <Box>
           <Link href="/" passHref>
-            <a>
-              <LogoIcon css={{ $$size: '32px' }} />
-            </a>
+            <LogoIcon css={{ $$size: '32px' }} />
           </Link>
           <Copyright>
             Peregrine

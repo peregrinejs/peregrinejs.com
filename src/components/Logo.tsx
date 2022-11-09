@@ -2,6 +2,7 @@ import React, { forwardRef } from 'react'
 
 import { styled } from '@src/stitches.config'
 
+import Box from './Box'
 import LogoIcon from './LogoIcon'
 
 const Logo = forwardRef<HTMLAnchorElement, any>(({ ...props }, ref) => {
@@ -13,7 +14,7 @@ const Logo = forwardRef<HTMLAnchorElement, any>(({ ...props }, ref) => {
   )
 })
 
-const Root = styled('a', {
+const Root = styled(Box, {
   'display': 'flex',
   'height': 32,
   'gap': 'calc($$size / 5)',

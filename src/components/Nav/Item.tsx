@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 
+import Box from '@src/components/Box'
 import _Text from '@src/components/Text'
 import { styled } from '@src/stitches.config'
 
@@ -19,7 +20,7 @@ const Item = ({ href, children }: ItemProps): JSX.Element => {
   )
 }
 
-const Root = styled('a', {
+const Root = styled(Box, {
   display: 'block',
   padding: '$navItemPaddingY $navItemPaddingX',
   fontWeight: '$bold',

@@ -13,19 +13,14 @@ const ListItem = ({ href, children }: ListItemProps): JSX.Element => {
   return (
     <li>
       <Link href={href} passHref>
-        <A>
-          <Text>{children}</Text>
-        </A>
+        <Text>{children}</Text>
       </Link>
     </li>
   )
 }
 
-const A = styled('a', {
-  display: 'block',
-})
-
 const Text = styled(_Text, {
+  display: 'block',
   color: 'rgb($gray2)',
 })
 
