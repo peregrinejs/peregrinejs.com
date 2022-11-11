@@ -16,9 +16,15 @@ const Header = (): JSX.Element => {
 }
 
 const Root = styled('header', {
-  display: 'flex',
-  placeContent: 'center space-between',
-  padding: '$headerPadding',
+  'display': 'flex',
+  'flexDirection': 'column',
+  'placeContent': 'center space-between',
+  'padding': '$headerPadding',
+  'gap': '$headerPadding',
+
+  '@md': {
+    flexDirection: 'unset',
+  },
 })
 
 export default Header

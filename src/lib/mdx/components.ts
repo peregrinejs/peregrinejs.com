@@ -1,7 +1,7 @@
 import type { MDXComponents } from 'mdx/types'
-import Link from 'next/link'
 
 import { H1, H2, H3, H4, H5, H6 } from '@src/components/AnchorHeading'
+import Link from '@src/components/Link'
 import ResponsiveImage from '@src/components/ResponsiveImage'
 import Table from '@src/components/Table'
 
