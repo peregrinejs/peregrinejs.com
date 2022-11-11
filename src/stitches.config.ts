@@ -71,8 +71,8 @@ export const {
       money: '2px',
     },
     space: {
-      contentPaddingMd: '30px',
-      contentPaddingLg: '60px',
+      contentPaddingMd: '0 30px 30px',
+      contentPaddingLg: '0 60px 60px',
       navItemPaddingX: '6px',
       navItemPaddingY: '0px',
       headerPadding: '20px',

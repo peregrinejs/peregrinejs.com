@@ -6,11 +6,11 @@ const Content = styled(Box, {
   '@md': {
     maxWidth: '$contentMaxWidth',
     margin: '0 auto',
-    padding: '0 $contentPaddingMd',
+    padding: '$contentPaddingMd',
   },
 
   '@lg': {
-    padding: '0 $contentPaddingLg',
+    padding: '$contentPaddingLg',
   },
 })
 
