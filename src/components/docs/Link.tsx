@@ -29,7 +29,8 @@ const Link = ({
 const Icon = styled(OutboundIcon, {
   width: 14,
   height: 14,
-  marginLeft: 2,
+  margin: '2px 0 2px 2px',
+  verticalAlign: 'text-bottom',
 })
 
 export default Link
