@@ -10,7 +10,6 @@ const Nav = (): JSX.Element => {
       <Item href="/comparison">Comparison</Item>
       <Item href="/license">License</Item>
       <Item href="https://github.com/peregrinejs">GitHub</Item>
-      <Item href="https://twitter.com/Peregrine_JS">Twitter</Item>
     </Root>
   )
 }
