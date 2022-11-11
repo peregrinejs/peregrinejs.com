@@ -45,8 +45,9 @@ access. This is what's known as the [remote
 interface](/docs/ios/architecture#remote-interfaces).
 
 While creating and distributing collections of native functionality is
-possible, it should be **discouraged**. Instead, developers should use recipes
-to build tailored native solutions for their apps.
+possible, it should be **discouraged**. Instead, developers should use
+[recipes](/philosophy#recipes-not-plugins) to build tailored native solutions
+for their apps.
 
 ### Cordova Compatibility
 
@@ -58,13 +59,12 @@ require replacing the entire native layer.
 
 ### Age
 
-Cordova had its first release in 2009 (<YearsAgo from={2009} /> years ago!) and
-remains largely the same in architecture and implementation. Capacitor was
-started in 2017, but in order to maintain compatibility, much of Cordova was
-copied into Capacitor as part of its compatibility layer.
-
-Peregrine was started in 2022 and built from the ground up, abandoning the
-Cordova architecture altogether.
+- Cordova had its first release in 2009 (<YearsAgo from={2009} /> years ago!)
+  and remains largely the same in architecture and implementation.
+- Capacitor was started in 2017, but extends Cordova code and has dependencies
+  on Cordova libraries to support its compatibility layer.
+- Peregrine was started in 2022 and built from the ground up, abandoning the
+  Cordova architecture altogether.
 
 ### Size
 
@@ -131,7 +131,7 @@ supports Swift for iOS and Kotlin for Android.
   source foundation.
 - Capacitor is primarily managed and maintained by [Ionic](https://ionic.io), a
   company founded in 2012 (now owned by
-  [OutSystems](https://www.outsystems.com/)).
+  [OutSystems](https://www.outsystems.com)).
 - Peregrine is primarily managed and maintained by
   [@imhoffd](https://twitter.com/imhoffd), an Ionic alumni (2015-2020).
 
