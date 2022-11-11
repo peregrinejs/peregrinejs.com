@@ -13,16 +13,19 @@ const Footer = (): JSX.Element => {
   return (
     <Content>
       <Grid>
-        <Box>
+        <Colophon>
           <Link href="/">
             <LogoIcon css={{ $$size: '32px' }} />
           </Link>
           <Copyright>
             Peregrine
             <br />
-            &copy; <CurrentYear /> Caracal LLC
+            &copy; <CurrentYear />{' '}
+            <Link href="https://caracal.tech" target="_blank">
+              Caracal LLC
+            </Link>
           </Copyright>
-        </Box>
+        </Colophon>
         <Box>
           <Heading>Overview</Heading>
           <List>
@@ -57,6 +60,12 @@ const Grid = styled('footer', {
   '@md': {
     display: 'grid',
     gridTemplateColumns: 'repeat(4, 1fr)',
+  },
+})
+
+const Colophon = styled(Box, {
+  '& a': {
+    color: 'rgb($gray1)',
   },
 })
 
