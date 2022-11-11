@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@imhoff/react-hooks": "^0.0.2",
+    "@paypal/react-paypal-js": "^7.8.1",
     "@stitches/react": "^1.2.8",
     "jotai": "^1.9.1",
     "lodash": "^4.17.21",

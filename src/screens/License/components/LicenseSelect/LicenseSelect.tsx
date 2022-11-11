@@ -1,12 +1,28 @@
+import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js'
+import React, { useState } from 'react'
+
 import Box from '@src/components/Box'
-import Button from '@src/components/Button'
 import Select from '@src/components/Select'
 import Text from '@src/components/Text'
 import { styled } from '@src/stitches.config'
 
 import LicenseBox from './LicenseBox'
+import type { Tier } from './tiers'
+import tiers, { isTier } from './tiers'
 
 const LicenseSelect = (): JSX.Element => {
+  const [license, setLicense] = useState<Tier>('single')
+
+  const handleChange = (event: React.FormEvent<HTMLSelectElement>) => {
+    const tier = event.currentTarget.value
+
+    if (isTier(tier)) {
+      setLicense(tier)
+    } else {
+      alert(`Unknown tier: ${tier}`)
+    }
+  }
+
   return (
     <Root>
       <LicenseBox title="Open-Source">
@@ -29,12 +45,29 @@ const LicenseSelect = (): JSX.Element => {
           30 days of purchase.
         </p>
         <Purchase>
-          <Select css={{ flex: 1 }}>
-            <option value="one">1 developer ($10)</option>
-            <option value="three">3 developers ($100)</option>
-            <option value="unlimited">Unlimited developers ($1000)</option>
+          <Select css={{ flex: 1 }} onChange={handleChange}>
+            <option value="single">1 developer ($10)</option>
+            <option value="team">3 developers ($100)</option>
+            <option value="enterprise">Unlimited developers ($1000)</option>
           </Select>
-          <Button>Purchase</Button>
+          <PayPalScriptProvider
+            options={{
+              'currency': 'USD',
+              'client-id':
+                'AcSRykA_rr_H3_gmgvML9fvnTIlBtg1fQsNCp_BhiUeYH8RP9AVsQ0HWSZ0l4x-EsEaE9IRDNN2u0Nld',
+            }}
+          >
+            <PayPalButtons
+              style={{ layout: 'horizontal', tagline: false }}
+              forceReRender={[license]}
+              fundingSource="paypal"
+              createOrder={(_, actions) =>
+                actions.order.create({
+                  purchase_units: [tiers[license]],
+                })
+              }
+            />
+          </PayPalScriptProvider>
         </Purchase>
       </LicenseBox>
     </Root>
@@ -54,12 +87,13 @@ const Free = styled(Text, {
   fontWeight: '$bold',
   letterSpacing: '$money',
   color: 'rgb($money)',
-  marginTop: 'auto',
+  margin: 'auto 0 2em',
 })
 
 const Purchase = styled(Box, {
   display: 'flex',
   justifyContent: 'center',
+  flexDirection: 'column',
   gap: '1em',
   marginTop: 'auto',
 })
