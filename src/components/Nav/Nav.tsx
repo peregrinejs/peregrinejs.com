@@ -6,8 +6,8 @@ const Nav = (): JSX.Element => {
   return (
     <Root>
       <Item href="/docs/ios/introduction">Docs</Item>
-      <Item href="/comparison">Comparison</Item>
       <Item href="/philosophy">Philosophy</Item>
+      <Item href="/comparison">Comparison</Item>
       <Item href="/license">License</Item>
       <Item href="https://github.com/peregrinejs">GitHub</Item>
       <Item href="https://twitter.com/Peregrine_JS">Twitter</Item>

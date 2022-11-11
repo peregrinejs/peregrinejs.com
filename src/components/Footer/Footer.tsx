@@ -30,8 +30,8 @@ const Footer = (): JSX.Element => {
           <Heading>Overview</Heading>
           <List>
             <ListItem href="/license">License</ListItem>
-            <ListItem href="/comparison">Comparison</ListItem>
             <ListItem href="/philosophy">Philosophy</ListItem>
+            <ListItem href="/comparison">Comparison</ListItem>
           </List>
         </Box>
         <Box>
