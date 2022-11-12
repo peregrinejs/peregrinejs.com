@@ -4,7 +4,7 @@ import { serialize as serializeMdx } from 'next-mdx-remote/serialize'
 
 import mdxOptions from '@src/mdxOptions.mjs'
 
-export type Scope = Record<string, unknown>
+export type Scope = Record<string, any>
 export type SerializeResult = MDXRemoteSerializeResult<Scope>
 
 export interface Frontmatter {

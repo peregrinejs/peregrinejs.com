@@ -9,7 +9,7 @@ import Layout from '@src/components/docs/Layout'
 import FrontmatterContext from '@src/lib/docs/FrontmatterContext'
 import getFilesR from '@src/lib/getFilesR'
 import docsComponents from '@src/lib/mdx/docs/components'
-import type { SerializeResult, Scope } from '@src/lib/mdx/serialize'
+import type { SerializeResult } from '@src/lib/mdx/serialize'
 import serialize from '@src/lib/mdx/serialize'
 import omitNil from '@src/lib/omitNil'
 
@@ -22,6 +22,10 @@ type PathParams = {
 interface Path {
   params: PathParams
   locale?: string
+}
+
+interface Scope {
+  platform: string
 }
 
 export const getStaticPaths: GetStaticPaths<PathParams> = async context => {
@@ -69,7 +73,11 @@ export const getStaticProps: GetStaticProps<
   const page = pageParts.join('/')
   const file = path.resolve(pagesDir, page + '.mdx')
   const contents = await fs.readFile(file, 'utf8')
-  const scope: Scope = { platform: prettyPlatform(platform) }
+
+  const scope: Scope = {
+    platform: prettyPlatform(platform),
+  }
+
   const mdx = await serialize(contents, scope)
 
   return {
