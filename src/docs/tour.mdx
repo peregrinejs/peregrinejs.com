@@ -40,6 +40,43 @@ https://github.com/peregrinejs/iOS
 
 </T>
 
+<T android>
+
+<Callout type="info" title="GitHub Packages">
+
+Peregrine for Android is currently distributed with GitHub Packages, which
+means you'll need to configure your project to add a new Maven repository.
+
+</Callout>
+
+1. In Android Studio, paste the following into `settings.gradle`.
+
+```groovy-diff { file: 'settings.gradle' }
+ dependencyResolutionManagement {
+     repositories {
+         google()
+         mavenCentral()
++        maven {
++            name "GitHubPackages"
++            url "https://maven.pkg.github.com/peregrinejs/Android"
++        }
+     }
+ }
+```
+
+2. Open your app's `build.gradle` file and add the following dependency.
+
+```groovy-diff { file: 'build.gradle' }
+ dependencies {
++    implementation 'com.peregrinejs:peregrine:0.0.1'
+ }
+```
+
+3. Sync your project with Gradle files by clicking 'Sync Now'.
+4. Click 'Make Project' to download and install the dependency.
+
+</T>
+
 ### Add web assets
 
 Before we can use Peregrine, we need an `index.html` file and any accompanying web assets.
@@ -48,9 +85,23 @@ Before we can use Peregrine, we need an `index.html` file and any accompanying w
 
 1. In XCode, right click on your project in the Project Navigator and select
    "Show in Finder".
-2. In the Finder window, create a new folder named `www`.
+2. In the Finder window, create a new folder named `www`. This folder will
+   serve as the root of the web assets.
 3. Within that folder, create an `index.html` file and paste in the following
    contents.
+
+</T>
+
+<T android>
+
+1. In Android Studio, make sure you have an `assets` folder in your app. If
+   not, create it by right-clicking your app in the Project panel and selecting
+   New -> Folder -> Assets Folder.
+2. Right-click the `assets` folder and select New -> Directory. Enter `www` as
+   the name. This folder will serve as the root of the web assets.
+3. Right-click the `www` folder and select New -> File. Enter `index.html` as
+   the name.
+4. Paste the following contents into `index.html`.
 
 </T>
 
@@ -83,7 +134,7 @@ template with a Web Frame that will render our `index.html`.
 3. Replace the example text view in the `body` property with `frame.view`.
 4. Provide the `frame` property in the preview provider.
 
-```swift-diff { file: 'ContentView.swift', contentHash: 'f9a90f6a95496c56f73b7ce44ad23e7bccb263f4' }
+```swift-diff { file: 'ContentView.swift', lineNumbers: true, contentHash: 'f9a90f6a95496c56f73b7ce44ad23e7bccb263f4' }
  import SwiftUI
 +import Peregrine
 
@@ -111,7 +162,7 @@ template with a Web Frame that will render our `index.html`.
    to point to the `www` folder in your bundle.
 7. Finally, pass the Web Frame into your `ContentView`.
 
-```swift-diff { file: '*App.swift', contentHash: 'fb6acb1d2dfdb6677561525f151d864ac42d75c5' }
+```swift-diff { file: '*App.swift', lineNumbers: true, contentHash: 'fb6acb1d2dfdb6677561525f151d864ac42d75c5' }
  import SwiftUI
 +import Peregrine
 
@@ -136,21 +187,125 @@ template with a Web Frame that will render our `index.html`.
 
 </T>
 
+<T android>
+
+For this example, we'll replace the "Hello World!" native activity template
+with a Web Frame fragment that will render our `index.html`.
+
+1. In Android Studio, open `activity_main.xml`.
+2. Access the XML code by clicking 'Code'.
+3. Replace the `ConstraintLayout` with a `FragmentContainerView`. Notice we use
+   the `WebFrameFragment` class from Peregrine, which will be instantiated by
+   Android when this activity is opened. We assign it an ID of
+   `fragment_container_view` so we can access the fragment instance in the
+   activity.
+
+```xml-diff { file: 'activity_main.xml', lineNumbers: true }
+ <?xml version="1.0" encoding="utf-8"?>
+-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    tools:context=".MainActivity">
+-
+-    <TextView
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:text="Hello World!"
+-        app:layout_constraintBottom_toBottomOf="parent"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toTopOf="parent" />
+-
+-</androidx.constraintlayout.widget.ConstraintLayout>
++<androidx.fragment.app.FragmentContainerView
++    xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:id="@+id/fragment_container_view"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:name="com.peregrinejs.WebFrameFragment"
++    tools:context=".MainActivity">
++</androidx.fragment.app.FragmentContainerView>
+```
+
+4. Next, open `MainActivity.kt`.
+5. Construct a Web Frame in the `onCreate` lifecycle method. Be sure to
+   configure `baseUrl` to point to the `www` folder in your app.
+6. Find the fragment instance by ID, and associate the Web Frame with it by
+   setting the `frame` property.
+
+```kotlin-diff { file: 'MainActivity.kt', lineNumbers: true, contentHash: 'f6a368f321f670865ef7861c0c66d4d87ff8ed94' }
+ package com.example.myapp
+
+ import androidx.appcompat.app.AppCompatActivity
+ import android.os.Bundle
++import com.peregrinejs.WebFrame
++import com.peregrinejs.WebFrameFragment
++import com.peregrinejs.ext.uri
+
+ class MainActivity : AppCompatActivity() {
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+         setContentView(R.layout.activity_main)
++        val configuration = WebFrame.Configuration(
++           baseUrl = assets.uri("www"),
++        )
++        val frame = WebFrame(this, configuration = configuration)
++        val fragment = supportFragmentManager
++            .findFragmentById(R.id.fragment_container_view) as WebFrameFragment
++        fragment.frame = frame
+     }
+ }
+```
+
+</T>
+
 ### Run the app
 
 <Callout type="construction" title="Under Construction" />
 
 #### Add native functionality
 
-Let's add some native functionality to our {platform} app that we can invoke
-from our web content.
+<T android>
+
+Before we can do anything else, we need to give our Android app permission to
+access the Internet.
+
+1. In Android Studio, open `AndroidManifest.xml`
+2. Paste in the following permission.
+
+```xml-diff { file: 'AndroidManifest.xml', lineNumbers: true, lineNumbersOffset: 2, contentBefore: true, contentAfter: true, contentHash: '6588c22ea5eea3b064e33b61fd54fdad5fa371c7' }
+ <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:tools="http://schemas.android.com/tools">
++    <uses-permission android:name="android.permission.INTERNET" />
+     <application
+         android:allowBackup="true"
+```
+
+</T>
+
+<T ios>Let's</T><T android>Now let's</T> add some native functionality to our
+{platform} app that we can invoke from our web content.
 
 <T ios>
 
 1. In XCode, open `*App.swift`.
+
+</T>
+
+<T android>
+
+1. In Android Studio, open `MainActivity.kt`.
+
+</T>
+
 2. Add a `ping` function that expects the string `'ping'` to be sent as the
    request data--if so, `'pong'` is sent back; otherwise, the request fails
    with a message and an error code.
+
+<T ios>
 
 ```swift-diff { file: '*App.swift', contentAfter: true, contentHash: 'd4380e19a00262d29c8c863b7454807a0504ad58' }
  import SwiftUI
@@ -168,11 +323,38 @@ from our web content.
  struct MyApp: App {
 ```
 
+</T>
+
+<T android>
+
+```kotlin-diff { file: 'MainActivity.kt', lineNumbers: true, lineNumbersOffset: 3, contentBefore: true, contentAfter: true, contentHash: '41289abffe5b8b50fcdf5096aa263b8af6a99051' }
+ import android.os.Bundle
+ import androidx.appcompat.app.AppCompatActivity
++import com.peregrinejs.Call
+ import com.peregrinejs.WebFrame
+ import com.peregrinejs.WebFrameFragment
+ import com.peregrinejs.ext.uri
+
++fun ping(call: Call) {
++    if (call.request.text == "ping") {
++        call.respond("pong")
++    } else {
++        call.fail("Expected 'ping' in request.", "EXPECTED_PING")
++    }
++}
++
+ class MainActivity : AppCompatActivity() {
+```
+
+</T>
+
 3. Add the `functions` option to the Web Frame configuration and pass in the
    `ping` function under the `'ping'` key. This key will be used by the web
    client. Read more about [remote interfaces](architecture#remote-interfaces).
 
-```swift-diff { file: '*App.swift', lineNumbersOffset: 7, contentBefore: true, contentAfter: true, contentHash: '952d4d38b00d14909657d3ddc94276b382e7c5c8' }
+<T ios>
+
+```swift-diff { file: '*App.swift', lineNumbers: true, lineNumbersOffset: 7, contentBefore: true, contentAfter: true, contentHash: '952d4d38b00d14909657d3ddc94276b382e7c5c8' }
      init() {
          let baseURL = Bundle.main.url(forResource: "www", withExtension: nil)!
 -        let configuration = WebFrame.Configuration(baseURL: baseURL)
@@ -186,6 +368,22 @@ from our web content.
      }
 ```
 
+</T>
+
+<T android>
+
+```kotlin-diff { file: 'MainActivity.kt', lineNumbers: true, lineNumbersOffset: 22, contentBefore: true, contentAfter: true }
+         val configuration = WebFrame.Configuration(
+             baseUrl = assets.uri("www"),
++            functions = mapOf(
++                "ping" to ::ping,
++            )
+         )
+         val frame = WebFrame(this, configuration = configuration)
+```
+
+</T>
+
 4. Open `index.html`.
 5. Add a script in `<head>` that imports the `ProxyClient` from the Peregrine
    web library and connect it to the `window` instance..
@@ -194,7 +392,7 @@ from our web content.
    call the `ping` function and print the response to the screen. If the
    request is unsuccessful, we'll log the error message and code.
 
-```html-diff { file: 'index.html', lineNumbersOffset: 7, contentBefore: true, contentAfter: true, contentHash: '7fa60e4003d6fdd4cf7f300bebbb19e16737ba10' }
+```html-diff { file: 'index.html', lineNumbers: true, lineNumbersOffset: 7, contentBefore: true, contentAfter: true, contentHash: '7fa60e4003d6fdd4cf7f300bebbb19e16737ba10' }
        content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
      />
 +    <script type="module">
@@ -228,7 +426,8 @@ When we run the app again, we'll see our button. Whenever the button is tapped,
 You've just built your first bit of cross-platform interaction powered by
 Peregrine. From here you have a few options:
 
-- Try some [debugging](debugging) by adding breakpoints in XCode and Safari.
+- Try some [debugging](debugging) by adding breakpoints in <T ios>XCode and
+  Safari</T><T android>Android Studio and Chrome</T>.
 - Change `'ping'` to another string to see the error message and code we've
   defined.
 - Change `.ping()` to an unknown function name to see what happens.
@@ -237,14 +436,6 @@ Peregrine. From here you have a few options:
   **path handlers**.
 
 </Callout>
-
-</T>
-
-<T android>
-
-<Callout type="construction" title="Under Construction" />
-
-</T>
 
 #### Add native events
 
@@ -267,7 +458,7 @@ that will initiate a mock download and report status events to the web layer.
    `status` publisher under the `'downloadStatus$'` key, first converting it to
    an `AnyPublisher`.
 
-```swift-diff { file: '*App.swift', contentAfter: true, contentHash: '59f735c1332abe2dbe344eb13f1b5395eec9f648' }
+```swift-diff { file: '*App.swift', lineNumbers: true, contentAfter: true, contentHash: '59f735c1332abe2dbe344eb13f1b5395eec9f648' }
 +import Combine
  import SwiftUI
  import Peregrine
@@ -326,7 +517,7 @@ that will initiate a mock download and report status events to the web layer.
     screen.
 11. Call `listenForStatus` immediately to begin listening.
 
-```html-diff { file: 'index.html', lineNumbersOffset: 20, contentBefore: true, contentAfter: true, contentHash: '5fc61fe69c89a5d90ceaa86bf11f93c12d6a302a' }
+```html-diff { file: 'index.html', lineNumbers: true, lineNumbersOffset: 20, contentBefore: true, contentAfter: true, contentHash: '5fc61fe69c89a5d90ceaa86bf11f93c12d6a302a' }
              }
          })
 +

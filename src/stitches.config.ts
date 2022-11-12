@@ -297,9 +297,15 @@ export const globalStyles = globalCss({
         backgroundColor: 'rgba($red / 0.115)',
       },
 
-      '& .line[data-line-number]::before': {
-        content: `attr(data-line-number-padding) attr(data-line-number) ' ' attr(data-diff-symbol)`,
+      '& .line[data-diff-symbol]::before': {
+        content: 'attr(data-diff-symbol)',
       },
+    },
+    '&[data-line-numbers] code': {
+      '& .line[data-line-number]::before, & .line[data-line-number-padding]::before':
+        {
+          content: `attr(data-line-number-padding) attr(data-line-number) ' ' attr(data-diff-symbol)`,
+        },
     },
   },
   'p': {
