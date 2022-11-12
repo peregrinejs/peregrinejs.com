@@ -49,10 +49,9 @@ often bleeds through in obscure and troubling ways.
 
 The intention was to provide the user with a _framework_: as long as you work
 within the confines of the framework, you won't have to worry about the
-platform itself.
-
-Unfortunately for developers using these solutions, a framework whose scope
-encompasses several entire native platforms has a few downsides:
+platform itself. Unfortunately for developers using these solutions, a
+framework whose scope encompasses several entire native platforms has a few
+downsides:
 
 1. Platforms evolve quickly and **developers are left waiting for the framework
    to update**, leading to loss of end users and/or revenue and even crucial
@@ -61,9 +60,12 @@ encompasses several entire native platforms has a few downsides:
    to warnings or rejections from governing bodies. Getting this code updated
    can be a monumental task, often leading to forks of plugins or even
    components of the solution itself.
-1. Native functionality is pre-implemented, often leading to **lower fidelity
-   data and interactions, platform conventions not being followed, etc**: a
-   common reason why hybrid apps often don't _feel_ native.
+1. Native functionality is pre-implemented, often leading to **low-fidelity
+   native API usage, cliché interactions, platform conventions not being
+   followed, etc**: a common reason why hybrid apps often don't _feel_ native.
+
+For an extensive comparison between Peregrine and similar technologies, read
+[Comparison with Cordova and Capacitor](/comparison).
 
 ### How is Peregrine different?
 
@@ -79,7 +81,8 @@ still want to use native technologies for the following:
 - High-fidelity interactions: tailored camera experiences, native/biometric
   authentication, etc.
 - Background operations: downloading files, geofencing, etc.
-- Advanced views: interactive animations/games, Google Maps, etc.
+- Advanced views: interactive animations/games, third-party views (e.g. Google
+  Maps), etc.
 
 Of course, web and native still need to talk to each other--and that's where
 Peregrine comes in. Peregrine is a minimal solution for bidirectional
