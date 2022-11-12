@@ -172,7 +172,7 @@ from our web content.
    `ping` function under the `'ping'` key. This key will be used by the web
    client. Read more about [remote interfaces](architecture#remote-interfaces).
 
-```swift-diff { file: '*App.swift', lineNumberOffset: 7, contentBefore: true, contentAfter: true, contentHash: '952d4d38b00d14909657d3ddc94276b382e7c5c8' }
+```swift-diff { file: '*App.swift', lineNumbersOffset: 7, contentBefore: true, contentAfter: true, contentHash: '952d4d38b00d14909657d3ddc94276b382e7c5c8' }
      init() {
          let baseURL = Bundle.main.url(forResource: "www", withExtension: nil)!
 -        let configuration = WebFrame.Configuration(baseURL: baseURL)
@@ -194,7 +194,7 @@ from our web content.
    call the `ping` function and print the response to the screen. If the
    request is unsuccessful, we'll log the error message and code.
 
-```html-diff { file: 'index.html', lineNumberOffset: 7, contentBefore: true, contentAfter: true, contentHash: '7fa60e4003d6fdd4cf7f300bebbb19e16737ba10' }
+```html-diff { file: 'index.html', lineNumbersOffset: 7, contentBefore: true, contentAfter: true, contentHash: '7fa60e4003d6fdd4cf7f300bebbb19e16737ba10' }
        content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
      />
 +    <script type="module">
@@ -326,7 +326,7 @@ that will initiate a mock download and report status events to the web layer.
     screen.
 11. Call `listenForStatus` immediately to begin listening.
 
-```html-diff { file: 'index.html', lineNumberOffset: 20, contentBefore: true, contentAfter: true, contentHash: '5fc61fe69c89a5d90ceaa86bf11f93c12d6a302a' }
+```html-diff { file: 'index.html', lineNumbersOffset: 20, contentBefore: true, contentAfter: true, contentHash: '5fc61fe69c89a5d90ceaa86bf11f93c12d6a302a' }
              }
          })
 +
