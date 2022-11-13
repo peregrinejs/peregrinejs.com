@@ -72,8 +72,8 @@ means you'll need to configure your project to add a new Maven repository.
  }
 ```
 
-3. Sync your project with Gradle files by clicking 'Sync Now'.
-4. Click 'Make Project' to download and install the dependency.
+3. Sync your project with Gradle files by clicking 'Sync Now' and then click
+   'Make Project' to download and install the dependency.
 
 </T>
 
@@ -236,14 +236,13 @@ with a Web Frame fragment that will render our `index.html`.
 6. Find the fragment instance by ID, and associate the Web Frame with it by
    setting the `frame` property.
 
-```kotlin-diff { file: 'MainActivity.kt', lineNumbers: true, contentHash: 'f6a368f321f670865ef7861c0c66d4d87ff8ed94' }
+```kotlin-diff { file: 'MainActivity.kt', lineNumbers: true, contentHash: 'aaf8f2a8e79d6f82d1d0ddaa94aa2c4af223766c' }
  package com.example.myapp
 
- import androidx.appcompat.app.AppCompatActivity
  import android.os.Bundle
-+import com.peregrinejs.WebFrame
-+import com.peregrinejs.WebFrameFragment
-+import com.peregrinejs.ext.uri
+ import androidx.appcompat.app.AppCompatActivity
++import com.peregrinejs.*
++import com.peregrinejs.ext.*
 
  class MainActivity : AppCompatActivity() {
      override fun onCreate(savedInstanceState: Bundle?) {
@@ -328,13 +327,9 @@ access the Internet.
 
 <T android>
 
-```kotlin-diff { file: 'MainActivity.kt', lineNumbers: true, lineNumbersOffset: 3, contentBefore: true, contentAfter: true, contentHash: '41289abffe5b8b50fcdf5096aa263b8af6a99051' }
- import android.os.Bundle
- import androidx.appcompat.app.AppCompatActivity
-+import com.peregrinejs.Call
- import com.peregrinejs.WebFrame
- import com.peregrinejs.WebFrameFragment
- import com.peregrinejs.ext.uri
+```kotlin-diff { file: 'MainActivity.kt', lineNumbers: true, lineNumbersOffset: 5, contentBefore: true, contentAfter: true, contentHash: '3c77e335d4978ca76957d0431a01aee40eb754f9' }
+ import com.peregrinejs.*
+ import com.peregrinejs.ext.*
 
 +fun ping(call: Call) {
 +    if (call.request.text == "ping") {
@@ -373,12 +368,12 @@ access the Internet.
 
 <T android>
 
-```kotlin-diff { file: 'MainActivity.kt', lineNumbers: true, lineNumbersOffset: 22, contentBefore: true, contentAfter: true }
+```kotlin-diff { file: 'MainActivity.kt', lineNumbers: true, lineNumbersOffset: 20, contentBefore: true, contentAfter: true, contentHash: 'c0d548d269745cc55767d16cfaca3472cedf1243' }
          val configuration = WebFrame.Configuration(
              baseUrl = assets.uri("www"),
 +            functions = mapOf(
 +                "ping" to ::ping,
-+            )
++            ),
          )
          val frame = WebFrame(this, configuration = configuration)
 ```
@@ -446,20 +441,30 @@ that will initiate a mock download and report status events to the web layer.
 
 <T ios>
 
+<Callout type="info" title="Combine framework">
+
+We'll be using the [Combine
+framework](https://developer.apple.com/documentation/combine) to asynchronously
+send native events to the web layer. This official library powers reactive
+state in SwiftUI views and is a modern and declarative way to process values
+over time.
+
+Combine doesn't need to be installed--it is installed by default in SwiftUI
+apps.
+
+</Callout>
+
 1. In XCode, open `*App.swift`.
-2. Add the import for the [Combine
-   framework](https://developer.apple.com/documentation/combine).
-3. Create a `CurrentValueSubject` which will report status events.
-4. Create a `startDownload` function that immediately reports a "pending" event
-   and then starts a repeating timer that reports "progress" and "completed"
-   events.
-5. Pass in the `startDownload` function to the `functions` option under the
+2. Create a `CurrentValueSubject` which will report status events.
+3. Create a `startDownload` function that imitates downloading a file and sends
+   progress events via the `status` subject.
+4. Pass in the `startDownload` function to the `functions` dictionary under the
    `'startDownload'` key.
-6. Add the `observables` option to the Web Frame configuration and pass in the
+5. Add the `observables` option to the Web Frame configuration and pass in the
    `status` publisher under the `'downloadStatus$'` key, first converting it to
    an `AnyPublisher`.
 
-```swift-diff { file: '*App.swift', lineNumbers: true, contentAfter: true, contentHash: '59f735c1332abe2dbe344eb13f1b5395eec9f648' }
+```swift-diff { file: '*App.swift', lineNumbers: true, contentAfter: true, contentHash: '3af3c24d0fd0cc77c1f3cdea46fa4cd0204af89e' }
 +import Combine
  import SwiftUI
  import Peregrine
@@ -476,15 +481,16 @@ that will initiate a mock download and report status events to the web layer.
 +
 +func startDownload(call: Call) {
 +    var progress = 0
++    call.respond()
 +    status.value = Event("pending")
 +    DispatchQueue.main.async {
 +        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { timer in
 +            if progress >= 100 {
-+                status.value = Event("progress: 100")
++                status.value = Event("progress: 100%")
 +                status.value = Event("completed")
 +                timer.invalidate()
 +            } else {
-+                status.value = Event("progress: \(progress)")
++                status.value = Event("progress: \(progress)%")
 +                progress += 25
 +            }
 +        }
@@ -508,6 +514,96 @@ that will initiate a mock download and report status events to the web layer.
              ]
          )
 ```
+
+</T>
+
+<T android>
+
+<Callout type="info" title="Kotlin coroutines">
+
+We'll be using [Kotlin
+coroutines](https://developer.android.com/kotlin/coroutines) to asynchronously
+send native events to the web layer.
+[Coroutines](https://kotlinlang.org/docs/coroutines-guide.html) and
+[flows](https://kotlinlang.org/docs/flow.html) are quickly becoming the
+standard way of writing asynchronous code in Android. Coroutines have
+first-class support in AndroidX and the Kotlin language itself.
+
+</Callout>
+
+1. In Android Studio, open `build.gradle` and add the following dependencies.
+   Sync your project with Gradle files by clicking 'Sync Now' and click 'Make
+   Project' to download and install the dependency.
+
+```groovy-diff { file: 'build.gradle' }
+ dependencies {
++    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
++    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
+ }
+```
+
+2. Open `MainActivity.kt`.
+3. Create a `MutableSharedFlow` which will report status events.
+4. Create a `startDownload` suspended function that imitates downloading a file
+   and sends progress events via the `status` flow.
+5. Add a lambda to the `functions` map under the `'startDownload'` key which
+   launches the `startDownload` couroutine within the activity's lifecycle
+   scope.
+6. Add the `observables` option to the Web Frame configuration and pass in the
+   `status` flow under the `'downloadStatus$'` key.
+
+```kotlin-diff { file: 'MainActivity.kt', lineNumbers: true, lineNumbersOffset: 3, contentBefore: true, contentAfter: true, contentHash: '0f112f9fc6bf9d68e146b27c3a2237d3415f20d3' }
+ import android.os.Bundle
+ import androidx.appcompat.app.AppCompatActivity
++import androidx.lifecycle.lifecycleScope
+ import com.peregrinejs.*
+ import com.peregrinejs.ext.uri
++import kotlinx.coroutines.delay
++import kotlinx.coroutines.flow.MutableSharedFlow
++import kotlinx.coroutines.launch
+
+ fun ping(call: Call) {
+     if (call.request.text == "ping") {
+         call.respond("pong")
+     } else {
+         call.fail("Expected 'ping' in request.", "EXPECTED_PING")
+     }
+ }
+
++val status = MutableSharedFlow<Event>()
++
++suspend fun startDownload(call: Call) {
++    status.emit(Event("pending"))
++    call.respond()
++
++    repeat(4) { i ->
++        delay(500)
++        status.emit(Event("progress: ${(i + 1) * 25}%"))
++    }
++
++    status.emit(Event("completed"))
++}
++
+ class MainActivity : AppCompatActivity() {
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+         setContentView(R.layout.activity_main)
+         val configuration = WebFrame.Configuration(
+             baseUrl = assets.uri("www"),
+             remoteInterface = RemoteInterface(
+                 functions = mapOf(
+                     "ping" to ::ping,
++                    "startDownload" to { call ->
++                        lifecycleScope.launch { startDownload(call) }
++                    },
++                ),
++                observables = mapOf(
++                    "downloadStatus$" to status,
+                 )
+             )
+```
+
+</T>
 
 7. Open `index.html`.
 8. Add a button next to the ping button with the ID of `downloadButton`.
@@ -546,14 +642,6 @@ that will initiate a mock download and report status events to the web layer.
 
 When we run the app again, we'll see our new download button. When the button
 is tapped, the mock download statuses will be appended to the web view.
-
-</T>
-
-<T android>
-
-<Callout type="construction" title="Under Construction" />
-
-</T>
 
 #### Add path handlers
 
