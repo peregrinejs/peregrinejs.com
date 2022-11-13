@@ -286,7 +286,7 @@ export const globalStyles = globalCss({
 
     '&[data-language] code': {
       '&::before, &::after, & .line': {
-        padding: '0 0.5rem',
+        padding: '0 1rem',
       },
 
       '& .line[data-diff-symbol="+"]': {
