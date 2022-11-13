@@ -31,6 +31,11 @@ const nextConfig = withMDX({
       },
     ]
   },
+  experimental: {
+    // The docs are a single NextJS page which utilizes `getStaticProps` with
+    // markdown content, some of which exceeds the 128kb limit.
+    largePageDataBytes: 512 * 1024,
+  },
   webpack: config => {
     config.experiments = {
       layers: true,
