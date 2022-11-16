@@ -2,8 +2,8 @@ import { useAtom } from 'jotai'
 import React, { useEffect, useRef } from 'react'
 
 import docsTitleBoxAtom from '@src/atoms/docsTitleBoxAtom'
-import { createSlug } from '@src/components/AnchorHeading'
 import Box from '@src/components/Box'
+import createSlug from '@src/lib/createSlug'
 import useFrontmatterContext from '@src/lib/docs/useFrontmatterContext'
 import { styled } from '@src/stitches.config'
 

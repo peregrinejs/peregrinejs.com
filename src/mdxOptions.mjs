@@ -1,6 +1,7 @@
 import rehypeShiki from '@imhoff/rehype-shiki'
 import remarkGfm from 'remark-gfm'
 import remarkTextr from 'remark-textr'
+import rehypeSlug from 'rehype-slug'
 import shiki from 'shiki'
 import typographicBase from 'typographic-base'
 
@@ -18,7 +19,7 @@ const options = {
     ],
     remarkGfm,
   ],
-  rehypePlugins: [[rehypeShiki, { highlighter }]],
+  rehypePlugins: [rehypeSlug, [rehypeShiki, { highlighter }]],
   providerImportSource: '@mdx-js/react',
 }
 

@@ -1,11 +1,8 @@
-import kebabCase from 'lodash/fp/kebabCase'
 import React from 'react'
 
 import { styled } from '@src/stitches.config'
 
 import AnchorHeadingLink from './AnchorHeadingLink'
-
-export const createSlug = kebabCase
 
 export interface AnchorHeadingProps
   extends React.HTMLAttributes<HTMLAnchorElement & HTMLHeadingElement> {
@@ -18,23 +15,18 @@ const AnchorHeading = ({
   Component,
   anchorOffset,
   children,
+  id,
   ...props
 }: AnchorHeadingProps): JSX.Element => {
-  if (typeof children !== 'string') {
-    throw new Error('Headings must only contain text.')
-  }
-
-  const slug = createSlug(children)
-
   return (
     <>
       <Anchor
-        id={slug}
+        id={id}
         css={{
           top: typeof anchorOffset === 'number' ? -anchorOffset : undefined,
         }}
       />
-      <AnchorHeadingLink {...props} href={`#${slug}`}>
+      <AnchorHeadingLink {...props} href={`#${id}`}>
         <Component>{children}</Component>
       </AnchorHeadingLink>
     </>
