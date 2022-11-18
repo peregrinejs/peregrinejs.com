@@ -44,6 +44,7 @@
     "rehype-slug": "^5.1.0",
     "remark-gfm": "^3.0.1",
     "remark-textr": "^5.0.1",
+    "remark-toc": "^8.0.1",
     "shiki": "^0.10.1",
     "shiki-renderer-hast": "^1.1.5",
     "ts-jest": "^28.0.8",

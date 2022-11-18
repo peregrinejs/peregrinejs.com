@@ -1,6 +1,7 @@
 import rehypeShiki from '@imhoff/rehype-shiki'
 import remarkGfm from 'remark-gfm'
 import remarkTextr from 'remark-textr'
+// import remarkToc from 'remark-toc'
 import rehypeSlug from 'rehype-slug'
 import shiki from 'shiki'
 import typographicBase from 'typographic-base'
@@ -18,6 +19,8 @@ const options = {
       },
     ],
     remarkGfm,
+    // FIXME: remark-toc doesn't detect headings within <T /> components
+    // remarkToc,
   ],
   rehypePlugins: [rehypeSlug, [rehypeShiki, { highlighter }]],
   providerImportSource: '@mdx-js/react',
