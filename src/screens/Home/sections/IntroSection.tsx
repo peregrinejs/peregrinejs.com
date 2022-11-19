@@ -39,7 +39,9 @@ const IntroSection = (): JSX.Element => {
   )
 }
 
-const Title = styled('h1', {})
+const Title = styled('h1', {
+  lineHeight: '1em',
+})
 
 const Subtitle = styled('p', {
   '@md': {

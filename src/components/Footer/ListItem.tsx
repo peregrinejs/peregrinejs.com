@@ -1,6 +1,6 @@
-import Link from 'next/link'
 import React from 'react'
 
+import Link from '@src/components/Link'
 import _Text from '@src/components/Text'
 import { styled } from '@src/stitches.config'
 
@@ -20,7 +20,6 @@ const ListItem = ({ href, children }: ListItemProps): JSX.Element => {
 }
 
 const Text = styled(_Text, {
-  display: 'block',
   color: 'rgb($gray2)',
 })
 

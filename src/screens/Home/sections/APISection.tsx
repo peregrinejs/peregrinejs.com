@@ -33,9 +33,7 @@ const APISection = (): JSX.Element => {
           }}
         >
           {/* TODO */}
-          <h2>
-            Featuring a <em>slick</em> API that uses all the latest stuff
-          </h2>
+          <h2>Featuring a slick API that uses all the latest stuff</h2>
         </Box>
         <TextContent />
       </Box>
