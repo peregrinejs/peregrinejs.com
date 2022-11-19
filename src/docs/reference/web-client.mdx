@@ -1,0 +1,229 @@
+---
+title: Web Client
+---
+
+The Peregrine web client is a TypeScript library that
+
+## TypeScript API
+
+### `ProxyClient`
+
+A client that uses
+[Proxies](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)
+to provide an idiomatic API.
+
+To construct a `ProxyClient`, a generic parameter type must be provided which
+adheres to the [`RemoteInterface`](#remoteinterface) type.
+
+<Callout type="info">
+
+These types are not verified against the actual runtime data the client sends
+to and receives from the remote interface--it is up to you to keep the
+TypeScript interface up to date.
+
+Peregrine does not provide any tooling (see [Philosophy](/philosophy)), but
+perhaps a third-party tool could generate these types from the remote
+interfaces defined in the native platforms.
+
+</Callout>
+
+To demonstrate how the generic parameter is specified, the following example
+defines two functions and an observable in the `MyRemoteInterface` type, which
+is then passed into `ProxyClient` as it is constructed.
+
+```typescript
+export interface DeviceInfo {
+  platform: string
+  model: string
+  manufacturer: string
+}
+
+export type ConnectionType = 'cellular' | 'wifi' | 'none'
+
+export type MyRemoteInterface = {
+  echo: (input: string) => Promise<string>
+  getDeviceInfo: () => Promise<DeviceInfo>
+  networkConnection$: AsyncGenerator<ConnectionType>
+}
+
+export const client = new ProxyClient<MyRemoteInterface>()
+```
+
+Peregrine clients don't connect automatically upon instantiation. The
+[`connect()`](#connectcontext-window-promisevoid) method must be called.
+Decoupling initialization from instantiation removes unintended side-effects
+and allows you to connect and disconnect client(s) at will.
+
+```typescript
+client.connect(window)
+```
+
+<Callout type="info">
+
+The `ProxyClient` class extends
+[`StringClient`](https://github.com/peregrinejs/web/blob/main/src/StringClient.ts),
+which can be used directly to avoid the use of proxies, if you prefer.
+
+</Callout>
+
+#### Methods
+
+##### `connect(context: Window): Promise<void>`
+
+Connect the client to the remote interface via the provided context.
+
+##### `disconnect(): Promise<void>`
+
+Disconnect the client from the remote interface.
+
+##### `url(path: string): Promise<URL>`
+
+Get a full [`URL`](https://developer.mozilla.org/en-US/docs/Web/API/URL) to a
+subpath of a configured [path handler](reference/path-handlers).
+
+In the following example, we'll get the URL of a file given the following path
+handler configuration.
+
+<T ios>
+
+```swift { contentBefore: true, contentAfter: true }
+    pathHandlers: [
+        "/photos/": InternalStoragePathHandler(directory: photosURL)
+    ]
+```
+
+</T>
+
+<T android>
+
+```kotlin { contentBefore: true, contentAfter: true }
+    pathHandlers = mapOf(
+        "/photos/" to WebViewAssetLoader.InternalStoragePathHandler(
+            context,
+            photosDir
+        )
+    ),
+```
+
+</T>
+
+```typescript
+const url = await client.url('/photos/IMG_1234.jpg')
+```
+
+##### `get<N extends keyof T>(name: N): T[N]`
+
+Synchronously get the handle for a remote function or remote observable by
+name.
+
+<Callout type="warning">
+
+You may not need to use this method. You can get handles by accessing
+properties directly from `ProxyClient`. The following example highlights two
+equivalent ways of getting an observable handle from the client.
+
+```typescript
+const handle1 = client.get('networkConnection$')
+const handle2 = client.networkConnection$
+```
+
+</Callout>
+
+##### <code>invoke\<N extends keyof RemoteFunctions\<T\>\>(<br />&nbsp;&nbsp;&nbsp;&nbsp;name: N,<br />&nbsp;&nbsp;&nbsp;&nbsp;arg?: Parameters\<RemoteFunctions\<T\>[N]\>[0],<br />): ReturnType\<RemoteFunctions\<T\>[N]\></code>
+
+Invoke a function from the remote interface by name with the provided argument.
+
+<Callout type="warning">
+
+You may not need to use this method. You can invoke remote functions by
+invoking methods directly on `ProxyClient`. The following example highlights
+two equivalent ways of invoking remote functions.
+
+```typescript
+const result1 = await client.invoke('echo', 'Hello World!')
+const result2 = await client.echo('Hello World!')
+```
+
+</Callout>
+
+### `RemoteInterface`
+
+```typescript
+type RemoteInterface = Record<
+  string,
+  RemoteFunction<any, any> | RemoteObservable<any>
+>
+```
+
+### `RemoteFunction`
+
+```typescript
+type RemoteFunction<I, O> = (arg: I) => Promise<O>
+```
+
+Remote functions take exactly one parameter (which can be left omitted) and
+always return a promise.
+
+If successful, the promise will resolve with the data from the remote
+interface. Data can be a string, an object, or (on iOS) an ArrayBuffer. If
+unsuccessful, the promise will reject with a [`ClientError`
+exception](#clienterror).
+
+### `RemoteObservable`
+
+```typescript
+type RemoteObservable<T> = AsyncGenerator<T>
+```
+
+Remote observables get converted into async generators, which can be iterated
+over by using
+[for-await...of](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of)
+loops, like in the following example.
+
+```typescript
+for await (const connectionType of client.networkConnection$) {
+  console.log(`Network connection changed: ${connectionType}`)
+}
+```
+
+<Callout type="info">
+
+For a more declarative API in reactive apps, it is easy to convert async
+generators to [RxJS](https://rxjs.dev) observables. This can be an idiomatic
+choice for simulating a single pipeline of asynchronous events across
+platforms.
+
+```typescript
+import { from } from 'rxjs'
+
+const connection$ = from(client.networkConnection$)
+
+connection$.subscribe(connectionType => {
+  console.log(`Network connection changed: ${connectionType}`)
+})
+```
+
+</Callout>
+
+### `RemoteFunctions`
+
+```typescript
+type RemoteFunctions<T extends RemoteInterface> = {
+  [K in keyof T]: T[K] extends RemoteFunction<any, any> ? T[K] : never
+}
+```
+
+### `ClientError`
+
+An exception that contains the message and an optional code from the remote
+interface.
+
+#### Properties
+
+##### `readonly message: string`
+
+The human-readable error message.
+
+##### `readonly code: string | null`
+
+The machine-readable error code.

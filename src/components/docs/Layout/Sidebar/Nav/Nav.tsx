@@ -17,6 +17,16 @@ const Nav = (): JSX.Element => {
         <List>
           <Item href="requirements">Project Requirements</Item>
           <Item href="tour">Quick Tour</Item>
+          <Item href="install">Install</Item>
+        </List>
+      </Category>
+      <Category heading="Reference">
+        <List>
+          <Item href="reference/web-frames">Web Frames</Item>
+          <Item href="reference/functions">Functions</Item>
+          <Item href="reference/observables">Observables</Item>
+          <Item href="reference/path-handlers">Path Handlers</Item>
+          <Item href="reference/web-client">Web Client</Item>
         </List>
       </Category>
       <Category heading="Community">

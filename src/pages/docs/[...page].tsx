@@ -26,6 +26,7 @@ interface Path {
 
 interface Scope {
   platform: string
+  platformLanguage: string
 }
 
 export const getStaticPaths: GetStaticPaths<PathParams> = async context => {
@@ -76,6 +77,7 @@ export const getStaticProps: GetStaticProps<
 
   const scope: Scope = {
     platform: prettyPlatform(platform),
+    platformLanguage: platform === 'ios' ? 'Swift' : 'Kotlin',
   }
 
   const mdx = await serialize(contents, scope)

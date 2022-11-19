@@ -43,7 +43,7 @@ const IconBox = styled(Box, {
   'display': 'flex',
   'alignItems': 'center',
   'justifyContent': 'center',
-  'margin': '0.5rem 0',
+  'margin': '0.75rem 0',
   'width': '$$size',
   'height': '$$size',
   'fontSize': 'calc($$size * 0.65)',
@@ -62,7 +62,7 @@ const Root = styled(Box, {
   'display': 'flex',
   'gap': '0.75rem',
   'margin': '1rem 0',
-  'padding': '0.5rem 1rem',
+  'padding': '0 1rem',
 
   '& a': {
     color: 'rgb($gray1)',

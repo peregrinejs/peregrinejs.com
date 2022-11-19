@@ -64,7 +64,7 @@ export const {
     lineHeights: {
       logo: '$sizes$logo',
       text: '1.5em',
-      heading: '1em',
+      heading: '1.5em',
       navItem: '1.75em',
     },
     letterSpacings: {

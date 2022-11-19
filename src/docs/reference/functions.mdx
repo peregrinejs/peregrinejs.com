@@ -1,0 +1,454 @@
+---
+title: Functions
+---
+
+Functions in a remote interface are just regular functions in
+{platformLanguage} that, when connected to a Web Frame, can be invoked from the
+web layer.
+
+## Examples
+
+Functions can be declared any number of ways. The following examples are for a
+remote function that responds with the data that is sent to it from the web
+layer.
+
+### Declared as a function
+
+<T ios>
+
+```swift-diff
++func echo(call: Call) {
++    call.respond(with: call.request.data)
++}
+```
+
+</T>
+
+<T android>
+
+```kotlin-diff
++fun echo(call: Call) {
++    call.respond(call.request.data)
++}
+```
+
+</T>
+
+### Declared as a method within a class
+
+<T ios>
+
+```swift-diff
+ class Echo {
++    func echo(call: Call) {
++        call.respond(with: call.request.data)
++    }
+ }
+```
+
+</T>
+
+<T android>
+
+```kotlin-diff
+ class Echo {
++    fun echo(call: Call) {
++        call.respond(call.request.data)
++    }
+ }
+```
+
+</T>
+
+### Declared as a lambda
+
+<T ios>
+
+```swift-diff { contentBefore: true, contentAfter: true }
+ functions: [
++    "echo": { call in
++        call.respond(with: call.request.data)
++    }
+ ],
+```
+
+</T>
+
+<T android>
+
+```kotlin-diff { contentBefore: true, contentAfter: true }
+ functions = mapOf(
++    "echo" to { call ->
++        call.respond(call.request.data)
++    },
+ ),
+```
+
+</T>
+
+## Web Frame Configuration
+
+For the following example, we'll be using a function declared like the
+following:
+
+<T ios>
+
+```swift
+func echo(call: Call) {
+    call.respond(with: call.request.data)
+}
+```
+
+</T>
+
+<T android>
+
+```kotlin
+fun echo(call: Call) {
+    call.respond(call.request.data)
+}
+```
+
+</T>
+
+Since functions have first-class support in {platformLanguage}, we can pass
+them as references to the Web Frame configuration.
+
+<T ios>
+
+```swift-diff
+ let configuration = WebFrame.Configuration(
+     baseURL: ...
+     functions: [
++        "echo": echo,
+     ],
+     observables: [:]
+ )
+```
+
+</T>
+
+<T android>
+
+```kotlin-diff
+ val configuration = WebFrame.Configuration(
+     baseUrl: ...
+     functions = mapOf(
++        "echo" to ::echo,
+     ),
+     observables = emptyMap(),
+ )
+```
+
+</T>
+
+<Callout type="info">
+
+Peregrine expects remote functions to match the following type in {platformLanguage}.
+
+<T ios>
+
+```swift
+typealias RemoteFunction = (_: Call) -> Void
+```
+
+</T>
+
+<T android>
+
+```kotlin
+typealias RemoteFunction = (Call) -> Unit
+```
+
+</T>
+
+</Callout>
+
+<T ios>
+
+## iOS API
+
+</T>
+
+<T android>
+
+## Android API
+
+</T>
+
+### `Call`
+
+An instance of the `Call` class represents a single invocation of a remote
+function.
+
+#### Properties
+
+<T ios>
+
+##### `let request: Request`
+
+</T>
+
+<T android>
+
+##### `val request: Request`
+
+</T>
+
+The [`Request`](#request) instance associated with this call.
+
+#### Methods
+
+<T ios>
+
+##### `func respond()`
+
+</T>
+
+<T android>
+
+##### `fun respond()`
+
+</T>
+
+Complete the call by responding with empty data.
+
+<T ios>
+
+##### `func respond(with text: String)`
+
+</T>
+
+<T android>
+
+##### `fun respond(text: String)`
+
+</T>
+
+Complete the call by responding with a UTF-8 encoded string.
+
+<T ios>
+
+##### `func respond(with data: Data)`
+
+</T>
+
+<T android>
+
+##### `fun respond(data: JsonElement)`
+
+</T>
+
+Complete the call by responding with arbitrary data.
+
+<T android>
+
+Data must be JSON content on Android. One delightful way of creating arbitrary
+JSON content is by using the
+[`buildJsonObject`](https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/build-json-object.html)
+helper from the KotlinX Serialization library:
+
+```kotlin
+call.respond(buildJsonObject {
+    put("width", 100)
+    put("height", 100)
+})
+```
+
+</T>
+
+<T ios>
+
+##### `func respond<T: Encodable>(with json: T) throws`
+
+</T>
+
+<T android>
+
+##### `inline fun <reified T> respond(json: T)`
+
+</T>
+
+Complete the call by responding with <T ios>an encodable</T><T android>a
+serializable</T> object.
+
+<T ios>
+
+Structs (or classes) must implement the [`Encodable`
+protocol](https://developer.apple.com/documentation/swift/encodable) from
+Swift:
+
+```swift
+struct SizeResponse: Encodable {
+    let width: Double
+    let height: Double
+}
+```
+
+Then, objects can be passed to `.respond()` directly:
+
+```swift
+call.respond(with: SizeResponse(width: 100, height: 100))
+```
+
+This function will throw an error if encoding fails (highly unlikely).
+
+<Callout type="info">
+
+Not all Events must be wrapped in objects. In Swift, many data types implement
+the Encodable protocol: strings, booleans, ints, doubles, arrays, dictionaries,
+etc.
+
+</Callout>
+
+</T>
+
+<T android>
+
+The easiest way to make a class serializable is by annotating it with
+`@Serializable` from the KotlinX Serialization library:
+
+```kotlin
+import kotlinx.serialization.*
+import kotlinx.serialization.json.*
+
+@Serializable
+data class SizeResponse(val width: Double, val height: Double)
+```
+
+Then, objects can be passed to `.respond()` directly:
+
+```kotlin
+call.respond(SizeResponse(100, 100))
+```
+
+<Callout type="info">
+
+This function uses
+[`Json.encodeToJsonElement`](https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/encode-to-json-element.html)
+under the hood to serialize almost any data type: strings, booleans, ints,
+doubles, as well as any instances of classes annotated with `@Serializable`.
+For more information, see the docs for [KotlinX
+Serialization](https://kotlinlang.org/docs/serialization.html).
+
+</Callout>
+
+</T>
+
+<T ios>
+
+##### `func fail(_ message: String?, code: String? = nil)`
+
+</T>
+
+<T android>
+
+##### `fun fail(message: String = "Error", code: String? = null)`
+
+</T>
+
+Complete the call (marking it as failed) by responding with an error message
+and code.
+
+This will cause the web client to throw a `ClientError` exception.
+
+### `Request`
+
+Contains the request data from the web layer and helpers to extract it.
+
+#### Properties
+
+<T ios>
+
+##### `let data: Data`
+
+</T>
+
+<T android>
+
+##### `val data: JsonElement`
+
+</T>
+
+The raw data from the web layer.
+
+<T ios>
+
+##### `let text: String`
+
+</T>
+
+<T android>
+
+##### `val text: String`
+
+</T>
+
+The data decoded as a UTF-8 string.
+
+#### Methods
+
+<T ios>
+
+##### `func json<T: Decodable>(_ type: T.Type) throws -> T`
+
+</T>
+
+<T android>
+
+##### `inline fun <reified T> json(): T`
+
+</T>
+
+The data converted to a <T ios>decodable</T><T android>serializable</T> object.
+
+<T ios>
+
+Structs (or classes) must implement the [`Decodable`
+protocol](https://developer.apple.com/documentation/swift/decodable) from
+Swift:
+
+```swift
+struct SizeRequest: Decodable {
+    let name: String
+}
+```
+
+Then, pass the type to `.json()`:
+
+```swift
+let sizeRequest = try call.request.json(SizeRequest.self)
+let shapeName = sizeRequest.name
+```
+
+This function will throw an error if decoding fails.
+
+</T>
+
+<T android>
+
+Annotate classes with `@Serializable`:
+
+```kotlin
+@Serializable
+data class SizeRequest(
+    val name: String
+)
+```
+
+Then, pass the type as a generic parameter to `.json()`:
+
+```kotlin
+val sizeRequest = call.request.json<SizeRequest>()
+val shapeName = sizeRequest.name
+```
+
+<Callout type="info">
+
+This function uses
+[`Json.decodeFromJsonElement`](https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/decode-from-json-element.html)
+under the hood to deserialize into almost any data type.
+
+</Callout>
+
+</T>

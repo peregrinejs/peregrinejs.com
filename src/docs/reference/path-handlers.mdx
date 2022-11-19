@@ -1,0 +1,157 @@
+---
+title: Path Handlers
+---
+
+Developers attach path handlers to the Web Frame for handling web view
+requests. Path handlers are usually used for providing assets and resources to
+the web view.
+
+<T ios>
+
+Path handlers must adhere to the [`PathHandler` protocol](#pathhandler). One
+particularly useful implementation is
+[`InternalStoragePathHandler`](#internalstoragepathhandler), which serves
+static files from almost any directory on the native device.
+
+</T>
+
+<T android>
+
+Path handlers must adhere to the first-party [`WebViewAssetLoader.PathHandler`
+interface](#webviewassetloaderpathhandler). One particularly useful subclass is
+[`WebViewAssetLoader.InternalStoragePathHandler`](#webviewassetloaderinternalstoragepathhandler),
+which serves static files from almost any directory on the native device.
+
+Peregrine constructs its own
+[`WebViewAssetLoader`](https://developer.android.com/reference/androidx/webkit/WebViewAssetLoader)
+from the provided path-\>`PathHandler` map.
+
+</T>
+
+## Examples
+
+In the following example, the `/photos/` path is being registered and linked to
+a directory on the native device.
+
+<T ios>
+
+```swift
+let documentsURL = try FileManager.default.url(
+    for: .documentDirectory,
+    in: .userDomainMask,
+    appropriateFor: nil,
+    create: true
+)
+
+let photosURL = documentsURL.appendingPathComponent("photos")
+
+let configuration = WebFrame.Configuration(
+    baseURL: ...
+    functions: ...
+    observables: ...
+    pathHandlers: [
+        "/photos/": InternalStoragePathHandler(directory: photosURL)
+    ]
+)
+```
+
+</T>
+
+<T android>
+
+```kotlin
+val photosDir = context.filesDir.resolve("photos")
+photosDir.mkdirs()
+
+val configuration = WebFrame.Configuration(
+    baseUrl = ...
+    functions = ...
+    observables = ...
+    pathHandlers = mapOf(
+        "/photos/" to WebViewAssetLoader.InternalStoragePathHandler(
+            context,
+            photosDir
+        )
+    ),
+)
+```
+
+</T>
+
+<T ios>
+
+## Swift API
+
+</T>
+
+<T android>
+
+## Kotlin API
+
+</T>
+
+<T ios>
+
+### `InternalStoragePathHandler`
+
+A path handler which serves static files from a directory.
+
+This class is implemented in Peregrine to achieve partial parity with the
+first-party path handlers available on Android. It is largely inspired by
+[`WebViewAssetLoader.InternalStoragePathHandler`](https://developer.android.com/reference/androidx/webkit/WebViewAssetLoader.InternalStoragePathHandler).
+
+#### Initializers
+
+##### `init(directory: URL)`
+
+Create an `InternalStoragePathHandler` bound to a specific directory.
+
+### `PathHandler`
+
+A protocol for serving data from paths.
+
+Implementers must have a `handle` method which returns a [`PathHandlerResponse`](#pathhandlerresponse).
+
+```swift
+public protocol PathHandler {
+    func handle(path: String) -> PathHandlerResponse
+}
+```
+
+### `PathHandlerResponse`
+
+Represents a single response from a path handler.
+
+Responses have an HTTP status code, HTTP headers, and data.
+
+```swift
+public struct PathHandlerResponse {
+    let statusCode: Int
+    let responseHeaders: [String: String]
+    let data: Data
+}
+```
+
+</T>
+
+<T android>
+
+### `WebViewAssetLoader.InternalStoragePathHandler`
+
+See the [official
+documentation](https://developer.android.com/reference/androidx/webkit/WebViewAssetLoader.InternalStoragePathHandler)
+for this class.
+
+### `WebViewAssetLoader.PathHandler`
+
+See the [official
+documentation](https://developer.android.com/reference/androidx/webkit/WebViewAssetLoader.PathHandler)
+for this interface.
+
+### `WebResourceResponse`
+
+See the [official
+documentation](https://developer.android.com/reference/android/webkit/WebResourceResponse.html)
+for this class.
+
+</T>

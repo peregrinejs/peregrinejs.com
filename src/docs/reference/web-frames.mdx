@@ -1,0 +1,263 @@
+---
+title: Web Frames
+---
+
+Web Frames are instances of the `WebFrame` class in {platformLanguage}.
+Essentially, they are meant to represent a single, supercharged web view. Web
+Frames are set up specifically for the web content they display: web view
+configuration and native access are tailored. Many hybrid developers may only
+use one Web Frame for their entire app--and that's fine! Others may want to
+have a mix of web and native views.
+
+Web Frames encapsulate the web view itself, path handlers for implementing
+responses to web view requests, and a remote interface for implementing native
+functionality.
+
+## Examples
+
+<Callout type="construction" title="Under Construction" />
+
+<T ios>
+
+## Swift API
+
+</T>
+
+<T android>
+
+## Kotlin API
+
+</T>
+
+### `WebFrame`
+
+An instance of the `WebFrame` class represents a single native view with web
+content, as well as any configuration and native access associated with that
+web content.
+
+<T ios>
+
+#### Initializers
+
+##### `init(configuration: Configuration)`
+
+</T>
+
+<T android>
+
+#### Constructors
+
+##### `WebFrame(val context: Context, val configuration: Configuration)`
+
+Create a `WebFrame` with the given [Android
+context](https://developer.android.com/reference/android/content/Context) and
+[Web Frame configuration](#webframeconfiguration).
+
+</T>
+
+<T ios>
+
+#### Properties
+
+##### `let view: WebFrameRepresentable`
+
+The
+[`UIViewRepresentable`](https://developer.apple.com/documentation/swiftui/uiviewrepresentable)
+that can be plugged into SwiftUI.
+
+In the following example, we use the view directly as the root view of our
+scene.
+
+```swift
+import SwiftUI
+import Peregrine
+
+@main
+struct MyApp: App {
+    let frame: WebFrame
+
+    init() {
+        let baseURL = Bundle.main.url(forResource: "www", withExtension: nil)!
+        let configuration = WebFrame.Configuration(baseURL: baseURL)
+        frame = WebFrame(configuration: configuration)
+    }
+
+    var body: some Scene {
+        WindowGroup {
+            frame.view
+        }
+    }
+}
+```
+
+</T>
+
+### `WebFrame.Configuration`
+
+A single Web Frame configuration which can be used for zero to many Web Frames.
+
+Web Frame configurations contain the following.
+
+1. A <T ios>`baseURL`</T><T android>`baseUrl`</T> which corresponds to the
+   directory path from which to serve web content.
+
+   This directory must have at least an `index.html` file.
+
+1. _(optional)_ A remote interface, which comprises `functions` and
+   `observables`.
+
+   [Functions](reference/functions) are used to invoke something, e.g. run a
+   native API, send back data, be notified of a particular lifecycle event,
+   etc. [Observables](reference/observables) are used to receive a stream of
+   notifications, e.g. network status, geofencing updates, keyboard events,
+   etc.
+
+   Each function and observable must have a unique string key for the web
+   client's usage. The string keys for observables must end in a dollar sign
+   (`$`).
+
+1. _(optional)_ Path handlers, which use special paths that are accessed by the
+   web view to serve web content from {platformLanguage}. See [Path
+   Handlers](reference/path-handlers) for reference documentation.
+
+<T ios>
+
+#### Initializers
+
+Create a `WebFrame.Configuration`.
+
+##### <code>init(<br />&nbsp;&nbsp;&nbsp;&nbsp;baseURL: URL?,<br />&nbsp;&nbsp;&nbsp;&nbsp;functions: RemoteFunctions?,<br />&nbsp;&nbsp;&nbsp;&nbsp;observables: RemoteObservables?,<br />&nbsp;&nbsp;&nbsp;&nbsp;pathHandlers: [String: PathHandler]?<br />)</code>
+
+</T>
+
+<T android>
+
+#### Constructors
+
+Create a `WebFrame.Configuration`.
+
+##### <code>WebFrame.Configuration(<br />&nbsp;&nbsp;&nbsp;&nbsp;val baseUrl: Uri,<br />&nbsp;&nbsp;&nbsp;&nbsp;val functions: RemoteFunctions,<br />&nbsp;&nbsp;&nbsp;&nbsp;val observables: RemoteObservables,<br />&nbsp;&nbsp;&nbsp;&nbsp;val pathHandlers: Map\<String, WebViewAssetLoader.PathHandler\><br />)</code>
+
+</T>
+
+<T android>
+
+### `WebFrameFragment`
+
+A [Fragment](https://developer.android.com/reference/android/app/Fragment) that
+is bound to a single Web Frame.
+
+Typically, `WebFrameFragment` is not constructed manually, but as part of a
+[`FragmentContainerView`](https://developer.android.com/reference/androidx/fragment/app/FragmentContainerView)
+like in the following example.
+
+```xml { file: 'activity_main.xml' }
+<androidx.fragment.app.FragmentContainerView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_container_view_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:name="com.peregrinejs.WebFrameFragment"
+    tools:context=".MainActivity">
+</androidx.fragment.app.FragmentContainerView>
+```
+
+Then, we assign the `frame` property during an activity's [`onCreate` lifecycle
+method](<https://developer.android.com/reference/android/app/Activity#onCreate(android.os.Bundle)>).
+Since we assigned an ID to the `FragmentContainerView` layout, we can retrieve
+it using the fragment manager.
+
+```kotlin { file: 'MainActivity.kt', contentBefore: true, contentAfter: true }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        val configuration = WebFrame.Configuration(
+           baseUrl = assets.uri("www"),
+        )
+        val frame = WebFrame(this, configuration = configuration)
+        val fragment = supportFragmentManager
+            .findFragmentById(R.id.fragment_container_view) as WebFrameFragment
+        fragment.frame = frame
+    }
+```
+
+#### Properties
+
+##### `lateinit var frame: WebFrame`
+
+Set this property to connect the `WebFrameFragment` to a Web Frame instance.
+
+</T>
+
+### `RemoteFunctions`
+
+<T ios>
+
+```swift
+typealias RemoteFunctions = [String: RemoteFunction]
+```
+
+</T>
+
+<T android>
+
+```kotlin
+typealias RemoteFunctions = Map<String, RemoteFunction>
+```
+
+</T>
+
+### `RemoteFunction`
+
+<T ios>
+
+```swift
+typealias RemoteFunction = (_: Call) -> Void
+```
+
+</T>
+
+<T android>
+
+```kotlin
+typealias RemoteFunction = (Call) -> Unit
+```
+
+</T>
+
+### `RemoteObservables`
+
+<T ios>
+
+```swift
+typealias RemoteObservables = [String: RemoteObservable]
+```
+
+</T>
+
+<T android>
+
+```kotlin
+typealias RemoteObservables = Map<String, RemoteObservable>
+```
+
+</T>
+
+### `RemoteObservable`
+
+<T ios>
+
+```swift
+typealias RemoteObservable = AnyPublisher<Event?, Never>
+```
+
+</T>
+
+<T android>
+
+```kotlin
+typealias RemoteObservable = Flow<Event>
+```
+
+</T>

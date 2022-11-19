@@ -4,7 +4,6 @@ import React from 'react'
 import type Platform from '@src/Platform'
 import { prettyPlatform } from '@src/Platform'
 import Box from '@src/components/Box'
-import createSlug from '@src/lib/createSlug'
 import useFrontmatterContext from '@src/lib/docs/useFrontmatterContext'
 import { styled } from '@src/stitches.config'
 
@@ -22,7 +21,6 @@ const Layout = ({
 }: LayoutProps): JSX.Element => {
   const { title } = useFrontmatterContext()
   const platform = prettyPlatform(platformProp)
-  const titleSlug = title ? createSlug(title) : undefined
 
   return (
     <>
@@ -34,7 +32,7 @@ const Layout = ({
         </title>
         <meta name="description" content="TODO" />
       </Head>
-      <Root id={titleSlug}>
+      <Root>
         <Box>
           <Sidebar />
         </Box>

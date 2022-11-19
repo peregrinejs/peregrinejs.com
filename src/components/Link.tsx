@@ -27,19 +27,23 @@ const Link = ({ children, href, css, ...props }: LinkProps): JSX.Element => {
 }
 
 const Icon = styled(OutboundIcon, {
-  $$iconSize: '14px',
-  $$iconMarginTop: '2px',
-  $$iconMarginBottom: '2px',
-  $$iconMarginLeft: '2px',
-  $$iconMarginRight: '0',
+  '$$iconSize': '14px',
+  '$$iconMarginTop': '2px',
+  '$$iconMarginBottom': '2px',
+  '$$iconMarginLeft': '2px',
+  '$$iconMarginRight': '0',
 
-  width: '$$iconSize',
-  height: '$$iconSize',
-  marginTop: '$$iconMarginTop',
-  marginBottom: '$$iconMarginBottom',
-  marginLeft: '$$iconMarginLeft',
-  marginRight: '$$iconMarginRight',
-  verticalAlign: 'text-bottom',
+  'width': '$$iconSize',
+  'height': '$$iconSize',
+  'marginTop': '$$iconMarginTop',
+  'marginBottom': '$$iconMarginBottom',
+  'marginLeft': '$$iconMarginLeft',
+  'marginRight': '$$iconMarginRight',
+  'verticalAlign': 'text-bottom',
+
+  '@lg': {
+    $$iconSize: '16px',
+  },
 })
 
 export default Link
