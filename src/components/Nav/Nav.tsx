@@ -6,6 +6,7 @@ const Nav = (): JSX.Element => {
   return (
     <Root>
       <Item href="/philosophy">Philosophy</Item>
+      <Item href="/comparison">Comparison</Item>
       <Item href="/licenses">Licenses</Item>
       <Item href="/docs/ios/introduction">Docs</Item>
       <Item href="https://github.com/peregrinejs">GitHub</Item>

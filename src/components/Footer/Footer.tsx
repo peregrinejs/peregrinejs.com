@@ -29,9 +29,9 @@ const Footer = (): JSX.Element => {
         <Box>
           <Heading>Overview</Heading>
           <List>
-            <ListItem href="/license">License</ListItem>
             <ListItem href="/philosophy">Philosophy</ListItem>
             <ListItem href="/comparison">Comparison</ListItem>
+            <ListItem href="/licenses">Licenses</ListItem>
           </List>
         </Box>
         <Box>
