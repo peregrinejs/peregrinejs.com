@@ -1,9 +1,12 @@
+import Box from '@src/components/Box'
 import Text from '@src/components/Text'
+import { MDX, useMDXDirectory } from '@src/lib/mdx'
+import Section from '@src/screens/Home/components/Section'
 import { styled } from '@src/stitches.config'
 
-import Section from '../components/Section'
-
 const IntroSection = (): JSX.Element => {
+  const mdx = useMDXDirectory()
+
   return (
     <Section
       css={{
@@ -30,10 +33,7 @@ const IntroSection = (): JSX.Element => {
         </Text>
       </Title>
       <Subtitle>
-        Peregrine was built for{' '}
-        <strong>curious, detail-oriented developers</strong> to explore the{' '}
-        <strong>full potential of iOS and Android</strong> while providing the
-        essentials for <strong>feature-rich web views</strong>.
+        <MDX {...mdx[`sections/intro/subtitle.mdx`]} />
       </Subtitle>
     </Section>
   )
@@ -43,7 +43,7 @@ const Title = styled('h1', {
   lineHeight: '1em',
 })
 
-const Subtitle = styled('p', {
+const Subtitle = styled(Box, {
   '@md': {
     fontSize: '$lg',
     marginRight: '5rem',
