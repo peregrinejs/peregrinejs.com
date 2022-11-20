@@ -46,6 +46,7 @@ const Footer = (): JSX.Element => {
           <Heading>Community</Heading>
           <List>
             <ListItem href="https://github.com/peregrinejs">GitHub</ListItem>
+            <ListItem href="https://discord.gg/qHpG99q9Mp">Discord</ListItem>
             <ListItem href="https://twitter.com/Peregrine_JS">Twitter</ListItem>
           </List>
         </Box>
