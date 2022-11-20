@@ -206,12 +206,15 @@ export const globalStyles = globalCss({
 
     '& code': {
       'fontSize': '$sm',
-      'lineHeight': '1.5em',
 
       '& .line': {
         display: 'block',
         padding: '0 1.5rem',
-        content: ' ',
+        lineHeight: '1.5em',
+      },
+
+      '& .line:empty': {
+        height: '1.5em',
       },
 
       '& .line::before': {
@@ -222,8 +225,20 @@ export const globalStyles = globalCss({
         display: 'inline-block',
         margin: '0 0.5em',
         fontSize: '$xsm',
-        color: 'rgba($gray3 / 0.5)',
+        color: 'rgba($gray3)',
         userSelect: 'none',
+      },
+
+      '& .line.folded': {
+        'backgroundColor': 'rgba($gray4 / 0.5)',
+        'margin': '0.5em 0',
+        'userSelect': 'none',
+
+        '& > .marker': {
+          fontSize: '$xsm',
+          fontFamily: '$text',
+          color: '$shiki$token$keyword',
+        },
       },
     },
 

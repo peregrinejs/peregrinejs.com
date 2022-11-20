@@ -1,0 +1,31 @@
+Use [Kotlin Flows](https://developer.android.com/kotlin/flow) to build reactive
+data pipelines that send asynchronous events to the web layer.
+
+```kotlin
+class KeyboardPlugin(private val activity: Activity, val scope: CoroutineScope) {
+    val keyboard = MutableSharedFlow<Event>()
+
+    init {
+        val listener = ViewTreeObserver.OnGlobalLayoutListener {
+            ⋯
+            scope.launch {
+                if (keyboardHeight > 0) {
+                    keyboard.emit(Event(KeyboardEvent(KeyboardState.SHOWN, keyboardHeight)))
+                } else {
+                    keyboard.emit(Event(KeyboardEvent(KeyboardState.HIDDEN, 0)))
+                }
+            }
+        }
+
+        activity.rootView.viewTreeObserver.addOnGlobalLayoutListener(listener)
+    }
+}
+```
+
+```typescript
+const { Keyboard } = client
+
+for await (const { state, height } of Keyboard.keyboard$) {
+  console.log(`Keyboard is ${state}, height: ${height}`)
+}
+```

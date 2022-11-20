@@ -1,7 +1,7 @@
 import { styled } from '@src/stitches.config'
 
-import APISection from './sections/api/APISection'
-import IntroSection from './sections/intro/IntroSection'
+import APISection from './sections/APISection'
+import IntroSection from './sections/IntroSection'
 
 const Home = (): JSX.Element => {
   return (
@@ -12,12 +12,6 @@ const Home = (): JSX.Element => {
   )
 }
 
-const Main = styled('main', {
-  '@lg': {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-})
+const Main = styled('main')
 
 export default Home

@@ -1,0 +1,29 @@
+Use Apple's [Combine
+framework](https://developer.apple.com/documentation/combine) to build reactive
+data pipelines that send asynchronous events to the web layer.
+
+```swift
+struct KeyboardEvent: Codable {
+    let state: String
+    let height: Double
+}
+
+class Keyboard {
+    @Published var keyboard: Event?
+    ⋯
+    init() {
+        ⋯
+        Publishers
+            .MergeMany(willHidePublisher, didHidePublisher, willShowPublisher, didShowPublisher)
+            .assign(to: &$keyboard)
+    }
+}
+```
+
+```typescript
+const { Keyboard } = client
+
+for await (const { state, height } of Keyboard.keyboard$) {
+  console.log(`Keyboard is ${state}, height: ${height}`)
+}
+```

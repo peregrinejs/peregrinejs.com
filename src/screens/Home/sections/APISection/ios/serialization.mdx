@@ -1,0 +1,26 @@
+Peregrine for iOS is written in 100% Swift. Use
+[Codable](https://developer.apple.com/documentation/swift/codable) interfaces
+for type-safe serialization and de&shy;serialization.
+
+```swift
+struct LocationResponse: Encodable {
+    let lat: Double
+    let lng: Double
+}
+
+func getLocation(call: Call) {
+    ⋯
+    let response = LocationResponse(
+        lat: location.coordinate.latitude,
+        lng: location.coordinate.longitude
+    )
+
+    try! call.respond(with: response)
+}
+```
+
+```typescript
+const { lat, lng } = await client.getLocation()
+
+console.log(`You are at Latitude: ${lat}, Longitude: ${lng}`)
+```

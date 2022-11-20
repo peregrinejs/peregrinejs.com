@@ -33,7 +33,7 @@ const IntroSection = (): JSX.Element => {
         </Text>
       </Title>
       <Subtitle>
-        <MDX {...mdx[`sections/intro/subtitle.mdx`]} />
+        <MDX {...mdx[`sections/IntroSection/subtitle.mdx`]} />
       </Subtitle>
     </Section>
   )

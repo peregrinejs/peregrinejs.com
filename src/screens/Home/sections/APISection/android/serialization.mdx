@@ -1,0 +1,27 @@
+Peregrine for Android is written in 100% Kotlin. Use the official [Kotlin
+Serialization library](https://kotlinlang.org/docs/serialization.html) for
+type-safe serialization and de&shy;serialization.
+
+```kotlin
+@Serializable
+data class LocationResponse(
+    val lat: Double,
+    val lng: Double
+)
+
+func getLocation(call: Call) {
+    ⋯
+    let response = GeolocationResult(
+        location.latitude,
+        location.longitude
+    )
+
+    call.respond(response)
+}
+```
+
+```typescript
+const { lat, lng } = await client.getLocation()
+
+console.log(`You are at Latitude: ${lat}, Longitude: ${lng}`)
+```
