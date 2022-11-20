@@ -99,15 +99,24 @@ val networkConnection = MutableSharedFlow<Event>()
 
 The observable reference can be passed directly to the Web Frame configuration.
 
-<T ios>Notice we must reset the type of the publisher to `AnyPublisher` by
-using
+<T ios>
+
+Notice we must reset the type of the publisher to `AnyPublisher` by using
 [`.eraseToAnyPublisher()`](<https://developer.apple.com/documentation/combine/publisher/erasetoanypublisher()>)
 to conform to the [`RemoteObservable`
 type](reference/web-frames#remoteobservable) expected by Peregrine. This is
-known as type erasure in Swift.</T><T android>Although you can add an instance
-of `MutableSharedFlow` directly to the Web Frame configuration, it is a good
-idea to convert it to an immutable flow first by using
-[`.asSharedFlow()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/as-shared-flow.html).</T>
+known as type erasure in Swift.
+
+</T>
+
+<T android>
+
+Although you can add an instance of `MutableSharedFlow` directly to the Web
+Frame configuration, it is a good idea to convert it to an immutable flow first
+by using
+[`.asSharedFlow()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/as-shared-flow.html).
+
+</T>
 
 <T ios>
 
