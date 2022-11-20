@@ -1,0 +1,181 @@
+import Layout from '@src/components/ContentLayout'
+import Table, { Th } from '@src/components/Table'
+import YearsAgo from '@src/components/YearsAgo'
+
+# Philosophy
+
+This page will explain **why** Peregrine was created, **how** it's different
+from existing solutions, **who** it's meant for, and the **philosophy** behind
+it.
+
+## Why build Peregrine?
+
+Peregrine was created after participating in the hybrid mobile app community
+for almost 8 years and observing pain points with existing solutions (Cordova,
+Capacitor, React Native, Flutter, etc). Many of them promise a cross-platform
+utopia, but inevitably fall short.
+
+The main reason we believe these solutions fall short is their _scope_. The
+scope of every well-known hybrid mobile solution is _huge_. When you choose one
+of these solutions for your project, you become entirely dependent on a
+cross-platform system that simply tries to do too much.
+
+For non-web-based solutions (React Native/Flutter), this dependence has
+troubling downsides:
+
+1. Apps become **nearly impossible to migrate** away from these solutions,
+   mostly because they require you to use their custom view layer, coupling
+   your views to third-party syntax and runtime that are otherwise completely
+   unsupported.
+1. **Building skills is hard**. These solutions require you to learn an
+   abstraction instead of the platform itself. Flutter would even have you
+   learn an entirely new programming language. When hiring for these solutions,
+   suddenly you have to look for "React Native developers" and "Flutter
+   developers". It becomes a niche skill in an already niche market.
+1. **Skills cannot be transferred** to other technologies. When you develop an
+   app using these solutions, you've built almost zero skills that could be
+   useful elsewhere.
+
+With web-based solutions (Cordova/Capacitor), this dependence is lessened
+because the view layer is implemented with web technologies. Apps can be
+migrated between them with relative ease. Skills can be reused and reapplied
+elsewhere.
+
+However, Cordova and Capacitor both take a _web-first_ approach: they treat web
+as first class and native as second class. They provide an abstraction over the
+native platforms to try to mask their complexities. Both solutions have
+complicated, opinionated tooling to achieve this abstraction, but complexity
+often bleeds through in obscure and troubling ways.
+
+The intention was to provide the user with a _framework_: as long as you work
+within the confines of the framework, you won't have to worry about the
+platform itself. Unfortunately for developers using these solutions, a
+framework whose scope encompasses several entire native platforms has a few
+downsides:
+
+1. Platforms evolve quickly and **developers are left waiting for the framework
+   to update**, leading to loss of end users and/or revenue and even crucial
+   App Store deadlines being missed.
+1. **Apps become reliant on obscure, brittle third-party code** that is subject
+   to warnings or rejections from governing bodies. Getting this code updated
+   can be a monumental task, often leading to forks of plugins or even
+   components of the solution itself.
+1. Native functionality is pre-implemented, often leading to **low-fidelity
+   native API usage, cliché interactions, platform conventions not being
+   followed, etc**: a common reason why hybrid apps often don't _feel_ native.
+
+For an extensive comparison between Peregrine and similar technologies, read
+[Comparison with Cordova and Capacitor](/comparison).
+
+### How is Peregrine different?
+
+Naturally, Peregrine is _native-first_: it is merely an iOS and Android library
+with a web client. No abstraction of the native platforms. No tooling. No
+plugins. We believe the correct approach to hybrid mobile development is a
+minimal, self-edifying approach that leans on technologies that are best suited
+for the particular task.
+
+For example, a developer building the bulk of an app using web technologies may
+still want to use native technologies for the following:
+
+- High-fidelity interactions: tailored camera experiences, native/biometric
+  authentication, etc.
+- Background operations: downloading files, geofencing, etc.
+- Advanced views: interactive animations/games, third-party views (e.g. Google
+  Maps), etc.
+
+Of course, web and native still need to talk to each other--and that's where
+Peregrine comes in. Peregrine is a minimal solution for bidirectional
+communication between web and native. It's the bridge without the cruft. But
+it's more than that, too. Peregrine provides the code, documentation, and
+recipes necessary to build truly artisanal hybrid apps.
+
+#### Documentation, not tooling
+
+Peregrine does not have a CLI--or any tooling whatsoever. Instead of using
+tooling to abstract the platform, Peregrine provides documentation for
+beginners to start using each platform's native tooling directly.
+
+"Peregrine app" isn't a phrase you'll find in these docs. Instead of trying to
+encapsulate the native platforms, developers begin by creating a native app
+with the IDE (or using an existing native app) and adding the Peregrine library
+to it.
+
+#### Recipes, not plugins
+
+Traditionally, hybrid developers would select from a vast set of third-party
+plugins in order to implement native functionality. In theory, this sounds
+great! They allow you to get up and running very quickly.
+
+In practice, however:
+
+- **Plugins are highly coupled** to the platform and the runtime. When either
+  update, plugins can become incompatible, often leading to a frustrated
+  userbase.
+- **Plugin quality varies tremendously**. Plugins are often written by
+  developers with little to no experience in native mobile apps and are often
+  abandoned. This leaves timebombs scattered in your app that are outside of
+  your maintenance purview.
+- **Plugins are yet another abstraction**. When you choose a plugin off the
+  shelf, you are sacrificing the chance to discover a solution on your own that
+  may work better for your app.
+
+**Further Reading**: _[A World Without
+Plugins](https://www.swyx.io/a-world-without-plugins-cig)_, by
+[@swyx](https://twitter.com/swyx)
+
+Peregrine has _recipes_, not plugins. Recipes are premier code snippets and
+associated instructions that are provided and maintained by the Peregrine
+community that you can copy into your app. They represent the best and most
+up-to-date way of doing something in iOS or Android, e.g. saving an image,
+making the device vibrate, sending an HTTP request, etc.
+
+Recipes are often combined and then hooked up to remote interfaces to provide
+tailored native functionality to your web app.
+
+## Who is Peregrine for?
+
+Peregrine does not claim to be the best choice for everybody. Existing
+solutions have worked just fine for a significant amount of developers and
+teams. Here's a list of roles we think Peregrine is and is not for:
+
+Peregrine **is** for:
+
+- Developers who are looking to rediscover hybrid mobile development.
+- Developers who want full control over their app: code, structure, and UX.
+- Developers who are curious and want to learn more about iOS and Android
+  development.
+- Developers who are already knowledgeable about iOS and Android development
+  and want to incorporate web views(s) into their apps.
+- Developers who are detail-oriented and want to be able to tweak every little
+  thing.
+- Developers who are security-minded.
+- Developers who want to use web _and_ native platform for what they're both
+  best at.
+- Companies that want a minimal, programmatic way to build web micro-frontends
+  into their native apps.
+
+Peregrine **is not** for:
+
+- Developers who want a framework to help them structure their app.
+- Developers who want to push out an app as fast as possible.
+- Developers who see iOS and Android as a means to an end.
+- Companies that require contractual support. Perhaps in the future, paid
+  support for Peregrine will be an option.
+
+## The Peregrine Philosophy
+
+The Peregrine philosophy can be summarized in four points:
+
+1. **Don't over-abstract**. Peregrine should solve the annoying parts of hybrid
+   app development, such as setting up a web view and implementing
+   web\<-\>native communication. It should not try to build your app for you in
+   any way, e.g. providing preimplemented plugins or build tooling.
+1. **Don't be magical**. Peregrine should not feel _magic_. It should always be
+   clear to the developer what is happening and why.
+1. **Stay concise**. Peregrine should keep its surface area to a minimum, which
+   will enable easy updates even across major versions.
+1. **Stay modern**. Peregrine should use the best and most up-to-date features.
+   Platforms evolve quickly and it's best to keep on top of deprecations.
+
+export default ({ children }) => <Layout>{children}</Layout>

@@ -1,0 +1,21 @@
+---
+title: Architecture
+---
+
+This page provides a brief overview of the Peregrine API to discuss terms and
+concepts before diving a bit deeper into the implementation details.
+
+## Overview
+
+Peregrine has a library for web and a library for each native platform. The
+native library provides the [Web Frame](reference/web-frames), which
+encapsulates the web view. Developers create remote interfaces and attach them
+to the Web Frame for web\<-\>native communication. Remote interfaces comprise
+[functions](reference/functions) for request/response-style communication and
+[observables](reference/observables) for pub/sub-style communication. The
+implementation of this communication between web and native is often called the
+_bridge_.
+
+## Implementation
+
+<Callout type="construction" title="Under Construction" />

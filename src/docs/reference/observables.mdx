@@ -1,0 +1,265 @@
+---
+title: Observables
+---
+
+Observables in a remote interface are reactive streams of `Event` instances in
+{platformLanguage} that, when connected to a Web Frame, can push data to the
+web layer. They are implemented with <T ios>[Combine
+Framework](https://developer.apple.com/documentation/combine), the reactive
+programming library that powers SwiftUI</T><T android>[Asynchronous
+Flows](https://kotlinlang.org/docs/flow.html), a powerful coroutine-based
+reactive programming library built by the Kotlin team</T>, which means they are
+instances of <T
+ios>[Publishers](https://developer.apple.com/documentation/combine/publisher)</T><T
+android>[Flows](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-flow/)</T>.
+
+## Examples
+
+Observables can be declared any number of ways. The following examples are for
+a remote observable that sends events every time the network connection
+changes.
+
+<T ios>
+
+### Declared as a `@Published` property
+
+Use the [`@Published`
+attribute](https://developer.apple.com/documentation/combine/published) to
+create an underlying publisher for the annotated property. Every time the
+property is assigned a new value, the underlying publisher will emit the new
+value to any subscribers.
+
+The underlying publisher can be accessed with the `$` operator (`$connection`
+in the following example).
+
+```swift-diff
+ class Network {
++    @Published var connection: Event?
+ }
+```
+
+</T>
+
+<T android>
+
+### Declared as a class property
+
+```kotlin-diff
+ class Network {
++    val visible = MutableSharedFlow<Event>()
+ }
+```
+
+</T>
+
+<T ios>
+
+### Declared as a `CurrentValueSubject`
+
+A
+[`CurrentValueSubject`](https://developer.apple.com/documentation/combine/currentvaluesubject)
+can be used to declare a publisher outside of a class.
+
+```swift-diff
++let networkConnection = CurrentValueSubject<Event?, Never>(nil)
+```
+
+</T>
+
+<T android>
+
+### Declared as a variable
+
+```kotlin-diff
++val networkConnection = MutableSharedFlow<Event>()
+```
+
+</T>
+
+## Web Frame Configuration
+
+For the following example, we'll be using an observable declared like the
+following:
+
+<T ios>
+
+```swift
+let networkConnection = CurrentValueSubject<Event?, Never>(nil)
+```
+
+</T>
+
+<T android>
+
+```kotlin
+val networkConnection = MutableSharedFlow<Event>()
+```
+
+</T>
+
+The observable reference can be passed directly to the Web Frame configuration.
+
+<T ios>
+
+Notice we must reset the type of the publisher to `AnyPublisher` by using
+[`.eraseToAnyPublisher()`](<https://developer.apple.com/documentation/combine/publisher/erasetoanypublisher()>)
+to conform to the [`RemoteObservable`
+type](reference/web-frames#remoteobservable) expected by Peregrine. This is
+known as type erasure in Swift.
+
+</T>
+
+<T android>
+
+Although you can add an instance of `MutableSharedFlow` directly to the Web
+Frame configuration, it is a good idea to convert it to an immutable flow first
+by using
+[`.asSharedFlow()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/as-shared-flow.html).
+
+</T>
+
+<T ios>
+
+```swift-diff
+ let configuration = WebFrame.Configuration(
+     baseURL: ...
+     functions: ...
+     observables: [
++        "networkConnection$": networkConnection.eraseToAnyPublisher()
+     ]
+ )
+```
+
+</T>
+
+<T android>
+
+```kotlin-diff
+ val configuration = WebFrame.Configuration(
+     baseUrl = ...
+     functions = ...
+     observables = mapOf(
++        "networkConnection$": networkConnection.asSharedFlow()
+     ),
+ )
+```
+
+</T>
+
+<Callout type="info">
+
+Observables must end in a dollar sign (`$`) to denote a reactive property, as
+popularized by [Cycle.js](https://cycle.js.org). This isn't merely
+convention--the dollar sign is how ProxyClient knows it's an observable, not a
+function.
+
+</Callout>
+
+<T ios>
+
+## Swift API
+
+</T>
+
+<T android>
+
+## Kotlin API
+
+</T>
+
+### `Event`
+
+Remote observables must emit `Event` objects, which represent a single value
+sent to the web layer.
+
+<T ios>
+
+#### Initializers
+
+##### `init?<T: Encodable>(_ json: T)`
+
+Create an `Event` with any encodable object.
+
+Structs (or classes) must implement the [`Encodable`
+protocol](https://developer.apple.com/documentation/swift/encodable) from
+Swift:
+
+```swift
+struct Connection: Encodable {
+    let type: String
+}
+```
+
+Then, objects can be passed to this constructor directly:
+
+```swift
+let event = Event(Connection(type: "wifi"))
+```
+
+This initializer will return `nil` if encoding fails (highly unlikely).
+
+<Callout type="info">
+
+Not all Events must be wrapped in objects. In Swift, many data types implement
+the Encodable protocol: strings, booleans, ints, doubles, arrays, dictionaries,
+etc.
+
+</Callout>
+
+</T>
+
+<T android>
+
+#### Constructors
+
+##### `Event(val data: JsonElement)`
+
+Create an `Event` object with arbitrary data.
+
+Data must be JSON content on Android. One delightful way of creating arbitrary
+JSON content is by using the
+[`buildJsonObject`](https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/build-json-object.html)
+helper from the KotlinX Serialization library:
+
+```kotlin
+val event = Event(buildJsonObject {
+    put("type", "wifi")
+})
+```
+
+##### `inline fun <reified T> Event(json: T)`
+
+Technically not a constructor, this function can be used to instantiate Event
+objects with any serializable object.
+
+The easiest way to make a class serializable is by annotating it with
+`@Serializable` from the KotlinX Serialization library:
+
+```kotlin
+import kotlinx.serialization.*
+import kotlinx.serialization.json.*
+
+@Serializable
+data class Connection(val type: String)
+```
+
+Then, objects can be passed to this constructor directly:
+
+```kotlin
+val event = Event(Connection("wifi"))
+```
+
+This constructor will throw an error if encoding fails (highly unlikely).
+
+<Callout type="info">
+
+This function uses
+[`Json.encodeToJsonElement`](https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/encode-to-json-element.html)
+under the hood to serialize almost any data type: strings, booleans, ints,
+doubles, as well as any instances of classes annotated with `@Serializable`.
+For more information, see the docs for [KotlinX
+Serialization](https://kotlinlang.org/docs/serialization.html).
+
+</Callout>
+
+</T>
