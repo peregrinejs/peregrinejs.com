@@ -10,19 +10,19 @@ const Nav = (): JSX.Element => {
       <Category heading="Overview">
         <List>
           <Item href="introduction">Introduction</Item>
-          <Item href="architecture">Architecture</Item>
+          <Item href="architecture">Architecture 🚧</Item>
         </List>
       </Category>
       <Category heading="Getting Started">
         <List>
           <Item href="requirements">Project Requirements</Item>
           <Item href="tour">Quick Tour</Item>
-          <Item href="install">Install</Item>
+          <Item href="install">Install 🚧</Item>
         </List>
       </Category>
       <Category heading="Reference">
         <List>
-          <Item href="reference/web-frames">Web Frames</Item>
+          <Item href="reference/web-frames">Web Frames 🚧</Item>
           <Item href="reference/functions">Functions</Item>
           <Item href="reference/observables">Observables</Item>
           <Item href="reference/path-handlers">Path Handlers</Item>
