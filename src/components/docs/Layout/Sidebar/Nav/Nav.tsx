@@ -33,6 +33,7 @@ const Nav = (): JSX.Element => {
         <List>
           <Item href="https://github.com/peregrinejs">GitHub</Item>
           <Item href="https://discord.gg/qHpG99q9Mp">Discord</Item>
+          <Item href="https://fosstodon.org/@peregrine">Mastodon</Item>
         </List>
       </Category>
     </Root>
