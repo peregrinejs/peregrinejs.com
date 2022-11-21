@@ -42,38 +42,17 @@ https://github.com/peregrinejs/iOS
 
 <T android>
 
-<Callout type="info">
-
-Peregrine for Android is currently distributed with GitHub Packages, which
-means you'll need to configure your project to add a new Maven repository.
-
-</Callout>
-
-1. In Android Studio, paste the following into `settings.gradle`.
-
-```groovy-diff { file: 'settings.gradle' }
- dependencyResolutionManagement {
-     repositories {
-         google()
-         mavenCentral()
-+        maven {
-+            name "GitHubPackages"
-+            url "https://maven.pkg.github.com/peregrinejs/Android"
-+        }
-     }
- }
-```
-
-2. Open your app's `build.gradle` file and add the following dependency.
+1. Open your app's `build.gradle` file and add the following dependency.
 
 ```groovy-diff { file: 'build.gradle' }
  dependencies {
-+    implementation 'com.peregrinejs:peregrine:0.0.1'
++    implementation 'com.peregrinejs:peregrine:0.0.4'
  }
 ```
 
-3. Sync your project with Gradle files by clicking 'Sync Now' and then click
-   'Make Project' to download and install the dependency.
+2. Sync your project with Gradle files by clicking 'Sync Now'
+
+3. Click 'Make Project' to download and install the dependency.
 
 </T>
 
