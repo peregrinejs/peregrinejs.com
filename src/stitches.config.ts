@@ -200,6 +200,16 @@ export const globalStyles = globalCss({
   'code': {
     fontFamily: '$monospace',
   },
+  'pre': {
+    'scrollbarWidth': 'none',
+    'scrollbarColor': 'transparent',
+
+    '&::-webkit-scrollbar': {
+      width: 0,
+      height: 0,
+      backgroundColor: 'transparent',
+    },
+  },
   'pre.shiki': {
     'position': 'relative',
     'overflow': 'scroll',
