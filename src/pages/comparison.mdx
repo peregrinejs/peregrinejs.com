@@ -7,8 +7,8 @@ import YearsAgo from '@src/components/YearsAgo'
 This page compares Peregrine with [Cordova](https://cordova.apache.org) and
 [Capacitor](https://capacitorjs.com). Other hybrid mobile solutions such as
 [React Native](https://reactnative.dev), [Flutter](https://flutter.dev),
-[NativeScript](https://nativescript.org), and [Turbo
-Native](https://turbo.hotwired.dev) are out of scope for this page.
+[NativeScript](https://nativescript.org), and
+[Turbo Native](https://turbo.hotwired.dev) are out of scope for this page.
 
 There are several differences between Peregrine and similar solutions such as
 Cordova and Capacitor. This page attempts to highlight these differences in an
@@ -35,16 +35,16 @@ tooling or doctrine as to how your app is or should be structured.
 ### Extensions
 
 Both Cordova and Capacitor provide an ecosystem around third-party plugins.
-Plugin authors have deep access to most of the Cordova and Capacitor APIs,
-which are used along with platform APIs to implement native functionality.
+Plugin authors have deep access to most of the Cordova and Capacitor APIs, which
+are used along with platform APIs to implement native functionality.
 
 Peregrine does **not** have "plugins" in the same sense. Instead, developers
-explicitly attach functions and observables to each [Web
-Frame](/docs/ios/reference/web-frames) that the web layer will be able to
+explicitly attach functions and observables to each
+[Web Frame](/docs/ios/reference/web-frames) that the web layer will be able to
 access. This is what's known as the remote interface.
 
-While creating and distributing collections of native functionality is
-possible, it should be **discouraged**. Instead, developers should use
+While creating and distributing collections of native functionality is possible,
+it should be **discouraged**. Instead, developers should use
 [recipes](/philosophy#recipes-not-plugins) to build tailored native solutions
 for their apps.
 
@@ -120,14 +120,14 @@ The following table is a breakdown of the languages each project is written in.
 </Table>
 
 Both Cordova and Capacitor support iOS plugins written in Objective-C and/or
-Swift and Android plugins written in Java and/or Kotlin. Peregrine only
-supports Swift for iOS and Kotlin for Android.
+Swift and Android plugins written in Java and/or Kotlin. Peregrine only supports
+Swift for iOS and Kotlin for Android.
 
 ## Stewardship
 
-- Cordova is primarily managed and maintained by the [Apache Software
-  Foundation](https://www.apache.org), a long-running, volunteer-based open
-  source foundation.
+- Cordova is primarily managed and maintained by the
+  [Apache Software Foundation](https://www.apache.org), a long-running,
+  volunteer-based open source foundation.
 - Capacitor is primarily managed and maintained by [Ionic](https://ionic.io), a
   company founded in 2012 (now owned by
   [OutSystems](https://www.outsystems.com)).
@@ -150,8 +150,8 @@ Peregrine is multi-licensed under
 tiers of commercial licenses.
 
 To summarize, Peregrine is free to use if your app is open source. If your app
-is closed source, then you must purchase an appropriate commercial license.
-This is not legal advice. Please see the [Licenses](/licenses) page for a full
+is closed source, then you must purchase an appropriate commercial license. This
+is not legal advice. Please see the [Licenses](/licenses) page for a full
 description and legal information.
 
 export default ({ children }) => <Layout>{children}</Layout>

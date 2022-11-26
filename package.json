@@ -26,7 +26,7 @@
   },
   "devDependencies": {
     "@imhoff/eslint-config": "^2.0.0",
-    "@imhoff/prettier-config": "^1.2.0",
+    "@imhoff/prettier-config": "^1.3.0",
     "@imhoff/rehype-shiki": "^3.6.0",
     "@mdx-js/loader": "^2.1.5",
     "@next/mdx": "^12.3.2",

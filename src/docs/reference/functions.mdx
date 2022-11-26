@@ -2,9 +2,8 @@
 title: Functions
 ---
 
-Functions in a remote interface are just regular functions in
-{platformLanguage} that, when connected to a Web Frame, can be invoked from the
-web layer.
+Functions in a remote interface are just regular functions in {platformLanguage}
+that, when connected to a Web Frame, can be invoked from the web layer.
 
 ## Examples
 
@@ -111,8 +110,8 @@ fun echo(call: Call) {
 
 </T>
 
-Since functions have first-class support in {platformLanguage}, we can pass
-them as references to the Web Frame configuration.
+Since functions have first-class support in {platformLanguage}, we can pass them
+as references to the Web Frame configuration.
 
 <T ios>
 
@@ -144,7 +143,8 @@ them as references to the Web Frame configuration.
 
 <Callout type="info">
 
-Peregrine expects remote functions to match the following type in {platformLanguage}.
+Peregrine expects remote functions to match the following type in
+{platformLanguage}.
 
 <T ios>
 
@@ -274,9 +274,9 @@ serializable</T> object.
 
 <T ios>
 
-Structs (or classes) must implement the [`Encodable`
-protocol](https://developer.apple.com/documentation/swift/encodable) from
-Swift:
+Structs (or classes) must implement the
+[`Encodable` protocol](https://developer.apple.com/documentation/swift/encodable)
+from Swift:
 
 ```swift
 struct SizeResponse: Encodable {
@@ -327,9 +327,9 @@ call.respond(SizeResponse(100, 100))
 This function uses
 [`Json.encodeToJsonElement`](https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/encode-to-json-element.html)
 under the hood to serialize almost any data type: strings, booleans, ints,
-doubles, as well as any instances of classes annotated with `@Serializable`.
-For more information, see the docs for [KotlinX
-Serialization](https://kotlinlang.org/docs/serialization.html).
+doubles, as well as any instances of classes annotated with `@Serializable`. For
+more information, see the docs for
+[KotlinX Serialization](https://kotlinlang.org/docs/serialization.html).
 
 </Callout>
 
@@ -347,8 +347,8 @@ Serialization](https://kotlinlang.org/docs/serialization.html).
 
 </T>
 
-Complete the call (marking it as failed) by responding with an error message
-and code.
+Complete the call (marking it as failed) by responding with an error message and
+code.
 
 This will cause the web client to throw a `ClientError` exception.
 
@@ -404,9 +404,9 @@ The data converted to a <T ios>decodable</T><T android>serializable</T> object.
 
 <T ios>
 
-Structs (or classes) must implement the [`Decodable`
-protocol](https://developer.apple.com/documentation/swift/decodable) from
-Swift:
+Structs (or classes) must implement the
+[`Decodable` protocol](https://developer.apple.com/documentation/swift/decodable)
+from Swift:
 
 ```swift
 struct SizeRequest: Decodable {

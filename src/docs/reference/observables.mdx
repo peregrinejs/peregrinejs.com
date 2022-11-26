@@ -3,34 +3,32 @@ title: Observables
 ---
 
 Observables in a remote interface are reactive streams of `Event` instances in
-{platformLanguage} that, when connected to a Web Frame, can push data to the
-web layer. They are implemented with <T ios>[Combine
-Framework](https://developer.apple.com/documentation/combine), the reactive
-programming library that powers SwiftUI</T><T android>[Asynchronous
-Flows](https://kotlinlang.org/docs/flow.html), a powerful coroutine-based
-reactive programming library built by the Kotlin team</T>, which means they are
-instances of <T
-ios>[Publishers](https://developer.apple.com/documentation/combine/publisher)</T><T
-android>[Flows](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-flow/)</T>.
+{platformLanguage} that, when connected to a Web Frame, can push data to the web
+layer. They are implemented with
+<T ios>[Combine Framework](https://developer.apple.com/documentation/combine),
+the reactive programming library that powers
+SwiftUI</T><T android>[Asynchronous Flows](https://kotlinlang.org/docs/flow.html),
+a powerful coroutine-based reactive programming library built by the Kotlin team
+</T>, which means they are instances of
+<T ios>[Publishers](https://developer.apple.com/documentation/combine/publisher)</T><T android>[Flows](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-flow/)</T>.
 
 ## Examples
 
-Observables can be declared any number of ways. The following examples are for
-a remote observable that sends events every time the network connection
-changes.
+Observables can be declared any number of ways. The following examples are for a
+remote observable that sends events every time the network connection changes.
 
 <T ios>
 
 ### Declared as a `@Published` property
 
-Use the [`@Published`
-attribute](https://developer.apple.com/documentation/combine/published) to
-create an underlying publisher for the annotated property. Every time the
+Use the
+[`@Published` attribute](https://developer.apple.com/documentation/combine/published)
+to create an underlying publisher for the annotated property. Every time the
 property is assigned a new value, the underlying publisher will emit the new
 value to any subscribers.
 
-The underlying publisher can be accessed with the `$` operator (`$connection`
-in the following example).
+The underlying publisher can be accessed with the `$` operator (`$connection` in
+the following example).
 
 ```swift-diff
  class Network {
@@ -103,9 +101,9 @@ The observable reference can be passed directly to the Web Frame configuration.
 
 Notice we must reset the type of the publisher to `AnyPublisher` by using
 [`.eraseToAnyPublisher()`](<https://developer.apple.com/documentation/combine/publisher/erasetoanypublisher()>)
-to conform to the [`RemoteObservable`
-type](reference/web-frames#remoteobservable) expected by Peregrine. This is
-known as type erasure in Swift.
+to conform to the
+[`RemoteObservable` type](reference/web-frames#remoteobservable) expected by
+Peregrine. This is known as type erasure in Swift.
 
 </T>
 
@@ -180,9 +178,9 @@ sent to the web layer.
 
 Create an `Event` with any encodable object.
 
-Structs (or classes) must implement the [`Encodable`
-protocol](https://developer.apple.com/documentation/swift/encodable) from
-Swift:
+Structs (or classes) must implement the
+[`Encodable` protocol](https://developer.apple.com/documentation/swift/encodable)
+from Swift:
 
 ```swift
 struct Connection: Encodable {
@@ -256,9 +254,9 @@ This constructor will throw an error if encoding fails (highly unlikely).
 This function uses
 [`Json.encodeToJsonElement`](https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/encode-to-json-element.html)
 under the hood to serialize almost any data type: strings, booleans, ints,
-doubles, as well as any instances of classes annotated with `@Serializable`.
-For more information, see the docs for [KotlinX
-Serialization](https://kotlinlang.org/docs/serialization.html).
+doubles, as well as any instances of classes annotated with `@Serializable`. For
+more information, see the docs for
+[KotlinX Serialization](https://kotlinlang.org/docs/serialization.html).
 
 </Callout>
 

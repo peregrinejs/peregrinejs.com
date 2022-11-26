@@ -2,23 +2,24 @@
 title: Path Handlers
 ---
 
-Developers attach path handlers to the Web Frame for handling web view
-requests. Path handlers are usually used for providing assets and resources to
-the web view.
+Developers attach path handlers to the Web Frame for handling web view requests.
+Path handlers are usually used for providing assets and resources to the web
+view.
 
 <T ios>
 
 Path handlers must adhere to the [`PathHandler` protocol](#pathhandler). One
 particularly useful implementation is
-[`InternalStoragePathHandler`](#internalstoragepathhandler), which serves
-static files from almost any directory on the native device.
+[`InternalStoragePathHandler`](#internalstoragepathhandler), which serves static
+files from almost any directory on the native device.
 
 </T>
 
 <T android>
 
-Path handlers must adhere to the first-party [`WebViewAssetLoader.PathHandler`
-interface](#webviewassetloaderpathhandler). One particularly useful subclass is
+Path handlers must adhere to the first-party
+[`WebViewAssetLoader.PathHandler` interface](#webviewassetloaderpathhandler).
+One particularly useful subclass is
 [`WebViewAssetLoader.InternalStoragePathHandler`](#webviewassetloaderinternalstoragepathhandler),
 which serves static files from almost any directory on the native device.
 
@@ -110,7 +111,8 @@ Create an `InternalStoragePathHandler` bound to a specific directory.
 
 A protocol for serving data from paths.
 
-Implementers must have a `handle` method which returns a [`PathHandlerResponse`](#pathhandlerresponse).
+Implementers must have a `handle` method which returns a
+[`PathHandlerResponse`](#pathhandlerresponse).
 
 ```swift
 public protocol PathHandler {
@@ -138,20 +140,20 @@ public struct PathHandlerResponse {
 
 ### `WebViewAssetLoader.InternalStoragePathHandler`
 
-See the [official
-documentation](https://developer.android.com/reference/androidx/webkit/WebViewAssetLoader.InternalStoragePathHandler)
+See the
+[official documentation](https://developer.android.com/reference/androidx/webkit/WebViewAssetLoader.InternalStoragePathHandler)
 for this class.
 
 ### `WebViewAssetLoader.PathHandler`
 
-See the [official
-documentation](https://developer.android.com/reference/androidx/webkit/WebViewAssetLoader.PathHandler)
+See the
+[official documentation](https://developer.android.com/reference/androidx/webkit/WebViewAssetLoader.PathHandler)
 for this interface.
 
 ### `WebResourceResponse`
 
-See the [official
-documentation](https://developer.android.com/reference/android/webkit/WebResourceResponse.html)
+See the
+[official documentation](https://developer.android.com/reference/android/webkit/WebResourceResponse.html)
 for this class.
 
 </T>

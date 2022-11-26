@@ -17,13 +17,13 @@ adheres to the [`RemoteInterface`](#remoteinterface) type.
 
 <Callout type="info">
 
-These types are not verified against the actual runtime data the client sends
-to and receives from the remote interface--it is up to you to keep the
-TypeScript interface up to date.
+These types are not verified against the actual runtime data the client sends to
+and receives from the remote interface--it is up to you to keep the TypeScript
+interface up to date.
 
 Peregrine does not provide any tooling (see [Philosophy](/philosophy)), but
-perhaps a third-party tool could generate these types from the remote
-interfaces defined in the native platforms.
+perhaps a third-party tool could generate these types from the remote interfaces
+defined in the native platforms.
 
 </Callout>
 
@@ -51,8 +51,8 @@ export const client = new ProxyClient<MyRemoteInterface>()
 
 Peregrine clients don't connect automatically upon instantiation. The
 [`connect()`](#connectcontext-window-promisevoid) method must be called.
-Decoupling initialization from instantiation removes unintended side-effects
-and allows you to connect and disconnect client(s) at will.
+Decoupling initialization from instantiation removes unintended side-effects and
+allows you to connect and disconnect client(s) at will.
 
 ```typescript
 client.connect(window)
@@ -113,8 +113,7 @@ const url = await client.url('/photos/IMG_1234.jpg')
 
 ##### `get<N extends keyof T>(name: N): T[N]`
 
-Synchronously get the handle for a remote function or remote observable by
-name.
+Synchronously get the handle for a remote function or remote observable by name.
 
 <Callout type="warning">
 
@@ -136,8 +135,8 @@ Invoke a function from the remote interface by name with the provided argument.
 <Callout type="warning">
 
 You likely won't need to use this method. You can invoke remote functions by
-invoking methods directly on `ProxyClient`. The following example highlights
-two equivalent ways of invoking remote functions.
+invoking methods directly on `ProxyClient`. The following example highlights two
+equivalent ways of invoking remote functions.
 
 ```typescript
 const result1 = await client.invoke('echo', 'Hello World!')
@@ -164,10 +163,9 @@ type RemoteFunction<I, O> = (arg: I) => Promise<O>
 Remote functions take exactly one parameter (which can be left omitted) and
 always return a promise.
 
-If successful, the promise will resolve with the data from the remote
-interface. Data can be a string, an object, or (on iOS) an ArrayBuffer. If
-unsuccessful, the promise will reject with a [`ClientError`
-exception](#clienterror).
+If successful, the promise will resolve with the data from the remote interface.
+Data can be a string, an object, or (on iOS) an ArrayBuffer. If unsuccessful,
+the promise will reject with a [`ClientError` exception](#clienterror).
 
 ### `RemoteObservable`
 
@@ -190,8 +188,7 @@ for await (const connectionType of client.networkConnection$) {
 
 For a more declarative API in reactive apps, it is easy to convert async
 generators to [RxJS](https://rxjs.dev) observables. This can be an idiomatic
-choice for simulating a single pipeline of asynchronous events across
-platforms.
+choice for simulating a single pipeline of asynchronous events across platforms.
 
 ```typescript
 import { from } from 'rxjs'

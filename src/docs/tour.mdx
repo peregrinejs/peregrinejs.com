@@ -12,12 +12,12 @@ and be playful! Learning should be fun. 🤓
 
 ### Create an example app
 
-Use <T ios>[XCode](https://developer.apple.com/xcode)</T><T android>[Android
-Studio](https://developer.android.com/studio)</T> to create a throwaway
-{platform} app. <T ios>Make sure to select **SwiftUI** for interface.</T><T
-android>Make sure to use the **Empty Activity** template and select **Kotlin**
-for language.</T> Review [these requirements](requirements) for more
-information.
+Use
+<T ios>[XCode](https://developer.apple.com/xcode)</T><T android>[Android Studio](https://developer.android.com/studio)</T>
+to create a throwaway {platform} app. <T ios>Make sure to select **SwiftUI** for
+interface.</T><T android>Make sure to use the **Empty Activity** template and
+select **Kotlin** for language.</T> Review [these requirements](requirements)
+for more information.
 
 ### Install Peregrine
 
@@ -26,8 +26,8 @@ The first step is to install the Peregrine {platform} library.
 <T ios>
 
 1. In XCode, click on your project in the Project Navigator.
-2. Under "General", find "Frameworks, Libraries, and Embedded Content" and
-   click the add button.
+2. Under "General", find "Frameworks, Libraries, and Embedded Content" and click
+   the add button.
 3. Click "Add Other..." and select "Add Package Dependency..."
 4. Paste the following URL into the search bar.
 
@@ -58,14 +58,15 @@ https://github.com/peregrinejs/iOS
 
 ### Add web assets
 
-Before we can use Peregrine, we need an `index.html` file and any accompanying web assets.
+Before we can use Peregrine, we need an `index.html` file and any accompanying
+web assets.
 
 <T ios>
 
 1. In XCode, right click on your project in the Project Navigator and select
    "Show in Finder".
-2. In the Finder window, create a new folder named `www`. This folder will
-   serve as the root of the web assets.
+2. In the Finder window, create a new folder named `www`. This folder will serve
+   as the root of the web assets.
 3. Within that folder, create an `index.html` file and paste in the following
    contents.
 
@@ -73,9 +74,9 @@ Before we can use Peregrine, we need an `index.html` file and any accompanying w
 
 <T android>
 
-1. In Android Studio, make sure you have an `assets` folder in your app. If
-   not, create it by right-clicking your app in the Project panel and selecting
-   New -> Folder -> Assets Folder.
+1. In Android Studio, make sure you have an `assets` folder in your app. If not,
+   create it by right-clicking your app in the Project panel and selecting New
+   -> Folder -> Assets Folder.
 2. Right-click the `assets` folder and select New -> Directory. Enter `www` as
    the name. This folder will serve as the root of the web assets.
 3. Right-click the `www` folder and select New -> File. Enter `index.html` as
@@ -168,8 +169,8 @@ template with a Web Frame that will render our `index.html`.
 
 <T android>
 
-For this example, we'll replace the "Hello World!" native activity template
-with a Web Frame fragment that will render our `index.html`.
+For this example, we'll replace the "Hello World!" native activity template with
+a Web Frame fragment that will render our `index.html`.
 
 1. In Android Studio, open `activity_main.xml`.
 2. Access the XML code by clicking 'Code'.
@@ -265,8 +266,8 @@ access the Internet.
 </T>
 
 <T ios>Let's</T>
-<T android>Now let's</T> add some native functionality to our
-{platform} app that we can invoke from our web content.
+<T android>Now let's</T> add some native functionality to our {platform} app
+that we can invoke from our web content.
 
 <T ios>
 
@@ -281,8 +282,8 @@ access the Internet.
 </T>
 
 2. Add a `ping` function that expects the string `'ping'` to be sent as the
-   request data--if so, `'pong'` is sent back; otherwise, the request fails
-   with a message and an error code.
+   request data--if so, `'pong'` is sent back; otherwise, the request fails with
+   a message and an error code.
 
 <T ios>
 
@@ -364,8 +365,8 @@ access the Internet.
    web library and connect it to the `window` instance..
 6. Add a button to the `<body>` with an ID of `pingButton`.
 7. Attach a click event listener to the button by its ID. When clicked, we'll
-   call the `ping` function and print the response to the screen. If the
-   request is unsuccessful, we'll log the error message and code.
+   call the `ping` function and print the response to the screen. If the request
+   is unsuccessful, we'll log the error message and code.
 
 ```html-diff { file: 'index.html', lineNumbers: true, lineNumbersOffset: 7, contentBefore: true, contentAfter: true, contentHash: '7fa60e4003d6fdd4cf7f300bebbb19e16737ba10' }
        content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
@@ -422,11 +423,11 @@ that will initiate a mock download and report status events to the web layer.
 
 <Callout type="info">
 
-We'll be using the [Combine
-framework](https://developer.apple.com/documentation/combine) to asynchronously
-send native events to the web layer. This official library powers reactive
-state in SwiftUI views and is a modern and declarative way to process values
-over time.
+We'll be using the
+[Combine framework](https://developer.apple.com/documentation/combine) to
+asynchronously send native events to the web layer. This official library powers
+reactive state in SwiftUI views and is a modern and declarative way to process
+values over time.
 
 Combine doesn't need to be installed--it is installed by default in SwiftUI
 apps.
@@ -500,13 +501,13 @@ apps.
 
 <Callout type="info">
 
-We'll be using [Kotlin
-coroutines](https://developer.android.com/kotlin/coroutines) to asynchronously
-send native events to the web layer.
+We'll be using
+[Kotlin coroutines](https://developer.android.com/kotlin/coroutines) to
+asynchronously send native events to the web layer.
 [Coroutines](https://kotlinlang.org/docs/coroutines-guide.html) and
-[flows](https://kotlinlang.org/docs/flow.html) are quickly becoming the
-standard way of writing asynchronous code in Android. Coroutines have
-first-class support in AndroidX and the Kotlin language itself.
+[flows](https://kotlinlang.org/docs/flow.html) are quickly becoming the standard
+way of writing asynchronous code in Android. Coroutines have first-class support
+in AndroidX and the Kotlin language itself.
 
 </Callout>
 
@@ -619,8 +620,8 @@ first-class support in AndroidX and the Kotlin language itself.
    </body>
 ```
 
-When we run the app again, we'll see our new download button. When the button
-is tapped, the mock download statuses will be appended to the web view.
+When we run the app again, we'll see our new download button. When the button is
+tapped, the mock download statuses will be appended to the web view.
 
 #### Add path handlers
 

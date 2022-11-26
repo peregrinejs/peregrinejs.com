@@ -6,8 +6,8 @@ Web Frames are instances of the `WebFrame` class in {platformLanguage}.
 Essentially, they are meant to represent a single, supercharged web view. Web
 Frames are set up specifically for the web content they display: web view
 configuration and native access are tailored. Many hybrid developers may only
-use one Web Frame for their entire app--and that's fine! Others may want to
-have a mix of web and native views.
+use one Web Frame for their entire app--and that's fine! Others may want to have
+a mix of web and native views.
 
 Web Frames encapsulate the web view itself, path handlers for implementing
 responses to web view requests, and a remote interface for implementing native
@@ -32,8 +32,8 @@ functionality.
 ### `WebFrame`
 
 An instance of the `WebFrame` class represents a single native view with web
-content, as well as any configuration and native access associated with that
-web content.
+content, as well as any configuration and native access associated with that web
+content.
 
 <T ios>
 
@@ -49,9 +49,9 @@ web content.
 
 ##### `WebFrame(val context: Context, val configuration: Configuration)`
 
-Create a `WebFrame` with the given [Android
-context](https://developer.android.com/reference/android/content/Context) and
-[Web Frame configuration](#webframeconfiguration).
+Create a `WebFrame` with the given
+[Android context](https://developer.android.com/reference/android/content/Context)
+and [Web Frame configuration](#webframeconfiguration).
 
 </T>
 
@@ -107,18 +107,17 @@ Web Frame configurations contain the following.
    `observables`.
 
    [Functions](reference/functions) are used to invoke something, e.g. run a
-   native API, send back data, be notified of a particular lifecycle event,
-   etc. [Observables](reference/observables) are used to receive a stream of
-   notifications, e.g. network status, geofencing updates, keyboard events,
-   etc.
+   native API, send back data, be notified of a particular lifecycle event, etc.
+   [Observables](reference/observables) are used to receive a stream of
+   notifications, e.g. network status, geofencing updates, keyboard events, etc.
 
    Each function and observable must have a unique string key for the web
    client's usage. The string keys for observables must end in a dollar sign
    (`$`).
 
 1. _(optional)_ Path handlers, which use special paths that are accessed by the
-   web view to serve web content from {platformLanguage}. See [Path
-   Handlers](reference/path-handlers) for reference documentation.
+   web view to serve web content from {platformLanguage}. See
+   [Path Handlers](reference/path-handlers) for reference documentation.
 
 <T ios>
 
@@ -163,8 +162,8 @@ like in the following example.
 </androidx.fragment.app.FragmentContainerView>
 ```
 
-Then, we assign the `frame` property during an activity's [`onCreate` lifecycle
-method](<https://developer.android.com/reference/android/app/Activity#onCreate(android.os.Bundle)>).
+Then, we assign the `frame` property during an activity's
+[`onCreate` lifecycle method](<https://developer.android.com/reference/android/app/Activity#onCreate(android.os.Bundle)>).
 Since we assigned an ID to the `FragmentContainerView` layout, we can retrieve
 it using the fragment manager.
 
