@@ -22,14 +22,21 @@ const AnchorHeadingLink = ({
   const [hovered, setHovered] = useState(false)
 
   const child = React.Children.map(children, (child, index) => {
-    if (
-      index !== 0 ||
-      !React.isValidElement(child) ||
-      typeof child.type !== 'string'
-    ) {
+    if (index !== 0 || !React.isValidElement(child)) {
       throw new Error(
         'AnchorHeadingLink must only have one child heading element.',
       )
+    }
+
+    const props: unknown = child.props
+
+    if (
+      !props ||
+      typeof props !== 'object' ||
+      !('children' in props) ||
+      typeof props.children !== 'string'
+    ) {
+      throw new Error('The child heading element must only contain text.')
     }
 
     return React.cloneElement(
@@ -39,7 +46,7 @@ const AnchorHeadingLink = ({
         {icon ? (
           <Icon aria-hidden css={hovered ? {} : { display: 'none' }} />
         ) : null}
-        {child.props.children}
+        {props.children}
       </>,
     )
   })

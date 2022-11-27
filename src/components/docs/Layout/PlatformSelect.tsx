@@ -27,9 +27,11 @@ const PlatformSelect = ({ css }: PlatformSelectProps): JSX.Element => {
         }}
         selectedPlatform={platform}
         onPlatformSelect={platform => {
-          router.push(platform === 'ios' ? iosHref : androidHref, undefined, {
-            scroll: false,
-          })
+          void router.push(
+            platform === 'ios' ? iosHref : androidHref,
+            undefined,
+            { scroll: false },
+          )
         }}
       />
     </Root>

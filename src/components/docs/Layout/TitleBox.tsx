@@ -16,7 +16,7 @@ const TitleBox = (): JSX.Element => {
   const [, setState] = useAtom(docsTitleBoxAtom)
   const { title } = useFrontmatterContext()
   const slug = title ? createSlug(title) : undefined
-  const href = title ? `#${slug}` : undefined
+  const href = slug ? `#${slug}` : undefined
 
   useEffect(() => {
     if (ref.current) {
@@ -30,7 +30,7 @@ const TitleBox = (): JSX.Element => {
           : { ...state, height: 0 },
       )
     }
-  }, [bp, title])
+  }, [bp, title, setState])
 
   return (
     <Root id={slug} ref={ref}>

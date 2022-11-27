@@ -11,6 +11,7 @@ import baseComponents from '../components'
 
 const components: MDXComponents = {
   ...baseComponents,
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   a: Link as any,
   h1: H1,
   h2: H2,

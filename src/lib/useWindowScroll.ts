@@ -22,7 +22,7 @@ export default function useWindowScroll(): number {
     onScroll,
   )
 
-  useEffect(() => onScroll.cancel)
+  useEffect(() => () => onScroll.cancel())
 
   return scrollTop
 }

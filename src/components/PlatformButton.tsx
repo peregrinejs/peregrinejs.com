@@ -6,7 +6,7 @@ import _AndroidIcon from '@src/icons/AndroidIcon'
 import _AppleIcon from '@src/icons/AppleIcon'
 import { styled } from '@src/stitches.config'
 
-const PlatformButton = styled(Box, {
+const _PlatformButton = styled(Box, {
   '$$size': '18px',
 
   'cursor': 'pointer',
@@ -40,15 +40,15 @@ export interface PlatformButtonProps {
 }
 
 const Apple = (props: PlatformButtonProps): JSX.Element => (
-  <PlatformButton {...props}>
+  <_PlatformButton {...props}>
     <AppleIcon />
-  </PlatformButton>
+  </_PlatformButton>
 )
 
 const Android = (props: PlatformButtonProps): JSX.Element => (
-  <PlatformButton {...props}>
+  <_PlatformButton {...props}>
     <AndroidIcon />
-  </PlatformButton>
+  </_PlatformButton>
 )
 
 const AppleIcon = styled(_AppleIcon, {
@@ -63,7 +63,9 @@ const AndroidIcon = styled(_AndroidIcon, {
   marginBottom: '2px',
 })
 
-export default {
+const PlatformButton = {
   Apple,
   Android,
 }
+
+export default PlatformButton

@@ -101,7 +101,7 @@ export interface DocsPageProps {
 
 const DocsPage = ({ content, platform }: DocsPageProps): JSX.Element => {
   return (
-    <FrontmatterContext.Provider value={{ ...(content.frontmatter as any) }}>
+    <FrontmatterContext.Provider value={content.frontmatter ?? {}}>
       <Layout platform={platform}>
         <MDXRemote {...content} components={docsComponents} />
       </Layout>

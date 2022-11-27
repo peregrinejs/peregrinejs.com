@@ -6,6 +6,7 @@ import ResponsiveImage from '@src/components/ResponsiveImage'
 import Table from '@src/components/Table'
 
 const components: MDXComponents = {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   a: Link as any,
   h1: H1,
   h2: H2,
@@ -13,7 +14,8 @@ const components: MDXComponents = {
   h4: H4,
   h5: H5,
   h6: H6,
-  img: ResponsiveImage,
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  img: ResponsiveImage as any,
   table: Table,
 }
 

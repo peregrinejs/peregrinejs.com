@@ -53,9 +53,15 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
           inRange(positionX, positionX + shikiCopySize, x) &&
           inRange(positionY, positionY + shikiCopySize, y)
         ) {
-          navigator.clipboard.writeText(text)
-          dataset.copied = 'true'
-          window.setTimeout(() => delete dataset.copied, 1000)
+          navigator.clipboard
+            .writeText(text)
+            .then(() => {
+              dataset.copied = 'true'
+              window.setTimeout(() => delete dataset.copied, 1000)
+            })
+            .catch(() => {
+              alert('Browser does not support clipboard access')
+            })
         }
       }
     },

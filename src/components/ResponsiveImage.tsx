@@ -1,6 +1,12 @@
+import type { ImageProps } from 'next/image'
 import Image from 'next/image'
 
-const ResponsiveImage = ({ alt, ...props }: any): JSX.Element => {
+export type ResponsiveImageProps = ImageProps
+
+const ResponsiveImage = ({
+  alt,
+  ...props
+}: ResponsiveImageProps): JSX.Element => {
   return <Image alt={alt} layout="responsive" {...props} />
 }
 

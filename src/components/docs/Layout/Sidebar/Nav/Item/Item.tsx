@@ -1,7 +1,6 @@
 import React from 'react'
 
 import Link from '@src/components/Link'
-import _Text from '@src/components/Text'
 import useLink from '@src/lib/docs/useLink'
 import useRoute from '@src/lib/docs/useRoute'
 import { styled } from '@src/stitches.config'

@@ -78,7 +78,7 @@ const Root = styled(Box, {
         color: 'rgba($info / 0.9)',
         backgroundColor: 'rgba($info / 0.1)',
 
-        [`& :is(h1, h2, h3, h4, h5, h6, strong, ${IconBox})`]: {
+        [`& :is(h1, h2, h3, h4, h5, h6, strong, ${IconBox.toString()})`]: {
           color: 'rgba($info)',
         },
       },
@@ -86,7 +86,7 @@ const Root = styled(Box, {
         color: 'rgba($warning / 0.8)',
         backgroundColor: 'rgba($warning / 0.125)',
 
-        [`& :is(h1, h2, h3, h4, h5, h6, strong, ${IconBox})`]: {
+        [`& :is(h1, h2, h3, h4, h5, h6, strong, ${IconBox.toString()})`]: {
           color: 'rgba($warning)',
         },
       },

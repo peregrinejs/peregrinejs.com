@@ -18,6 +18,10 @@ const AnchorHeading = ({
   id,
   ...props
 }: AnchorHeadingProps): JSX.Element => {
+  if (!id) {
+    throw new Error('AnchorHeading must have an id.')
+  }
+
   return (
     <>
       <Anchor
