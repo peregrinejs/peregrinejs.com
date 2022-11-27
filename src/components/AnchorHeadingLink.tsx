@@ -28,16 +28,8 @@ const AnchorHeadingLink = ({
       )
     }
 
-    const props: unknown = child.props
-
-    if (
-      !props ||
-      typeof props !== 'object' ||
-      !('children' in props) ||
-      typeof props.children !== 'string'
-    ) {
-      throw new Error('The child heading element must only contain text.')
-    }
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+    const heading = child.props.children
 
     return React.cloneElement(
       child,
@@ -46,7 +38,7 @@ const AnchorHeadingLink = ({
         {icon ? (
           <Icon aria-hidden css={hovered ? {} : { display: 'none' }} />
         ) : null}
-        {props.children}
+        {heading}
       </>,
     )
   })
