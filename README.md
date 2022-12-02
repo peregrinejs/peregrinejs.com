@@ -8,5 +8,5 @@ and a few other things.
 Run the development server:
 
 ```bash
-npm run dev
+pnpm dev
 ```

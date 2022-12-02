@@ -7,8 +7,8 @@
     "dev": "next-remote-watch 'src/!(pages)/**/*.mdx'",
     "build": "next build",
     "start": "next start",
-    "lint": "npm run eslint && npm run prettier -- --check",
-    "fmt": "npm run eslint -- --fix && npm run prettier -- --write",
+    "lint": "pnpm run eslint && pnpm run prettier --check",
+    "fmt": "pnpm run eslint --fix && pnpm run prettier --write",
     "test": "jest",
     "prettier": "prettier \"src/**/*.{ts,tsx,md,mdx}\"",
     "eslint": "eslint src --ext .ts,.tsx"
@@ -29,6 +29,7 @@
     "@imhoff/prettier-config": "^1.3.0",
     "@imhoff/rehype-shiki": "^3.6.0",
     "@mdx-js/loader": "^2.1.5",
+    "@mdx-js/react": "^2.1.5",
     "@next/mdx": "^12.3.2",
     "@types/jest": "^28.1.8",
     "@types/lodash": "^4.14.188",

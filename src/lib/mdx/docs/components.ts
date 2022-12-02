@@ -1,4 +1,4 @@
-import type { MDXComponents } from 'mdx/types'
+import type { MDXRemoteProps } from 'next-mdx-remote'
 
 import Callout from '@src/components/Callout'
 import Table, { Th } from '@src/components/Table'
@@ -9,7 +9,7 @@ import Template from '@src/components/docs/Template'
 
 import baseComponents from '../components'
 
-const components: MDXComponents = {
+const components: MDXRemoteProps['components'] = {
   ...baseComponents,
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   a: Link as any,

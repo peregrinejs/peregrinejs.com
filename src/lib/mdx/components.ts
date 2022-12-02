@@ -1,11 +1,11 @@
-import type { MDXComponents } from 'mdx/types'
+import type { MDXRemoteProps } from 'next-mdx-remote'
 
 import { H1, H2, H3, H4, H5, H6 } from '@src/components/AnchorHeading'
 import Link from '@src/components/Link'
 import ResponsiveImage from '@src/components/ResponsiveImage'
 import Table from '@src/components/Table'
 
-const components: MDXComponents = {
+const components: MDXRemoteProps['components'] = {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   a: Link as any,
   h1: H1,
