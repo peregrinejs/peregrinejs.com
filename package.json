@@ -14,7 +14,7 @@
     "eslint": "eslint src --ext .ts,.tsx"
   },
   "dependencies": {
-    "@imhoff/react-hooks": "^0.0.2",
+    "@imhoff/react-hooks": "^0.3.0",
     "@paypal/react-paypal-js": "^7.8.1",
     "@stitches/react": "^1.2.8",
     "jotai": "^1.9.1",
