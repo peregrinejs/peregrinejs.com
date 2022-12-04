@@ -60,8 +60,8 @@ const NewsletterSection = (): JSX.Element => {
         }}
       >
         <Form
-          onSubmit={() => {
-            void handleSubmit()
+          onSubmit={event => {
+            void handleSubmit(event)
           }}
         >
           <Input
