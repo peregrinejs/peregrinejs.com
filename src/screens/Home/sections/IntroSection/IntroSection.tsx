@@ -1,20 +1,14 @@
 import Box from '@src/components/Box'
 import Text from '@src/components/Text'
 import { MDX, useMDXDirectory } from '@src/lib/mdx'
-import Section from '@src/screens/Home/components/Section'
+import _Section from '@src/screens/Home/components/Section'
 import { styled } from '@src/stitches.config'
 
 const IntroSection = (): JSX.Element => {
   const mdx = useMDXDirectory()
 
   return (
-    <Section
-      css={{
-        '@lg': {
-          maxWidth: '60vw',
-        },
-      }}
-    >
+    <Section>
       <Title>
         <Text
           css={{
@@ -38,6 +32,12 @@ const IntroSection = (): JSX.Element => {
     </Section>
   )
 }
+
+const Section = styled(_Section, {
+  '@lg': {
+    maxWidth: '60vw',
+  },
+})
 
 const Title = styled('h1', {
   lineHeight: '1em',

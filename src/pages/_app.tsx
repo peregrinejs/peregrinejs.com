@@ -1,10 +1,12 @@
 import useEvent from '@imhoff/react-hooks/useEvent'
 import useMediaQuery from '@imhoff/react-hooks/useMediaQuery'
 import { MDXProvider } from '@mdx-js/react'
+import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs'
+import { SessionContextProvider } from '@supabase/auth-helpers-react'
 import { useAtom } from 'jotai'
 import inRange from 'lodash/fp/inRange'
 import type { AppProps } from 'next/app'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import bpAtom from '@src/atoms/bpAtom'
 import sidebarAtom from '@src/atoms/sidebarAtom'
@@ -19,6 +21,7 @@ import {
 const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
   globalStyles()
 
+  const [supabase] = useState(() => createBrowserSupabaseClient())
   const [bp, setBp] = useAtom(bpAtom)
   const [, setSidebar] = useAtom(sidebarAtom)
   const isMd = useMediaQuery(media.md)
@@ -69,7 +72,9 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
 
   return (
     <MDXProvider components={baseComponents}>
-      <Component {...pageProps} />
+      <SessionContextProvider supabaseClient={supabase}>
+        <Component {...pageProps} />
+      </SessionContextProvider>
     </MDXProvider>
   )
 }

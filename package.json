@@ -17,12 +17,16 @@
     "@imhoff/react-hooks": "^0.3.0",
     "@paypal/react-paypal-js": "^7.8.1",
     "@stitches/react": "^1.2.8",
+    "@supabase/auth-helpers-nextjs": "^0.5.2",
+    "@supabase/auth-helpers-react": "^0.3.1",
+    "@supabase/supabase-js": "^2.1.1",
     "jotai": "^1.9.1",
     "lodash": "^4.17.21",
     "next": "^13.0.2",
     "next-mdx-remote": "^4.2.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.40.0"
   },
   "devDependencies": {
     "@imhoff/eslint-config": "^2.1.0",
