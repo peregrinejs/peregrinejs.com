@@ -38,7 +38,7 @@ const Root = styled('li', {
       fontSize: '$sm',
     },
 
-    '&:hover': {
+    '&:hover, &:focus': {
       color: 'rgb($accent1)',
     },
   },

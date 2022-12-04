@@ -37,8 +37,12 @@ const Root = styled(ButtonBase, {
   'width': '$$size',
   'height': '$$size',
 
-  '&:hover': {
+  '&:hover, &:focus': {
     color: 'rgb($$color-active)',
+  },
+
+  '&:focus-visible': {
+    outline: '2px solid rgb($accent2)',
   },
 })
 

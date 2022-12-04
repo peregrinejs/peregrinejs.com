@@ -1,8 +1,7 @@
-import Link from 'next/link'
-
 import Box from '@src/components/Box'
 import Content from '@src/components/Content'
 import CurrentYear from '@src/components/CurrentYear'
+import Link from '@src/components/Link'
 import LogoIcon from '@src/components/LogoIcon'
 import { styled } from '@src/stitches.config'
 
@@ -21,7 +20,7 @@ const Footer = (): JSX.Element => {
             Peregrine
             <br />
             &copy; <CurrentYear />{' '}
-            <Link href="https://caracal.tech" target="_blank">
+            <Link href="https://caracal.tech" icon={false}>
               Caracal LLC
             </Link>
           </Copyright>

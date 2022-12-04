@@ -13,15 +13,22 @@ export interface LinkProps
   // FIXME: This CSS is applied directly to the icon, not the link because
   // Next.js links aren't Stitches components.
   css?: CSS
+  icon?: boolean
 }
 
-const Link = ({ children, href, css, ...props }: LinkProps): JSX.Element => {
+const Link = ({
+  children,
+  href,
+  css,
+  icon = true,
+  ...props
+}: LinkProps): JSX.Element => {
   const isOutbound = isOutboundUrl(href)
 
   return (
     <NextLink {...props} href={href} target={isOutbound ? '_blank' : undefined}>
       {children}
-      {isOutbound ? <Icon css={css} /> : null}
+      {isOutbound && icon ? <Icon css={css} /> : null}
     </NextLink>
   )
 }

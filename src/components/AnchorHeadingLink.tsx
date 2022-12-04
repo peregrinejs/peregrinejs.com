@@ -20,6 +20,7 @@ const AnchorHeadingLink = ({
   ...props
 }: AnchorHeadingLinkProps): JSX.Element => {
   const [hovered, setHovered] = useState(false)
+  const [focused, setFocused] = useState(false)
 
   const child = React.Children.map(children, (child, index) => {
     if (index !== 0 || !React.isValidElement(child)) {
@@ -36,7 +37,10 @@ const AnchorHeadingLink = ({
       {},
       <>
         {icon ? (
-          <Icon aria-hidden css={hovered ? {} : { display: 'none' }} />
+          <Icon
+            aria-hidden
+            css={focused || hovered ? {} : { display: 'none' }}
+          />
         ) : null}
         {heading}
       </>,
@@ -44,18 +48,24 @@ const AnchorHeadingLink = ({
   })
 
   return (
-    <Link
+    <A
       {...props}
       href={href}
+      onFocus={() => setFocused(true)}
+      onBlur={() => setFocused(false)}
       onMouseOver={() => setHovered(true)}
       onMouseOut={() => setHovered(false)}
     >
       <Text>{child}</Text>
-    </Link>
+    </A>
   )
 }
 
 AnchorHeadingLink.displayName = 'AnchorHeadingLink'
+
+const A = styled(Link, {
+  display: 'block',
+})
 
 const Text = styled(_Text, {
   display: 'block',

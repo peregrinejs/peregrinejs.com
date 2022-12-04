@@ -1,12 +1,13 @@
 import type { CSS } from '@stitches/react'
 import React from 'react'
 
-import Box from '@src/components/Box'
 import _AndroidIcon from '@src/icons/AndroidIcon'
 import _AppleIcon from '@src/icons/AppleIcon'
 import { styled } from '@src/stitches.config'
 
-const _PlatformButton = styled(Box, {
+import ButtonBase from './ButtonBase'
+
+const _PlatformButton = styled(ButtonBase, {
   '$$size': '18px',
 
   'cursor': 'pointer',
@@ -19,8 +20,12 @@ const _PlatformButton = styled(Box, {
   'justifyContent': 'center',
   'color': 'rgb($gray3)',
 
-  '&:hover': {
+  '&:hover, &:focus': {
     backgroundColor: 'rgb($gray4)',
+  },
+
+  '&:focus-visible': {
+    outline: '2px solid rgb($accent2)',
   },
 
   'variants': {
@@ -54,13 +59,13 @@ const Android = (props: PlatformButtonProps): JSX.Element => (
 const AppleIcon = styled(_AppleIcon, {
   width: '$$size',
   height: '$$size',
-  marginBottom: '2px',
+  verticalAlign: 'middle',
 })
 
 const AndroidIcon = styled(_AndroidIcon, {
   width: '$$size',
   height: '$$size',
-  marginBottom: '2px',
+  verticalAlign: 'middle',
 })
 
 const PlatformButton = {

@@ -5,7 +5,8 @@ import { styled } from '@src/stitches.config'
 
 import SelectBase from './SelectBase'
 
-export interface SelectProps extends React.HTMLAttributes<HTMLSelectElement> {
+export interface SelectProps
+  extends Omit<React.HTMLProps<HTMLSelectElement>, 'ref'> {
   css?: CSS
 }
 
@@ -14,26 +15,12 @@ const Select = ({ children, ...props }: SelectProps): JSX.Element => {
 }
 
 const Root = styled(SelectBase, {
-  'backgroundColor': 'rgb($gray4)',
-  'color': 'rgb($gray1)',
-  'padding': '0.35em 0.75em',
-  'fontSize': '$md',
-
-  '&::before': {
-    position: 'absolute',
-    content: '""',
-    bottom: 0,
-    left: 0,
-    opacity: 0,
-    right: 0,
-    top: 0,
-    backgroundColor: 'rgb($gray1)',
-    transition: 'opacity 200ms ease-in-out',
-  },
-
-  '&:is(:hover, :focus)::before': {
-    opacity: 0.1,
-  },
+  backgroundColor: 'rgb($gray4)',
+  color: 'rgb($gray1)',
+  height: '$controlHeight',
+  lineHeight: '$control',
+  padding: '$controlPadding',
+  fontSize: '$md',
 })
 
 export default Select

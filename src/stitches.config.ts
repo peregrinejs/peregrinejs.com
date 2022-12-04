@@ -66,6 +66,7 @@ export const {
       text: '1.5em',
       heading: '1.5em',
       navItem: '1.75em',
+      control: '$sizes$controlHeight',
     },
     letterSpacings: {
       money: '2px',
@@ -77,9 +78,13 @@ export const {
       navItemPaddingX: '6px',
       navItemPaddingY: '0px',
       headerPadding: '20px',
+      controlPadding: '0 0.75rem',
     },
     sizes: {
       contentMaxWidth: '1140px',
+      controlHeight: '2.25rem',
+      controlBorder: '1.5px',
+      controlBorderLg: '2px',
     },
   },
   utils: {
@@ -187,9 +192,15 @@ export const globalStyles = globalCss({
   'a': {
     'color': 'rgb($accent1)',
     'textDecoration': 'none',
+    'outlineOffset': '2px',
 
-    '&:hover': {
+    '&:hover, &:focus': {
+      outline: 'none',
       textDecoration: 'underline',
+    },
+
+    '&:focus-visible': {
+      outline: '2px solid rgb($accent2)',
     },
   },
   ':not(pre) > code': {
