@@ -2,9 +2,8 @@ import type { GetStaticProps, NextPage } from 'next'
 import path from 'node:path'
 
 import Layout from '@src/components/Layout'
-import type { MDXDirectory } from '@src/lib/mdx'
-import { MDXDirectoryContext } from '@src/lib/mdx'
 import { parseMDXDirectory } from '@src/lib/mdx/server'
+import type { AppPageProps } from '@src/pages/_app'
 import Home from '@src/screens/Home'
 
 const homeScreenDir = path.resolve(process.cwd(), 'src/screens/Home')
@@ -19,17 +18,13 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
   }
 }
 
-export interface HomePageProps {
-  mdx: MDXDirectory
-}
+export type HomePageProps = AppPageProps
 
-const HomePage: NextPage<HomePageProps> = ({ mdx }) => {
+const HomePage: NextPage<HomePageProps> = () => {
   return (
-    <MDXDirectoryContext.Provider value={mdx}>
-      <Layout>
-        <Home />
-      </Layout>
-    </MDXDirectoryContext.Provider>
+    <Layout>
+      <Home />
+    </Layout>
   )
 }
 

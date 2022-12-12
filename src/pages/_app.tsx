@@ -10,6 +10,8 @@ import { useEffect, useState } from 'react'
 
 import bpAtom from '@src/atoms/bpAtom'
 import sidebarAtom from '@src/atoms/sidebarAtom'
+import type { MDXDirectory } from '@src/lib/mdx'
+import { MDXDirectoryContext } from '@src/lib/mdx'
 import baseComponents from '@src/lib/mdx/components'
 import {
   globalStyles,
@@ -18,7 +20,14 @@ import {
   shikiCopySpacing,
 } from '@src/stitches.config'
 
-const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
+export interface AppPageProps {
+  readonly mdx?: MDXDirectory
+}
+
+const MyApp = ({
+  Component,
+  pageProps,
+}: AppProps<AppPageProps>): JSX.Element => {
   globalStyles()
 
   const [supabase] = useState(() => createBrowserSupabaseClient())
@@ -71,11 +80,13 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
   )
 
   return (
-    <MDXProvider components={baseComponents}>
-      <SessionContextProvider supabaseClient={supabase}>
-        <Component {...pageProps} />
-      </SessionContextProvider>
-    </MDXProvider>
+    <MDXDirectoryContext.Provider value={pageProps.mdx ?? {}}>
+      <MDXProvider components={baseComponents}>
+        <SessionContextProvider supabaseClient={supabase}>
+          <Component {...pageProps} />
+        </SessionContextProvider>
+      </MDXProvider>
+    </MDXDirectoryContext.Provider>
   )
 }
 
