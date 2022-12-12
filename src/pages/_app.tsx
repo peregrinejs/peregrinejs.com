@@ -52,7 +52,7 @@ const MyApp = ({
     'click',
     (event: Event) => {
       if (
-        event instanceof PointerEvent &&
+        event instanceof MouseEvent &&
         event.target instanceof HTMLPreElement &&
         event.target.classList.contains('shiki')
       ) {
@@ -66,7 +66,7 @@ const MyApp = ({
           inRange(positionY, positionY + shikiCopySize, y)
         ) {
           navigator.clipboard
-            .writeText(text)
+            .writeText(text.replace(/\n\n/g, '\n'))
             .then(() => {
               dataset.copied = 'true'
               window.setTimeout(() => delete dataset.copied, 1000)
