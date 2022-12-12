@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import React from 'react'
 
 import background from '@public/background.jpg'
+import card from '@public/card.png'
 import Box from '@src/components/Box'
 import Footer from '@src/components/Footer'
 import Header from '@src/components/Header'
@@ -37,7 +38,7 @@ const Layout = ({
         ) : null}
         <meta
           name="twitter:image"
-          content={`https://peregrinejs.com${background.src}`}
+          content={`https://peregrinejs.com${card.src}`}
         />
       </Head>
       <Root>
