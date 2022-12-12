@@ -32,7 +32,12 @@ const Layout = ({
         {description ? <meta name="description" content={description} /> : null}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@Peregrine_JS" />
-        <meta name="twitter:title" content={title} />
+        <meta
+          name="twitter:title"
+          content={
+            titleProp ? title : 'Peregrine: build truly artisanal hybrid apps'
+          }
+        />
         {description ? (
           <meta name="twitter:description" content={description} />
         ) : null}
