@@ -4,9 +4,13 @@ import Logo from '@src/components/Logo'
 import Nav from '@src/components/Nav'
 import { styled } from '@src/stitches.config'
 
-const Header = (): JSX.Element => {
+export interface HeaderProps {
+  home?: boolean
+}
+
+const Header = ({ home = false }: HeaderProps): JSX.Element => {
   return (
-    <Root>
+    <Root home={home}>
       <Link href="/">
         <Logo />
       </Link>
@@ -24,6 +28,24 @@ const Root = styled('header', {
 
   '@md': {
     flexDirection: 'unset',
+  },
+
+  '@lg': {
+    maxWidth: '90vw',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    paddingLeft: 0,
+    paddingRight: 0,
+  },
+
+  'variants': {
+    home: {
+      true: {
+        '& *': {
+          color: 'rgb($gray1)',
+        },
+      },
+    },
   },
 })
 

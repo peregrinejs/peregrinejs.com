@@ -18,6 +18,7 @@ const _PlatformButton = styled(ButtonBase, {
   'borderRadius': '$$size',
   'alignItems': 'center',
   'justifyContent': 'center',
+  'backgroundColor': 'rgba($contentbg / 50%)',
   'color': 'rgb($gray3)',
 
   '&:hover, &:focus': {

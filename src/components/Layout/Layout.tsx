@@ -1,6 +1,8 @@
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import React from 'react'
 
+import background from '@public/background.jpg'
 import Box from '@src/components/Box'
 import Footer from '@src/components/Footer'
 import Header from '@src/components/Header'
@@ -17,20 +19,26 @@ const Layout = ({
   description = 'TODO',
   children,
 }: LayoutProps): JSX.Element => {
+  const { route } = useRouter()
+
+  const isHome = route === '/'
+
   return (
-    <Root>
+    <>
       <Head>
         <title>{title}</title>
         <meta name="description" content={description} />
       </Head>
-      <Body>
-        <Container>
-          <Header />
-          {children}
-        </Container>
-      </Body>
-      <Footer />
-    </Root>
+      <Root>
+        <Body home={isHome}>
+          <HeaderWrapper home={isHome}>
+            <Header home={isHome} />
+          </HeaderWrapper>
+          <Box>{children}</Box>
+        </Body>
+        <Footer />
+      </Root>
+    </>
   )
 }
 
@@ -45,12 +53,47 @@ const Root = styled(Box, {
 })
 
 const Body = styled(Box, {
-  backgroundColor: 'rgb($contentbg)',
+  'backgroundColor': 'rgb($contentbg)',
+
+  '& > *': {
+    maxWidth: 1440,
+    margin: '0 auto',
+  },
+
+  'variants': {
+    home: {
+      true: {
+        '@md': {
+          backgroundImage: `
+            linear-gradient(
+              rgba($colors$contentbg / 25%) 0vh,
+              rgba($colors$contentbg / 85%) 80vh,
+              rgb($colors$contentbg) min(100vh, ${background.height}px)
+            ), url(${background.src})`,
+          backgroundSize: `${background.width / 2}px ${
+            background.height / 2
+          }px`,
+          backgroundPosition: 'center top',
+          backgroundRepeat: 'no-repeat',
+        },
+      },
+    },
+  },
 })
 
-const Container = styled(Box, {
-  maxWidth: 1440,
-  margin: '0 auto',
+const HeaderWrapper = styled(Box, {
+  variants: {
+    home: {
+      true: {
+        '@md': {
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+        },
+      },
+    },
+  },
 })
 
 export default Layout

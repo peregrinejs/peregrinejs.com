@@ -102,10 +102,6 @@ const Section = styled(_Section, {
     gap: '2rem',
     gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
   },
-
-  '@lg': {
-    maxWidth: '90vw',
-  },
 })
 
 export default NewsletterSection

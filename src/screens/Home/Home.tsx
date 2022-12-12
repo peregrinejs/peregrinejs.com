@@ -14,6 +14,11 @@ const Home = (): JSX.Element => {
   )
 }
 
-const Main = styled('main')
+const Main = styled('main', {
+  display: 'grid',
+  gridTemplateColumns: '1fr',
+  gap: '1em',
+  marginBottom: '4rem',
+})
 
 export default Home

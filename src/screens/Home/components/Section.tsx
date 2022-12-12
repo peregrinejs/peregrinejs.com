@@ -1,11 +1,11 @@
 import { styled } from '@src/stitches.config'
 
 const Section = styled('section', {
-  'margin': '1em',
+  'padding': '0 $headerPadding',
 
   '@lg': {
-    marginLeft: 'auto',
-    marginRight: 'auto',
+    maxWidth: '90vw',
+    margin: '0 auto',
   },
 })
 
