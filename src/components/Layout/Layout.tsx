@@ -15,19 +15,30 @@ export interface LayoutProps {
 }
 
 const Layout = ({
-  title = 'Peregrine',
-  description = 'TODO',
+  title: titleProp,
+  description,
   children,
 }: LayoutProps): JSX.Element => {
   const { route } = useRouter()
 
+  const title = titleProp ? `${titleProp} | Peregrine` : 'Peregrine'
   const isHome = route === '/'
 
   return (
     <>
       <Head>
         <title>{title}</title>
-        <meta name="description" content={description} />
+        {description ? <meta name="description" content={description} /> : null}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@Peregrine_JS" />
+        <meta name="twitter:title" content={title} />
+        {description ? (
+          <meta name="twitter:description" content={description} />
+        ) : null}
+        <meta
+          name="twitter:image"
+          content={`https://peregrinejs.com${background.src}`}
+        />
       </Head>
       <Root>
         <Body home={isHome}>

@@ -86,4 +86,11 @@ application.
 
 [View Commercial License Example](/license/commercial-license-example)
 
-export default ({ children }) => <Layout>{children}</Layout>
+export default ({ children }) => (
+  <Layout
+    title="Licenses"
+    description="Read about the multiple licenses of the Peregrine project and purchase a commercial license."
+  >
+    {children}
+  </Layout>
+)

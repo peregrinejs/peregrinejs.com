@@ -177,4 +177,11 @@ The Peregrine philosophy can be summarized in four points:
 1. **Stay modern**. Peregrine should use the best and most up-to-date features.
    Platforms evolve quickly and it's best to keep on top of deprecations.
 
-export default ({ children }) => <Layout>{children}</Layout>
+export default ({ children }) => (
+  <Layout
+    title="Philosophy"
+    description="Read about the philosophy of the Peregrine project."
+  >
+    {children}
+  </Layout>
+)

@@ -154,4 +154,11 @@ is closed source, then you must purchase an appropriate commercial license. This
 is not legal advice. Please see the [Licenses](/licenses) page for a full
 description and legal information.
 
-export default ({ children }) => <Layout>{children}</Layout>
+export default ({ children }) => (
+  <Layout
+    title="Comparison with Cordova and Capacitor"
+    description="A (hopefully) unbiased comparison between Peregrine and other tools."
+  >
+    {children}
+  </Layout>
+)

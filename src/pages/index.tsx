@@ -22,7 +22,7 @@ export type HomePageProps = AppPageProps
 
 const HomePage: NextPage<HomePageProps> = () => {
   return (
-    <Layout>
+    <Layout description="Use Peregrine to add feature-rich web views to native apps.">
       <Home />
     </Layout>
   )
