@@ -1,14 +1,17 @@
+import useTranslate from '@src/i18n/useTranslate'
 import { styled } from '@src/stitches.config'
 
 import Item from './Item'
 
 const Nav = (): JSX.Element => {
+  const t = useTranslate()
+
   return (
     <Root>
-      <Item href="/philosophy">Philosophy</Item>
-      <Item href="/comparison">Comparison</Item>
-      <Item href="/licenses">Licenses</Item>
-      <Item href="/docs/ios/introduction">Docs</Item>
+      <Item href="/philosophy">{t('Philosophy.name')}</Item>
+      <Item href="/comparison">{t('Comparison.name')}</Item>
+      <Item href="/licenses">{t('Licenses.name')}</Item>
+      <Item href="/docs/ios/introduction">{t('Documentation.name')}</Item>
       <Item href="https://github.com/peregrinejs">GitHub</Item>
     </Root>
   )

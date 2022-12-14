@@ -1,44 +1,45 @@
 import Box from '@src/components/Box'
-import Link from '@src/components/Link'
+import useTranslate from '@src/i18n/useTranslate'
 import Section from '@src/screens/Home/components/Section'
 import { styled } from '@src/stitches.config'
 
 import GridItem from './GridItem'
 
 const RoadmapSection = (): JSX.Element => {
+  const t = useTranslate()
+
   return (
     <Section>
-      <h2>Roadmap</h2>
+      <h2>{t('Home.RoadmapSection.title')}</h2>
       <Grid>
         <GridItem
           icon="book"
-          title="Recipe Book"
-          description={
-            <>
-              Create a shared repository for native code snippets, called{' '}
-              <Link href="/philosophy#recipes-not-plugins">Recipes</Link>.
-            </>
-          }
+          title={t('Home.RoadmapSection.RecipeBook.title')}
+          description={t('Home.RoadmapSection.RecipeBook.description')}
         />
         <GridItem
           icon="rocket"
-          title="1.0 Release"
-          description="Reach version 1.0.0 on Peregrine for Web, iOS, and Android."
+          title={t('Home.RoadmapSection.StableRelease.title')}
+          description={t('Home.RoadmapSection.StableRelease.description')}
         />
         <GridItem
           icon="flash"
-          title="Performance Enhancements"
-          description="Only use HTTP/MessageChannels for the bridge when necessary."
+          title={t('Home.RoadmapSection.PerformanceEnhancements.title')}
+          description={t(
+            'Home.RoadmapSection.PerformanceEnhancements.description',
+          )}
         />
         <GridItem
           icon="radio"
-          title="Binary support for Android"
-          description="Bring parity with iOS by supporting binary data."
+          title={t('Home.RoadmapSection.AndroidBinarySupport.title')}
+          description={t(
+            'Home.RoadmapSection.AndroidBinarySupport.description',
+          )}
         />
         <GridItem
           icon="color-palette"
-          title="App Portfolio"
-          description="Celebrate and showcase success stories of Peregrine users."
+          title={t('Home.RoadmapSection.AppPortfolio.title')}
+          description={t('Home.RoadmapSection.AppPortfolio.description')}
         />
       </Grid>
     </Section>

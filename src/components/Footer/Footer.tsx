@@ -3,12 +3,15 @@ import Content from '@src/components/Content'
 import CurrentYear from '@src/components/CurrentYear'
 import Link from '@src/components/Link'
 import LogoIcon from '@src/components/LogoIcon'
+import useTranslate from '@src/i18n/useTranslate'
 import { styled } from '@src/stitches.config'
 
 import List from './List'
 import ListItem from './ListItem'
 
 const Footer = (): JSX.Element => {
+  const t = useTranslate()
+
   return (
     <Content>
       <Grid>
@@ -26,23 +29,29 @@ const Footer = (): JSX.Element => {
           </Copyright>
         </Colophon>
         <Box>
-          <Heading>Overview</Heading>
+          <Heading>{t('Footer.Overview.title')}</Heading>
           <List>
-            <ListItem href="/philosophy">Philosophy</ListItem>
-            <ListItem href="/comparison">Comparison</ListItem>
-            <ListItem href="/licenses">Licenses</ListItem>
+            <ListItem href="/philosophy">{t('Philosophy.name')}</ListItem>
+            <ListItem href="/comparison">{t('Comparison.name')}</ListItem>
+            <ListItem href="/licenses">{t('Licenses.name')}</ListItem>
           </List>
         </Box>
         <Box>
-          <Heading>Docs</Heading>
+          <Heading>{t('Documentation.name')}</Heading>
           <List>
-            <ListItem href="/docs/ios/introduction">Introduction</ListItem>
-            <ListItem href="/docs/ios/architecture">Architecture</ListItem>
-            <ListItem href="/docs/ios/tour">Quick Tour</ListItem>
+            <ListItem href="/docs/ios/introduction">
+              {t('Documentation.Introduction.name')}
+            </ListItem>
+            <ListItem href="/docs/ios/architecture">
+              {t('Documentation.Architecture.name')}
+            </ListItem>
+            <ListItem href="/docs/ios/tour">
+              {t('Documentation.QuickTour.name')}
+            </ListItem>
           </List>
         </Box>
         <Box>
-          <Heading>Community</Heading>
+          <Heading>{t('Footer.Community.title')}</Heading>
           <List>
             <ListItem href="https://github.com/peregrinejs">GitHub</ListItem>
             <ListItem href="https://discord.gg/qHpG99q9Mp">Discord</ListItem>

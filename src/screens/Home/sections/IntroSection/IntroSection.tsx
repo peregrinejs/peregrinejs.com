@@ -1,18 +1,17 @@
 import Box from '@src/components/Box'
-import { MDX, useMDXDirectory } from '@src/lib/mdx'
+import Text from '@src/components/Text'
+import useTranslate from '@src/i18n/useTranslate'
 import _Section from '@src/screens/Home/components/Section'
 import { styled } from '@src/stitches.config'
 
 const IntroSection = (): JSX.Element => {
-  const mdx = useMDXDirectory()
+  const t = useTranslate()
 
   return (
     <Section>
       <Container>
-        <Title>Build truly artisanal hybrid apps</Title>
-        <Subtitle>
-          <MDX {...mdx[`sections/IntroSection/subtitle.mdx`]} />
-        </Subtitle>
+        <Title>{t('Home.tagline')}</Title>
+        <Subtitle as="p">{t('Home.summary')}</Subtitle>
       </Container>
     </Section>
   )
@@ -24,6 +23,7 @@ const Section = styled(_Section, {
   'color': 'rgb($gray1)',
 
   '@md': {
+    width: '100%',
     height: '100vh',
   },
 })
@@ -45,7 +45,7 @@ const Title = styled('h2', {
   lineHeight: '1em',
 })
 
-const Subtitle = styled(Box, {
+const Subtitle = styled(Text, {
   '@md': {
     fontSize: '$lg',
   },

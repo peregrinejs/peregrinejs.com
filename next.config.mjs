@@ -1,5 +1,6 @@
 import nextMDX from '@next/mdx'
 import mdxOptions from './src/mdxOptions.mjs'
+import locales, { defaultLocale } from './src/i18n/locales.mjs'
 
 const withMDX = nextMDX({
   extension: /\.mdx?$/,
@@ -12,8 +13,8 @@ const nextConfig = withMDX({
   pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
   i18n: {
     // https://nextjs.org/docs/advanced-features/i18n-routing#prefixing-the-default-locale
-    locales: ['default', 'en'],
-    defaultLocale: 'default',
+    locales,
+    defaultLocale,
     localeDetection: false,
   },
   async redirects() {

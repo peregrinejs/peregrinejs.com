@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form'
 import Box from '@src/components/Box'
 import Input from '@src/components/Input'
 import ProgressButton from '@src/components/ProgressButton'
+import useTranslate from '@src/i18n/useTranslate'
 import _Section from '@src/screens/Home/components/Section'
 import { styled } from '@src/stitches.config'
 
@@ -14,6 +15,7 @@ interface FormData {
 }
 
 const NewsletterSection = (): JSX.Element => {
+  const t = useTranslate()
   const supabase = useSupabaseClient()
   const {
     register,
@@ -32,8 +34,8 @@ const NewsletterSection = (): JSX.Element => {
       setError('email', {
         message:
           error.code === '23505'
-            ? `${email} is already subscribed.`
-            : `Something went wrong! 😭 Error: ${error.code}`,
+            ? t('Home.NewsletterSection.errors.alreadySubscribed', email)
+            : t('Home.NewsletterSection.errors.unknown', error.code),
       })
     } else {
       reset()
@@ -45,11 +47,8 @@ const NewsletterSection = (): JSX.Element => {
   return (
     <Section>
       <Box>
-        <h2>Subscribe to our Newsletter</h2>
-        <p>
-          Keep up to date with release announcements, community updates, new
-          recipes, and more.
-        </p>
+        <h2>{t('Home.NewsletterSection.title')}</h2>
+        <p>{t('Home.NewsletterSection.description')}</p>
       </Box>
       <Box
         css={{
@@ -66,18 +65,20 @@ const NewsletterSection = (): JSX.Element => {
         >
           <Input
             type="email"
-            placeholder="Email"
+            placeholder={t('Home.NewsletterSection.emailPlaceholder')}
             css={{ flex: 1 }}
-            {...register('email', { required: 'Email address is required.' })}
+            {...register('email', {
+              required: t('Home.NewsletterSection.errors.required.email'),
+            })}
             aria-invalid={errors.email ? 'true' : 'false'}
           />
           <ProgressButton type="submit" inProgress={isSubmitting}>
-            Subscribe
+            {t('Home.NewsletterSection.subscribe')}
           </ProgressButton>
         </Form>
         <Box>
           {isSubmitSuccessful ? (
-            <span role="alert">You are now subscribed!</span>
+            <span role="alert">{t('Home.NewsletterSection.success')}</span>
           ) : errors.email ? (
             <span role="alert">{errors.email.message}</span>
           ) : (
