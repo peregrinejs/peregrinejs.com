@@ -111,10 +111,10 @@ template with a Web Frame that will render our `index.html`.
 
 1. In XCode, open `ContentView.swift`. This is your app's root view.
 2. Add a `frame` property to the struct.
-3. Replace the example text view in the `body` property with `frame.view`.
+3. Replace the example view in the `body` property with `frame.view`.
 4. Provide the `frame` property in the preview provider.
 
-```swift-diff { file: 'ContentView.swift', lineNumbers: true, contentHash: 'f9a90f6a95496c56f73b7ce44ad23e7bccb263f4' }
+```swift-diff { file: 'ContentView.swift', lineNumbers: true, contentHash: '1132cc18d95139014731faafa802364aaff266d8' }
  import SwiftUI
 +import Peregrine
 
@@ -122,8 +122,13 @@ template with a Web Frame that will render our `index.html`.
 +    let frame: WebFrame
 +
      var body: some View {
--        Text("Hello, world!")
--            .padding()
+-        VStack {
+-            Image(systemName: "globe")
+-                .imageScale(.large)
+-                .foregroundColor(.accentColor)
+-            Text("Hello, world!")
+-        }
+-        .padding()
 +        frame.view
      }
  }
