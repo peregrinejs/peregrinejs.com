@@ -9,6 +9,7 @@ export type SerializeResult = MDXRemoteSerializeResult<Scope>
 
 export interface Frontmatter {
   readonly title?: string
+  readonly description?: string
 }
 
 export default async function serialize(

@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import React from 'react'
 
+import card from '@public/card.png'
 import type Platform from '@src/Platform'
 import { prettyPlatform } from '@src/Platform'
 import Box from '@src/components/Box'
@@ -19,18 +20,33 @@ const Layout = ({
   children,
   platform: platformProp,
 }: LayoutProps): JSX.Element => {
-  const { title } = useFrontmatterContext()
+  const { title: titleProp, description } = useFrontmatterContext()
+
   const platform = prettyPlatform(platformProp)
+  const title = titleProp
+    ? `${titleProp} | Peregrine for ${platform}`
+    : `Peregrine for ${platform}`
 
   return (
     <>
       <Head>
-        <title>
-          {title
-            ? `${title} | Peregrine for ${platform}`
-            : `Peregrine for ${platform}`}
-        </title>
-        <meta name="description" content="TODO" />
+        <title>{title}</title>
+        {description ? <meta name="description" content={description} /> : null}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@Peregrine_JS" />
+        <meta
+          name="twitter:title"
+          content={
+            titleProp ? title : 'Peregrine: build truly artisanal hybrid apps'
+          }
+        />
+        {description ? (
+          <meta name="twitter:description" content={description} />
+        ) : null}
+        <meta
+          name="twitter:image"
+          content={`https://peregrinejs.com${card.src}`}
+        />
       </Head>
       <Root>
         <Box>
