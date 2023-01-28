@@ -86,7 +86,10 @@ const Body = styled(Box, {
               rgba($colors$contentbg / 25%) 0vh,
               rgba($colors$contentbg / 85%) 80vh,
               rgb($colors$contentbg) min(100vh, ${background.height}px)
-            ), url(${background.src})`,
+            ),
+            url(${background.src})
+            ${background.blurDataURL ? `, url(${background.blurDataURL})` : ''}
+          `,
           backgroundSize: `${background.width / 2}px ${
             background.height / 2
           }px`,

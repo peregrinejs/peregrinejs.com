@@ -11,7 +11,8 @@ const PUBLIC_FILE = /\.(.*)$/
 export function middleware(request: NextRequest): NextResponse | undefined {
   const shouldHandleLocale =
     !PUBLIC_FILE.test(request.nextUrl.pathname) &&
-    !request.nextUrl.pathname.includes('/api/') &&
+    !request.nextUrl.pathname.startsWith('/_next/') &&
+    !request.nextUrl.pathname.startsWith('/api/') &&
     request.nextUrl.locale === 'default'
 
   if (shouldHandleLocale) {
