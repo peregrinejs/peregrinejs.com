@@ -94,7 +94,9 @@ const Root = styled(Box, {
   },
 })
 
-const Content = styled(Box)
+const Content = styled(Box, {
+  flex: 1,
+})
 
 const Title = styled('h4')
 

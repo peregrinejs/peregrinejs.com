@@ -38,6 +38,20 @@ https://github.com/peregrinejs/Peregrine-iOS
 5. Click "Add Package" and make sure the `Peregrine` library is added to your
    app target.
 
+<Callout type="info" title="Want to use CocoaPods?">
+
+Peregrine primarily uses [Swift Package
+Manager](https://www.swift.org/package-manager), but you can also install it by
+adding the `Peregrine` pod to your `Podfile`.
+
+```swift-diff { file: 'Podfile' }
+ target 'MyApp' do
++  pod 'Peregrine', '~> 0.10'
+ end
+```
+
+</Callout>
+
 </T>
 
 <T android>
