@@ -33,7 +33,7 @@ const Footer = (): JSX.Element => {
           <List>
             <ListItem href="/philosophy">{t('Philosophy.name')}</ListItem>
             <ListItem href="/comparison">{t('Comparison.name')}</ListItem>
-            <ListItem href="/licenses">{t('Licenses.name')}</ListItem>
+            <ListItem href="/license">{t('License.name')}</ListItem>
           </List>
         </Box>
         <Box>

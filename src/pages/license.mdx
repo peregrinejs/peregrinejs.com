@@ -1,0 +1,73 @@
+import Layout from '@src/components/ContentLayout'
+import CurrentYear from '@src/components/CurrentYear'
+
+# License
+
+This page explains the licensing of the Peregrine project.
+
+## Definitions
+
+<dl>
+  <dt>
+    **Peregrine for iOS** (also: Peregrine iOS, Peregrine iOS Library, Peregrine
+    Framework)
+  </dt>
+  <dd>The distributed iOS framework.</dd>
+  <dt>
+    **Peregrine for Android** (also: Peregrine Android, Peregrine Android
+    Library)
+  </dt>
+  <dd>The distributed java library.</dd>
+  <dt>
+    **Peregrine for Web** (also: Peregrine Web, Peregrine Client, Peregrine JS
+    Client, Peregrine JavaScript Client, @peregrine/web)
+  </dt>
+  <dd>The distributed JavaScript library.</dd>
+  <dt>**Peregrine** (also: PeregrineJS, Peregrine project)</dt>
+  <dd>
+    A general name for the product as a whole, including but not limited to
+    Peregrine for iOS, Peregrine for Android, Peregrine for Web, and the
+    peregrinejs.com website.
+  </dd>
+</dl>
+
+## Copyrights
+
+Peregrine, peregrinejs.com, and other derivatives of the Peregrine product are
+copyright &copy; <CurrentYear /> Caracal LLC (a Wisconsin limited liability
+company) unless otherwise stated.
+
+## License
+
+Peregrine is licensed under MIT as follows:
+
+```
+Copyright 2023 Caracal LLC
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+export default ({ children }) => (
+  <Layout
+    title="License"
+    description="Read about the license of the Peregrine project."
+  >
+    {children}
+  </Layout>
+)

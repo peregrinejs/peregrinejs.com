@@ -74,8 +74,8 @@ const en = {
   Comparison: {
     name: 'Comparison',
   },
-  Licenses: {
-    name: 'Licenses',
+  License: {
+    name: 'License',
   },
   Documentation: {
     name: 'Docs',

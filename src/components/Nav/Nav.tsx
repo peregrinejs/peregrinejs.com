@@ -10,7 +10,6 @@ const Nav = (): JSX.Element => {
     <Root>
       <Item href="/philosophy">{t('Philosophy.name')}</Item>
       <Item href="/comparison">{t('Comparison.name')}</Item>
-      <Item href="/licenses">{t('Licenses.name')}</Item>
       <Item href="/docs/ios/introduction">{t('Documentation.name')}</Item>
       <Item href="https://github.com/peregrinejs">GitHub</Item>
     </Root>

@@ -77,8 +77,8 @@ const es: DeepPartial<Strings> = {
   Comparison: {
     name: 'Comparación',
   },
-  Licenses: {
-    name: 'Licencias',
+  License: {
+    name: 'Licencia',
   },
   Documentation: {
     name: 'Documentación',

@@ -30,6 +30,11 @@ const nextConfig = withMDX({
         destination: '/docs/:platform/introduction',
         permanent: false,
       },
+      {
+        source: '/licenses',
+        destination: '/license',
+        permanent: false,
+      },
     ]
   },
   experimental: {
