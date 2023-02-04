@@ -4,9 +4,24 @@ import YearsAgo from '@src/components/YearsAgo'
 
 # Philosophy
 
-This page will explain **why** Peregrine was created, **how** it's different
-from existing solutions, **who** it's meant for, and the **philosophy** behind
-it.
+This page outlines the philosophy behind the Peregrine project, as well as
+explaining **why** it was created, **how** it's different from existing
+solutions, and **who** it's meant for.
+
+## The Peregrine Philosophy
+
+The Peregrine philosophy can be summarized in four points:
+
+1. **Don't over-abstract**. Peregrine should solve the annoying parts of hybrid
+   app development, such as setting up a web view and implementing
+   web\<-\>native communication. It should not try to build your app for you in
+   any way, e.g. providing preimplemented plugins or build tooling.
+1. **Don't be magical**. Peregrine should not feel _magic_. It should always be
+   clear to the developer what is happening and why.
+1. **Stay concise**. Peregrine should keep its surface area to a minimum, which
+   will enable easy updates even across major versions.
+1. **Stay modern**. Peregrine should use the best and most up-to-date features.
+   Platforms evolve quickly and it's best to keep on top of deprecations.
 
 ## Why build Peregrine?
 
@@ -161,21 +176,6 @@ Peregrine **is not** for:
 - Developers who see iOS and Android as a means to an end.
 - Companies that require contractual support. Perhaps in the future, paid
   support for Peregrine will be an option.
-
-## The Peregrine Philosophy
-
-The Peregrine philosophy can be summarized in four points:
-
-1. **Don't over-abstract**. Peregrine should solve the annoying parts of hybrid
-   app development, such as setting up a web view and implementing
-   web\<-\>native communication. It should not try to build your app for you in
-   any way, e.g. providing preimplemented plugins or build tooling.
-1. **Don't be magical**. Peregrine should not feel _magic_. It should always be
-   clear to the developer what is happening and why.
-1. **Stay concise**. Peregrine should keep its surface area to a minimum, which
-   will enable easy updates even across major versions.
-1. **Stay modern**. Peregrine should use the best and most up-to-date features.
-   Platforms evolve quickly and it's best to keep on top of deprecations.
 
 export default ({ children }) => (
   <Layout
